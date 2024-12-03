@@ -8,5 +8,5 @@ export default defineConfig({
     outDir: 'dist', // Chỉ định thư mục chứa các tệp build
   },
   // Nếu cần, bạn có thể cấu hình lại thư mục công khai (mặc định là 'public')
-  publicDir: 'src/assets',
+  publicDir: 'src',
 })
