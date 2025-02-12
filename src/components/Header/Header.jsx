@@ -7,7 +7,7 @@ const Header = () => {
                 <div className="header-wrap header-netflix-style">
                     <div className="logo-menu-wrap">
                         <div className="logo">
-                            <a href="index-4.html"><img src="/assets/images/logo/logo.png" alt="" /></a>
+                            <a href="index-4.html"><img src="public/assets/images/logo/logo.png" alt="" /></a>
                         </div>
                         <div className="main-menu main-theme-color-four">
                             <nav className="main-navigation">
@@ -25,7 +25,7 @@ const Header = () => {
                     <div className="right-side d-flex">
                         <div className="our-profile-area ">
                             <a href="#" className="our-profile-pc" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="/assets/images/review/author-01.png" alt="" />
+                                <img src="public/assets/images/review/author-01.png" alt="" />
                             </a>
                             <div className="dropdown-menu netflix-profile-style red">
                                 <ul>
