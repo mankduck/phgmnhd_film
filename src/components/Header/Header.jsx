@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -14,6 +14,34 @@ const Header = () => {
         navigate(`/search?keyword=${encodeURIComponent(keyword)}`);
     };
 
+    useEffect(() => {
+        var menuNav = document.querySelector("nav.main-navigation");
+
+        if (menuNav) {
+
+            const mobileLinks = document.querySelectorAll(".mobile-menu a");
+
+            mobileLinks.forEach((link) => {
+                link.removeEventListener("click", handleLinkClick);
+                link.addEventListener("click", handleLinkClick);
+            });
+
+            function handleLinkClick(e) {
+                e.preventDefault();
+                const targetUrl = e.target.getAttribute("href");
+                if (targetUrl) {
+                    navigate(targetUrl);
+                }
+            }
+
+            return () => {
+                mobileLinks.forEach((link) => {
+                    link.removeEventListener("click", handleLinkClick);
+                });
+            };
+        }
+    }, [navigate]);
+
     return (
         <header className="header-area bg-black section-padding-lr">
             <div className="container-fluid">
@@ -25,7 +53,6 @@ const Header = () => {
                         <div className="main-menu main-theme-color-four">
                             <nav className="main-navigation">
                                 <ul>
-                                    <li><a href="/">Trang Chủ</a></li>
                                     <li><Link to="/phim-le">Phim Lẻ</Link></li>
                                     <li><Link to="/phim-bo">Phim Bộ</Link></li>
                                     <li><Link to="/tv-show">TV Shows</Link></li>
@@ -55,7 +82,8 @@ const Header = () => {
                                 </form>
                             </div>
                         </div>
-                        <div class="mobile-menu d-block d-lg-none"></div>
+                        <div className="mobile-menu d-block d-lg-none">
+                        </div>
                     </div>
                 </div>
             </div>
