@@ -126,9 +126,9 @@ const MovieDetail = () => {
                                         <video
                                             id="movieVideo"
                                             ref={videoRef}
-                                            controls 
-                                            disablepictureinpicture 
-                                            controlslist 
+                                            controls
+                                            disablepictureinpicture
+                                            controlslist
                                             loop="loop"
                                             poster={movieInfo.thumb_url}
                                             style={{ width: "100%", height: "auto" }}
@@ -162,16 +162,16 @@ const MovieDetail = () => {
                                             <div className="social-share-wrap">
                                                 <span>Share:</span>
                                                 <div className="social-style-1">
-                                                    <a className="facebook" href="#">
+                                                    <a className="facebook" href="https://www.facebook.com/phgmnhd" target="_blank" rel="noopener noreferrer">
                                                         <i className="zmdi zmdi-facebook"></i>
                                                     </a>
-                                                    <a className="pinterest" href="#">
-                                                        <i className="zmdi zmdi-pinterest"></i>
+                                                    <a className="pinterest" href="https://github.com/mankduck" target="_blank" rel="noopener noreferrer">
+                                                        <i className="zmdi zmdi-github"></i>
                                                     </a>
                                                     <a className="linkedin" href="#">
                                                         <i className="zmdi zmdi-linkedin"></i>
                                                     </a>
-                                                    <a className="instagram" href="#">
+                                                    <a className="instagram" href="https://www.instagram.com/phgmnhd" target="_blank" rel="noopener noreferrer">
                                                         <i className="zmdi zmdi-instagram"></i>
                                                     </a>
                                                 </div>
@@ -194,7 +194,7 @@ const MovieDetail = () => {
                                                 movieEpisodes[0].server_data.map((episode, index) => (
                                                     <div key={index} className="movie-wrap px-2 text-center">
                                                         <div className="movie-img">
-                                                            <a href="#">
+                                                            <a href="#" onClick={() => setSelectedEpisode(index)}>
                                                                 <img src={movieInfo.poster_url} alt="" />
                                                             </a>
                                                         </div>

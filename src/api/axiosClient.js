@@ -9,7 +9,7 @@ const client = axios.create({
 
 const movieAPI = {
     // get
-    getMovieNewUpdate: () => client.get('danh-sach/phim-moi-cap-nhat'),
+    getMovieNewUpdate: (page) => client.get(`danh-sach/phim-moi-cap-nhat?page=${page}`),
     getSingleMovies: (page) => client.get(`v1/api/danh-sach/phim-le?page=${page}`),
     getSerieMovies: (page) => client.get(`v1/api/danh-sach/phim-bo?page=${page}`),
     getMovieDetail: (slug) => client.get(`phim/${slug}`),
