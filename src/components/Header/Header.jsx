@@ -1,8 +1,19 @@
 import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 
 const Header = () => {
+    const [keyword, setKeyword] = useState("");
+    const navigate = useNavigate();
+
+    const handleSearch = (event) => {
+        event.preventDefault();
+        if (!keyword.trim()) return;
+        navigate(`/search?keyword=${encodeURIComponent(keyword)}`);
+    };
+
     return (
         <header className="header-area bg-black section-padding-lr">
             <div className="container-fluid">
@@ -31,28 +42,20 @@ const Header = () => {
                                 <i className="zmdi zmdi-close s-close"></i>
                             </a>
                             <div className="search-wrap-2">
-                                <form action="#">
-                                    <input placeholder="Search" type="text" />
+                                <form onSubmit={handleSearch}>
+                                    <input
+                                        placeholder="Search"
+                                        type="text"
+                                        value={keyword}
+                                        onChange={(e) => setKeyword(e.target.value)}
+                                    />
                                     <button className="button-search" type="submit">
                                         <i className="zmdi zmdi-search"></i>
                                     </button>
                                 </form>
                             </div>
                         </div>
-
-                        <div className="our-profile-area ">
-                            <a href="#" className="our-profile-pc" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="public/assets/images/review/author-01.png" alt="" />
-                            </a>
-                            <div className="dropdown-menu netflix-profile-style red">
-                                <ul>
-                                    <li className="single-list"><a href="history.html">History</a></li>
-                                    <li className="single-list"><a href="watchlist.html">Watchlist</a></li>
-                                    <li className="single-list"><a href="my-account-2.html">My Account</a></li>
-                                    <li className="single-list"><a href="login-and-register-2.html">Log Out</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <div class="mobile-menu d-block d-lg-none"></div>
                     </div>
                 </div>
             </div>
