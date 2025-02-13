@@ -160,7 +160,7 @@ const MovieDetail = () => {
                                         <p>{movieInfo.content || "Không có mô tả"}</p>
                                         <div className="like-share-wrap">
                                             <div className="social-share-wrap">
-                                                <span>Share:</span>
+                                                <span>Chia sẻ:</span>
                                                 <div className="social-style-1">
                                                     <a className="facebook" href="https://www.facebook.com/phgmnhd" target="_blank" rel="noopener noreferrer">
                                                         <i className="zmdi zmdi-facebook"></i>
@@ -185,7 +185,7 @@ const MovieDetail = () => {
                         <div className="movie-list section-pb-50 bg-black">
                             <div className="container">
                                 <div className="section-title-4 st-border-bottom">
-                                    <h2>Season 1</h2>
+                                    <h2>Tập phim</h2>
                                 </div>
                                 <div className="movie-slider-active nav-style-3">
                                     <Slider {...settings}>
