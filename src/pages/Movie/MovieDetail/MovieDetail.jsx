@@ -168,9 +168,9 @@ const MovieDetail = () => {
                                                     <a className="pinterest" href="https://github.com/mankduck" target="_blank" rel="noopener noreferrer">
                                                         <i className="zmdi zmdi-github"></i>
                                                     </a>
-                                                    <a className="linkedin" href="#">
+                                                    {/* <a className="linkedin" href="#">
                                                         <i className="zmdi zmdi-linkedin"></i>
-                                                    </a>
+                                                    </a> */}
                                                     <a className="instagram" href="https://www.instagram.com/phgmnhd" target="_blank" rel="noopener noreferrer">
                                                         <i className="zmdi zmdi-instagram"></i>
                                                     </a>
