@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick"; // Import react-slick
 import movieAPI from "../../api/axiosClient";
 import Loader from "../Loader/Loader";
+import { Link } from "react-router-dom";
 
 // Cài đặt Slider options
 const MovieList = () => {
@@ -89,22 +90,22 @@ const MovieList = () => {
                                         <div className="movie-wrap-plr" key={item._id}>
                                             <div className="movie-wrap text-center">
                                                 <div className="movie-img">
-                                                    <a href={`phim-moi/${item.slug}`}>
+                                                    <Link to={`/phim-moi/${item.slug}`}>
                                                         <img src={item.thumb_url} alt={item.name} />
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                                 <div className="movie-content">
                                                     <h3 className="title">
-                                                        <a href={`phim-moi/${item.slug}`}>{item.name}</a>
+                                                        <Link to={`/phim-moi/${item.slug}`}>{item.name}</Link>
                                                     </h3>
                                                     <span>Quality : HD</span>
                                                     <div className="movie-btn">
-                                                        <a
-                                                            href={`phim-moi/${item.slug}`}
+                                                        <Link
+                                                            to={`/phim-moi/${item.slug}`}
                                                             className="btn-style-hm4-2 animated"
                                                         >
                                                             Xem Ngay
-                                                        </a>
+                                                        </Link>
                                                     </div>
                                                 </div>
                                             </div>
