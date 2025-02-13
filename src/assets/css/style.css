@@ -7175,6 +7175,7 @@ nav.sidebar-menu ul li a:hover {
   height: auto;
   width: 100%;
   display: block;
+  background-color: transparent !important;
 }
 
 .movie-details-content .movie-details-info {
