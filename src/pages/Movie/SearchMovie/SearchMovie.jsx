@@ -1,61 +1,69 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import movieAPI from "../../../api/axiosClient";
 import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
 import Loader from "../../../components/Loader/Loader";
 import { Link } from "react-router-dom";
 
-const SerieMovie = () => {
-    const [serieMovies, setSerieMovies] = useState([])
-    const [loading, setLoading] = useState()
-    const [currentPage, setCurrentPage] = useState(1)
-    const [totalPages, setTotalPages] = useState(0)
-
+const SearchMovie = () => {
+    const [searchMovies, setSearchMovies] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [searchParams] = useSearchParams();
+    const keyword = searchParams.get("keyword") || ""; // Lấy keyword từ URL
+    const [breadcrumb, setBreadcrumb] = useState("");
 
     useEffect(() => {
+        const fetchSearchMovie = async () => {
+            if (!keyword.trim()) return; // Nếu không có keyword thì không gọi API
 
-        const fetchSerieMovie = async (page) => {
-            setLoading(true)
+            setLoading(true);
             try {
-                const data = await movieAPI.getSerieMovies(page)
-                setSerieMovies(data.data.items)
-                setTotalPages(data.data.params.pagination.totalPages)
-                setLoading(false)
+                const data = await movieAPI.getMovieByKeyword(keyword, currentPage);
+                setSearchMovies(data.data.items);
+                setTotalPages(data.data.params.pagination.totalPages);
+                setBreadcrumb(`Kết quả tìm kiếm cho "${keyword}"`);
             } catch (error) {
-                console.error('FETCH MOVIE: ', error);
-                setLoading(false)
+                console.error("FETCH MOVIE ERROR:", error);
+            } finally {
+                setLoading(false);
             }
-        }
-        fetchSerieMovie(currentPage)
-    }, [currentPage])
+        };
 
-    const getPagination = () => {
-        const pages = [];
-        const totalVisiblePages = 3;
+        fetchSearchMovie();
+    }, [keyword, currentPage]);
 
-        if (currentPage > 1) {
-            pages.push(currentPage - 1);
-        }
 
-        pages.push(currentPage);
 
-        if (currentPage < totalPages) {
-            pages.push(currentPage + 1);
-        }
+    // const getPagination = () => {
+    //     const pages = [];
+    //     const totalVisiblePages = 3;
 
-        if (currentPage > 2) {
-            pages.unshift('...');
-        }
-        if (currentPage < totalPages - 1) {
-            pages.push('...');
-        }
+    //     if (currentPage > 1) {
+    //         pages.push(currentPage - 1);
+    //     }
 
-        return [...new Set(pages)];
-    };
+    //     pages.push(currentPage);
+
+    //     if (currentPage < totalPages) {
+    //         pages.push(currentPage + 1);
+    //     }
+
+    //     if (currentPage > 2) {
+    //         pages.unshift('...');
+    //     }
+    //     if (currentPage < totalPages - 1) {
+    //         pages.push('...');
+    //     }
+
+    //     return [...new Set(pages)];
+    // };
 
 
     return (
         <>
-            <Breadcrumb name="Phim Lẻ" />
+            <Breadcrumb name={breadcrumb} />
 
             {loading
                 ? (<Loader />)
@@ -63,7 +71,7 @@ const SerieMovie = () => {
                     <div className="movie-list section-padding-lr section-pt-50 section-pb-50 bg-black">
                         <div className="container-fluid">
                             <div className="row">
-                                {serieMovies.map((item) => (
+                                {searchMovies.map((item) => (
                                     <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12" key={item._id}>
                                         <div className="movie-wrap text-center mb-30">
                                             <div className="movie-img">
@@ -91,7 +99,7 @@ const SerieMovie = () => {
 
                             </div>
 
-                            <div className="pagination-style mt-30">
+                            {/* <div className="pagination-style mt-30">
                                 <ul>
                                     {getPagination().map((page, index) => (
                                         <li key={index}>
@@ -105,11 +113,11 @@ const SerieMovie = () => {
                                         </li>
                                     ))}
                                 </ul>
-                            </div>
+                            </div> */}
                         </div>
                     </div>)}
         </>
     )
 }
 
-export default SerieMovie
+export default SearchMovie

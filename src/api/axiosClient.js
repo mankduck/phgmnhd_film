@@ -13,6 +13,7 @@ const movieAPI = {
     getSingleMovies: (page) => client.get(`v1/api/danh-sach/phim-le?page=${page}`),
     getSerieMovies: (page) => client.get(`v1/api/danh-sach/phim-bo?page=${page}`),
     getMovieDetail: (slug) => client.get(`phim/${slug}`),
+    getMovieByKeyword: (keyword) => client.get(`v1/api/tim-kiem?keyword=${keyword}`),
 }
 
 client.interceptors.response.use(

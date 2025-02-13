@@ -75,6 +75,9 @@ const SingleMovie = () => {
                                                 <h3 className="title">
                                                     <Link to={`/phim-le/${item.slug}`}>{item.name}</Link>
                                                 </h3>
+                                                <h3 className="title">
+                                                    ({item.origin_name})
+                                                </h3>
                                                 <span>Chất lượng : {item.quality}</span>
                                                 <div className="movie-btn">
                                                     <Link to={`/phim-le/${item.slug}`} className="btn-style-hm4-2 animated">
