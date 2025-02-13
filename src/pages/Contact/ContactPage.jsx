@@ -39,7 +39,7 @@ const ContactPage = () => {
 
                                 </SingleContactInfo>
                                 <SingleContactInfo icon="zmdi-facebook">
-                                    <a href="https://www.facebook.com/phgmnhd" target="_blank" rel="noopener noreferrer">Phùng Mạnh Đức
+                                    <a href="https://m.me/phgmnhd" target="_blank" rel="noopener noreferrer">Phùng Mạnh Đức
                                     </a>
                                 </SingleContactInfo>
                             </div>
