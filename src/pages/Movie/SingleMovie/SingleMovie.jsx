@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import movieAPI from "../../../api/axiosClient";
 import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
 import Loader from "../../../components/Loader/Loader";
+import { Link } from "react-router-dom";
 
 const SingleMovie = () => {
     const [singleMovies, setSingleMovies] = useState([])
@@ -66,13 +67,19 @@ const SingleMovie = () => {
                                     <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12" key={item._id}>
                                         <div className="movie-wrap text-center mb-30">
                                             <div className="movie-img">
-                                                <a href={`phim-le/${item.slug}`}><img src={`https://phimimg.com/${item.poster_url}`} alt="" /></a>
+                                                <Link to={`/phim-le/${item.slug}`}>
+                                                    <img src={`https://phimimg.com/${item.poster_url}`} alt="" />
+                                                </Link>
                                             </div>
                                             <div className="movie-content">
-                                                <h3 className="title"><a href={`phim-le/${item.slug}`}>{item.name}</a></h3>
+                                                <h3 className="title">
+                                                    <Link to={`/phim-le/${item.slug}`}>{item.name}</Link>
+                                                </h3>
                                                 <span>Chất lượng : {item.quality}</span>
                                                 <div className="movie-btn">
-                                                    <a href={`phim-le/${item.slug}`} className="btn-style-hm4-2 animated">Xem Ngay</a>
+                                                    <Link to={`/phim-le/${item.slug}`} className="btn-style-hm4-2 animated">
+                                                        Xem Ngay
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
