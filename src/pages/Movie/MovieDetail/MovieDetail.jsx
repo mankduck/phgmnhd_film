@@ -20,6 +20,7 @@ const MovieDetail = () => {
             setLoading(true);
             try {
                 const data = await movieAPI.getMovieDetail(slug); // API lấy thông tin phim
+                console.log(data);
                 setMovieInfo(data.movie); // Cập nhật dữ liệu phim
                 setMovieEpisodes(data.episodes); // Cập nhật các tập phim, nếu có
                 setLoading(false);
@@ -117,7 +118,7 @@ const MovieDetail = () => {
             ) : (
                 movieInfo && (
                     <>
-                        <Breadcrumb name={movieInfo.name} />
+                        <Breadcrumb name={movieInfo.name + ' ( ' + movieInfo.origin_name + ' )'} />
                         <div className="movie-details-wrap section-ptb-50 bg-black">
                             <div className="container">
                                 <div className="movie-details-video-content-wrap">
@@ -137,6 +138,12 @@ const MovieDetail = () => {
                                                 <li>
                                                     <span>Đạo diễn: </span>
                                                     {movieInfo.director || "Không rõ"}
+                                                </li>
+                                                <li>
+                                                    <span>Diễn viên chính: </span>
+                                                    {movieInfo.actor && movieInfo.actor.length > 0
+                                                        ? movieInfo.actor.join(", ")
+                                                        : "Không rõ"}
                                                 </li>
                                                 <li>
                                                     <span>Năm: </span>
@@ -208,6 +215,28 @@ const MovieDetail = () => {
                                             ) : ('')
                                         }
                                     </Slider>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="movie-details-wrap section-ptb-50 bg-black">
+                            <div className="container">
+                                <div className="section-title-4 st-border-bottom">
+                                    <h2>Trailer</h2>
+                                </div>
+                                <div className="movie-details-video-content-wrap">
+                                    <div className="video-wrap">
+                                        {movieInfo.trailer_url && (
+                                            <iframe
+                                                width="100%"
+                                                height="500"
+                                                src={movieInfo.trailer_url.replace("watch?v=", "embed/")}
+                                                title="YouTube video player"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            ></iframe>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>

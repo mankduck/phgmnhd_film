@@ -64,7 +64,7 @@ const SerieMovie = () => {
                         <div className="container-fluid">
                             <div className="row">
                                 {serieMovies.map((item) => (
-                                    <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12" key={item._id}>
+                                    <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12" key={item._id}>
                                         <div className="movie-wrap text-center mb-30">
                                             <div className="movie-img">
                                                 <Link to={`/phim-bo/${item.slug}`}>
