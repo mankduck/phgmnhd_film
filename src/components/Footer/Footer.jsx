@@ -11,11 +11,11 @@ const Footer = () => {
                             <div className="footer-logo">
                                 <a href="index-4.html"><img src="/assets/images/logo/logo.png" alt="" /></a>
                             </div>
-                            <p>Eiusmod tempor incididunt ut la abore et minim ven exerc itation ulla mco lboris naliquip comm.</p>
+                            <p>Chúc các bạn xem phim vui vẻ - Nói không với quảng cáo!</p>
                             <div className="social-style-1 center-footer">
                                 <a className="facebook" href="https://www.facebook.com/phgmnhd" target="_blank" rel="noopener noreferrer"><i className="zmdi zmdi-facebook"></i></a>
                                 <a className="pinterest" href="https://github.com/mankduck" target="_blank" rel="noopener noreferrer"><i className="zmdi zmdi-github"></i></a>
-                                <a className="linkedin" href="#"><i className="zmdi zmdi-linkedin"></i></a>
+                                {/* <a className="linkedin" href="#"><i className="zmdi zmdi-linkedin"></i></a> */}
                                 <a className="instagram" href="https://www.instagram.com/phgmnhd/" target="_blank" rel="noopener noreferrer"><i className="zmdi zmdi-instagram"></i></a>
                             </div>
                         </div>
