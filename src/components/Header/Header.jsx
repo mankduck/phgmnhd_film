@@ -7,7 +7,7 @@ const Header = () => {
                 <div className="header-wrap header-netflix-style">
                     <div className="logo-menu-wrap">
                         <div className="logo">
-                            <a href="index-4.html"><img src="public/assets/images/logo/logo.png" alt="" /></a>
+                            <a href="/"><img src="/assets/images/logo/logo.png" alt="" /></a>
                         </div>
                         <div className="main-menu main-theme-color-four">
                             <nav className="main-navigation">
