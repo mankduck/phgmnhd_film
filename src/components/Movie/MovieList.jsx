@@ -12,7 +12,7 @@ const MovieList = () => {
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const data = await movieAPI.getMovieNewUpdate();
+                const data = await movieAPI.getMovieNewUpdate(2);
                 setMovies(data.items);
                 setLoading(false)
             } catch (err) {
