@@ -14,7 +14,7 @@ const Header = () => {
                         <div className="main-menu main-theme-color-four">
                             <nav className="main-navigation">
                                 <ul>
-                                    <li><Link to="/">Trang Chủ</Link></li>
+                                    <li><a href="/">Trang Chủ</a></li>
                                     <li><Link to="/phim-le">Phim Lẻ</Link></li>
                                     <li><Link to="/phim-bo">Phim Bộ</Link></li>
                                     <li><Link to="/tv-show">TV Shows</Link></li>
