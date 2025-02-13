@@ -24,7 +24,22 @@ const Header = () => {
                             </nav>
                         </div>
                     </div>
-                    {/* <div className="right-side d-flex">
+                    <div className="right-side d-flex">
+                        <div className="header-search-2">
+                            <a className="search-toggle" href="#">
+                                <i className="zmdi zmdi-search s-open"></i>
+                                <i className="zmdi zmdi-close s-close"></i>
+                            </a>
+                            <div className="search-wrap-2">
+                                <form action="#">
+                                    <input placeholder="Search" type="text" />
+                                    <button className="button-search" type="submit">
+                                        <i className="zmdi zmdi-search"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
                         <div className="our-profile-area ">
                             <a href="#" className="our-profile-pc" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="public/assets/images/review/author-01.png" alt="" />
@@ -38,7 +53,7 @@ const Header = () => {
                                 </ul>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </header>
