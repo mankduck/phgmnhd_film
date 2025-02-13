@@ -13,10 +13,10 @@ const Footer = () => {
                             </div>
                             <p>Eiusmod tempor incididunt ut la abore et minim ven exerc itation ulla mco lboris naliquip comm.</p>
                             <div className="social-style-1 center-footer">
-                                <a className="facebook" href="#"><i className="zmdi zmdi-facebook"></i></a>
-                                <a className="twitter" href="#"><i className="zmdi zmdi-twitter"></i></a>
+                                <a className="facebook" href="https://www.facebook.com/phgmnhd"><i className="zmdi zmdi-facebook"></i></a>
+                                <a className="github" href="https://github.com/mankduck"><i className="zmdi zmdi-github"></i></a>
                                 <a className="linkedin" href="#"><i className="zmdi zmdi-linkedin"></i></a>
-                                <a className="instagram" href="#"><i className="zmdi zmdi-instagram"></i></a>
+                                <a className="instagram" href="https://www.instagram.com/phgmnhd/"><i className="zmdi zmdi-instagram"></i></a>
                             </div>
                         </div>
                     </div>
