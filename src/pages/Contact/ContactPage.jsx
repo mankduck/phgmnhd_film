@@ -34,7 +34,7 @@ const ContactPage = () => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
-                                        phungmanhduc2209@gmail.com
+                                        Liên hệ Email
                                     </a>
 
                                 </SingleContactInfo>
