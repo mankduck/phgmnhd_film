@@ -1,8 +1,6 @@
 @font-face {
     font-family: Material-Design-Iconic-Font;
-    src: url('/assets/fonts/Material-Design-Iconic-Fontd1f1.woff2?v=2.2.0') format('woff2'),
-        url('/assets/fonts/Material-Design-Iconic-Fontd1f1.woff?v=2.2.0') format('woff'),
-        url('/assets/fonts/Material-Design-Iconic-Fontd1f1.ttf?v=2.2.0') format('truetype');
+    src: url(../../fonts/Material-Design-Iconic-Fontd1f1.woff2?v=2.2.0) format('woff2'), url(../../fonts/Material-Design-Iconic-Fontd1f1.woff?v=2.2.0) format('woff'), url(../../fonts/Material-Design-Iconic-Fontd1f1.ttf?v=2.2.0) format('truetype')
 }
 
 .zmdi {
