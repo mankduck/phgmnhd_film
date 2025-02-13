@@ -126,7 +126,9 @@ const MovieDetail = () => {
                                         <video
                                             id="movieVideo"
                                             ref={videoRef}
-                                            controls
+                                            controls 
+                                            disablepictureinpicture 
+                                            controlslist 
                                             loop="loop"
                                             poster={movieInfo.thumb_url}
                                             style={{ width: "100%", height: "auto" }}
