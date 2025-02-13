@@ -4,8 +4,8 @@ import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
 import Loader from "../../../components/Loader/Loader";
 import { Link } from "react-router-dom";
 
-const SerieMovie = () => {
-    const [serieMovies, setSerieMovies] = useState([])
+const TVShow = () => {
+    const [tVShow, setTVShow] = useState([])
     const [loading, setLoading] = useState()
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
@@ -13,11 +13,11 @@ const SerieMovie = () => {
 
     useEffect(() => {
 
-        const fetchSerieMovie = async (page) => {
+        const fetchTVShow = async (page) => {
             setLoading(true)
             try {
-                const data = await movieAPI.getSerieMovies(page)
-                setSerieMovies(data.data.items)
+                const data = await movieAPI.getTVShows(page)
+                setTVShow(data.data.items)
                 setTotalPages(data.data.params.pagination.totalPages)
                 setLoading(false)
             } catch (error) {
@@ -25,7 +25,7 @@ const SerieMovie = () => {
                 setLoading(false)
             }
         }
-        fetchSerieMovie(currentPage)
+        fetchTVShow(currentPage)
     }, [currentPage])
 
     const getPagination = () => {
@@ -55,7 +55,7 @@ const SerieMovie = () => {
 
     return (
         <>
-            <Breadcrumb name="Phim Lẻ" />
+            <Breadcrumb name="TV Show" />
 
             {loading
                 ? (<Loader />)
@@ -63,7 +63,7 @@ const SerieMovie = () => {
                     <div className="movie-list section-padding-lr section-pt-50 section-pb-50 bg-black">
                         <div className="container-fluid">
                             <div className="row">
-                                {serieMovies.map((item) => (
+                                {tVShow.map((item) => (
                                     <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12" key={item._id}>
                                         <div className="movie-wrap text-center mb-30">
                                             <div className="movie-img">
@@ -112,4 +112,4 @@ const SerieMovie = () => {
     )
 }
 
-export default SerieMovie
+export default TVShow

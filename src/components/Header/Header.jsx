@@ -55,9 +55,10 @@ const Header = () => {
                                 <ul>
                                     <li><Link to="/phim-le">Phim Lẻ</Link></li>
                                     <li><Link to="/phim-bo">Phim Bộ</Link></li>
+                                    <li><Link to="/hoat-hinh">Hoạt Hình</Link></li>
                                     <li><Link to="/tv-show">TV Shows</Link></li>
-                                    <li><Link to="#">Comming Soon</Link></li>
                                     <li><Link to="/lien-he">Liên Hệ</Link></li>
+                                    <li><Link to="#">Comming Soon</Link></li>
                                 </ul>
                             </nav>
                         </div>
