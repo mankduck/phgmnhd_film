@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 
 const Header = () => {
     return (
@@ -12,17 +14,17 @@ const Header = () => {
                         <div className="main-menu main-theme-color-four">
                             <nav className="main-navigation">
                                 <ul>
-                                    <li><a href="/">Trang Chủ</a></li>
-                                    <li><a href="/phim-le">Phim Lẻ </a></li>
-                                    <li><a href="/phim-bo">Phim Bộ</a></li>
-                                    <li><a href="/tv-show">TV Shows</a></li>
-                                    <li><a href="#">Comming Soon</a></li>
-                                    <li><a href="/lien-he">Liên Hệ</a></li>
+                                    <li><Link to="/">Trang Chủ</Link></li>
+                                    <li><Link to="/phim-le">Phim Lẻ</Link></li>
+                                    <li><Link to="/phim-bo">Phim Bộ</Link></li>
+                                    <li><Link to="/tv-show">TV Shows</Link></li>
+                                    <li><Link to="#">Comming Soon</Link></li>
+                                    <li><Link to="/lien-he">Liên Hệ</Link></li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
-                    <div className="right-side d-flex">
+                    {/* <div className="right-side d-flex">
                         <div className="our-profile-area ">
                             <a href="#" className="our-profile-pc" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="public/assets/images/review/author-01.png" alt="" />
@@ -36,7 +38,7 @@ const Header = () => {
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </header>

@@ -9,7 +9,7 @@ const Footer = () => {
                     <div className="row text-center">
                         <div className="footer-widget footer-about">
                             <div className="footer-logo">
-                                <a href="index-4.html"><img src="src/assets/images/logo/logo.png" alt="" /></a>
+                                <a href="index-4.html"><img src="/assets/images/logo/logo.png" alt="" /></a>
                             </div>
                             <p>Eiusmod tempor incididunt ut la abore et minim ven exerc itation ulla mco lboris naliquip comm.</p>
                             <div className="social-style-1 center-footer">
