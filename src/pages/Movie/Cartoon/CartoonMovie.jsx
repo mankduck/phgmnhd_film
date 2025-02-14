@@ -13,7 +13,6 @@ const CartoonMovie = () => {
     const [totalPages, setTotalPages] = useState(0)
     const [category, setCategory] = useState([]);
     const [country, setCountry] = useState([]);
-    // const [year, setYear] = useState([]);
     const [param, setParam] = useState({
         country: "",
         category: "",
@@ -56,10 +55,8 @@ const CartoonMovie = () => {
             try {
                 const categoryRes = await movieAPI.getCategory();
                 const countryRes = await movieAPI.getCountry();
-                const yearRes = await movieAPI.getYear();
                 setCategory(categoryRes);
                 setCountry(countryRes);
-                // setYear(yearRes)
             } catch (error) {
                 toast.error("Không thể lấy dữ liệu! Vui lòng thử lại.");
             }
