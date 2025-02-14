@@ -8,7 +8,7 @@ import HomeComponent from "../../components/HomeComponent/HomeComponent"
 const HomePage = () => {
     return (
         <>
-            {/* <SlideHomeTop /> */}
+            <SlideHomeTop />
             <MovieList />
             {/* <HomeComponent /> */}
         </>

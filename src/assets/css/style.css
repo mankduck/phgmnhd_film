@@ -9037,3 +9037,8 @@ only screen and (max-width: 767px) {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+.navbar-toggler-icon {
+  filter: invert(1);
+  /* Chuyển icon thành trắng */
+}
