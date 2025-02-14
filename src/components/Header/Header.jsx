@@ -148,7 +148,7 @@ const Header = () => {
                         onChange={(e) => setKeyword(e.target.value)}
                     // aria-label="Search" 
                     />
-                    <button className="btn btn-danger bg-danger" type="submit"><i class="zmdi zmdi-search fw-bold"></i></button>
+                    <button className="btn btn-danger bg-danger" type="submit">Search</button>
                 </form>
             </div>
         </nav>
