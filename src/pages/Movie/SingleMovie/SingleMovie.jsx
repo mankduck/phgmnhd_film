@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import movieAPI from "../../../api/axiosClient";
-import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
-import Loader from "../../../components/Loader/Loader";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import movieAPI from "../../../api/axiosClient"
+import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb"
+import Loader from "../../../components/Loader/Loader"
+import { Link } from "react-router-dom"
+import { toast } from "react-toastify"
 
 const SingleMovie = () => {
     const [singleMovies, setSingleMovies] = useState([])
@@ -21,7 +22,7 @@ const SingleMovie = () => {
                 setTotalPages(data.data.params.pagination.totalPages)
                 setLoading(false)
             } catch (error) {
-                console.error('FETCH MOVIE: ', error);
+                toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")
                 setLoading(false)
             }
         }
@@ -29,28 +30,28 @@ const SingleMovie = () => {
     }, [currentPage])
 
     const getPagination = () => {
-        const pages = [];
-        const totalVisiblePages = 3;
+        const pages = []
+        const totalVisiblePages = 3
 
         if (currentPage > 1) {
-            pages.push(currentPage - 1);
+            pages.push(currentPage - 1)
         }
 
-        pages.push(currentPage);
+        pages.push(currentPage)
 
         if (currentPage < totalPages) {
-            pages.push(currentPage + 1);
+            pages.push(currentPage + 1)
         }
 
         if (currentPage > 2) {
-            pages.unshift('...');
+            pages.unshift('...')
         }
         if (currentPage < totalPages - 1) {
-            pages.push('...');
+            pages.push('...')
         }
 
-        return [...new Set(pages)];
-    };
+        return [...new Set(pages)]
+    }
 
 
     return (

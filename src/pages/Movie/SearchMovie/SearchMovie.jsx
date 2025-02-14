@@ -1,64 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import movieAPI from "../../../api/axiosClient";
-import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
-import Loader from "../../../components/Loader/Loader";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { useSearchParams } from "react-router-dom"
+import movieAPI from "../../../api/axiosClient"
+import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb"
+import Loader from "../../../components/Loader/Loader"
+import { Link } from "react-router-dom"
+import { toast } from "react-toastify"
 
 const SearchMovie = () => {
-    const [searchMovies, setSearchMovies] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-    const [searchParams] = useSearchParams();
-    const keyword = searchParams.get("keyword") || ""; // Lấy keyword từ URL
-    const [breadcrumb, setBreadcrumb] = useState("");
+    const [searchMovies, setSearchMovies] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(0)
+    const [searchParams] = useSearchParams()
+    const keyword = searchParams.get("keyword") || ""
+    const [breadcrumb, setBreadcrumb] = useState("")
 
     useEffect(() => {
         const fetchSearchMovie = async () => {
-            if (!keyword.trim()) return; // Nếu không có keyword thì không gọi API
+            if (!keyword.trim()) return
 
-            setLoading(true);
+            setLoading(true)
             try {
-                const data = await movieAPI.getMovieByKeyword(keyword, currentPage);
-                setSearchMovies(data.data.items);
-                setTotalPages(data.data.params.pagination.totalPages);
-                setBreadcrumb(`Kết quả tìm kiếm cho "${keyword}"`);
+                const data = await movieAPI.getMovieByKeyword(keyword, currentPage)
+                const movies = data.data.items;
+                setSearchMovies(movies);
+                setTotalPages(data.data.params.pagination.totalPages)
+                setBreadcrumb(`Kết quả tìm kiếm cho "${keyword}"`)
+                if (movies.length === 0) {
+                    toast.warning("Không có phim nào phù hợp với từ khóa bạn tìm!");
+                }
             } catch (error) {
-                console.error("FETCH MOVIE ERROR:", error);
+                toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
-        };
-
-        fetchSearchMovie();
-    }, [keyword, currentPage]);
-
-
-
-    // const getPagination = () => {
-    //     const pages = [];
-    //     const totalVisiblePages = 3;
-
-    //     if (currentPage > 1) {
-    //         pages.push(currentPage - 1);
-    //     }
-
-    //     pages.push(currentPage);
-
-    //     if (currentPage < totalPages) {
-    //         pages.push(currentPage + 1);
-    //     }
-
-    //     if (currentPage > 2) {
-    //         pages.unshift('...');
-    //     }
-    //     if (currentPage < totalPages - 1) {
-    //         pages.push('...');
-    //     }
-
-    //     return [...new Set(pages)];
-    // };
+        }
+        fetchSearchMovie()
+    }, [keyword, currentPage])
 
 
     return (
@@ -96,24 +74,7 @@ const SearchMovie = () => {
                                         </div>
                                     </div>
                                 ))}
-
                             </div>
-
-                            {/* <div className="pagination-style mt-30">
-                                <ul>
-                                    {getPagination().map((page, index) => (
-                                        <li key={index}>
-                                            <a
-                                                href="#"
-                                                onClick={() => (typeof page === 'number' ? setCurrentPage(page) : null)} // Chỉ thay đổi khi click vào số trang
-                                                className={page === currentPage ? 'active' : ''}
-                                            >
-                                                {page}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div> */}
                         </div>
                     </div>)}
         </>

@@ -1,27 +1,26 @@
-import React, { useEffect, useState } from "react";
-import Slider from "react-slick"; // Import react-slick
-import movieAPI from "../../api/axiosClient";
-import Loader from "../Loader/Loader";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import Slider from "react-slick"
+import movieAPI from "../../api/axiosClient"
+import Loader from "../Loader/Loader"
+import { Link } from "react-router-dom"
 
-// Cài đặt Slider options
 const MovieList = () => {
-    const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const data = await movieAPI.getMovieNewUpdate(2);
-                setMovies(data.items);
+                const data = await movieAPI.getMovieNewUpdate(2)
+                setMovies(data.items)
                 setLoading(false)
             } catch (err) {
-                console.error('FETCH MOVIE FAILED: ', err);
+                console.error('FETCH MOVIE FAILED: ', err)
                 setLoading(false)
             }
-        };
-        fetchMovies();
-    }, []);
+        }
+        fetchMovies()
+    }, [])
 
     const settings = {
         dots: false,
@@ -72,7 +71,7 @@ const MovieList = () => {
                 },
             },
         ],
-    };
+    }
 
     return (
         <>
@@ -116,7 +115,7 @@ const MovieList = () => {
                         </div>
                     </div>)}
         </>
-    );
-};
+    )
+}
 
-export default MovieList;
+export default MovieList
