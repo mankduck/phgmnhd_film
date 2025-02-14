@@ -97,7 +97,6 @@ const MovieList = () => {
                                                     <h3 className="title">
                                                         <Link to={`/phim-moi/${item.slug}`}>{item.name}</Link>
                                                     </h3>
-                                                    <span>Quality : HD</span>
                                                     <div className="movie-btn">
                                                         <Link
                                                             to={`/phim-moi/${item.slug}`}

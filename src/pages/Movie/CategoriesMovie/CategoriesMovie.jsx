@@ -1,47 +1,69 @@
 import React, { useEffect, useState } from "react"
-import { useSearchParams } from "react-router-dom"
 import movieAPI from "../../../api/axiosClient"
 import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb"
 import Loader from "../../../components/Loader/Loader"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 
-const SearchMovie = () => {
-    const [searchMovies, setSearchMovies] = useState([])
-    const [loading, setLoading] = useState(false)
+const CategoriesMovie = () => {
+    const { slug } = useParams()
+    const [categoriesMovies, setCategoriesMovies] = useState([])
+    const [loading, setLoading] = useState()
+    const [title, setTitle] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
-    const [searchParams] = useSearchParams()
-    const keyword = searchParams.get("keyword") || ""
-    const [breadcrumb, setBreadcrumb] = useState("")
+
 
     useEffect(() => {
-        const fetchSearchMovie = async () => {
-            if (!keyword.trim()) return
 
+        const fetchCategoriesMovie = async (page) => {
             setLoading(true)
             try {
-                const data = await movieAPI.getMovieByKeyword(keyword, currentPage)
-                const movies = data.data.items;
-                setSearchMovies(movies);
+                const data = await movieAPI.getCategoriesMovies(slug, page)
+                const movies = data.data.items
+                setCategoriesMovies(movies)
                 setTotalPages(data.data.params.pagination.totalPages)
-                setBreadcrumb(`Kết quả tìm kiếm cho "${keyword}"`)
+                setTitle(data.data.titlePage)
+                setLoading(false)
                 if (movies.length === 0) {
-                    toast.warning("Không có phim nào phù hợp với từ khóa bạn tìm!");
+                    toast.warning("Không có phim nào phù hợp với thể loại này!");
                 }
             } catch (error) {
                 toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")
-            } finally {
                 setLoading(false)
             }
         }
-        fetchSearchMovie()
-    }, [keyword, currentPage])
+        fetchCategoriesMovie(currentPage)
+    }, [currentPage, slug])
+
+    const getPagination = () => {
+        const pages = []
+        const totalVisiblePages = 3
+
+        if (currentPage > 1) {
+            pages.push(currentPage - 1)
+        }
+
+        pages.push(currentPage)
+
+        if (currentPage < totalPages) {
+            pages.push(currentPage + 1)
+        }
+
+        if (currentPage > 2) {
+            pages.unshift('...')
+        }
+        if (currentPage < totalPages - 1) {
+            pages.push('...')
+        }
+
+        return [...new Set(pages)]
+    }
 
 
     return (
         <>
-            <Breadcrumb name={breadcrumb} />
+            <Breadcrumb name={title} />
 
             {loading
                 ? (<Loader />)
@@ -49,8 +71,8 @@ const SearchMovie = () => {
                     <div className="movie-list section-padding-lr section-pt-50 section-pb-50 bg-black">
                         <div className="container-fluid">
                             <div className="row">
-                                {searchMovies.map((item) => (
-                                    <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12" key={item._id}>
+                                {categoriesMovies.map((item) => (
+                                    <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12" key={item._id}>
                                         <div className="movie-wrap text-center mb-30">
                                             <div className="movie-img">
                                                 <Link to={`/phim-bo/${item.slug}`}>
@@ -76,13 +98,31 @@ const SearchMovie = () => {
                                 ))}
 
                             </div>
-                            {searchMovies.length < 1 ? (
-                                <h4 className="text-white pt-100 pb-100 text-center">Không có phim nào</h4>
-                            ) : null}
+                            {categoriesMovies.length > 1 ? (
+                                <div className="pagination-style mt-30">
+                                    <ul>
+                                        {getPagination().map((page, index) => (
+                                            <li key={index}>
+                                                <a
+                                                    href="#"
+                                                    onClick={() => (typeof page === "number" ? setCurrentPage(page) : null)}
+                                                    className={page === currentPage ? "active" : ""}
+                                                >
+                                                    {page}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ) :
+                                (
+                                    <h4 className="text-white pt-100 pb-100 text-center">Không có phim nào</h4>
+                                )
+                            }
                         </div>
                     </div>)}
         </>
     )
 }
 
-export default SearchMovie
+export default CategoriesMovie
