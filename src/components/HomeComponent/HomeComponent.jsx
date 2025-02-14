@@ -29,7 +29,7 @@ const HomeComponent = () => {
                         <div className="col mb-30">
                             <div className="funfact-wrap text-center">
                                 <h2 className="value">
-                                    <span className="odometer" data-count-to="500"></span>+M
+                                    <span className="odometer"></span>500+M
                                 </h2>
                                 <h3 className="title">Total Videos</h3>
                             </div>
@@ -37,7 +37,7 @@ const HomeComponent = () => {
                         <div className="col mb-30">
                             <div className="funfact-wrap text-center">
                                 <h2 className="value">
-                                    <span className="odometer" data-count-to="10"></span>th
+                                    <span className="odometer"></span>10th
                                 </h2>
                                 <h3 className="title">Position</h3>
                             </div>
@@ -45,7 +45,7 @@ const HomeComponent = () => {
                         <div className="col mb-30">
                             <div className="funfact-wrap text-center">
                                 <h2 className="value">
-                                    <span className="odometer" data-count-to="200"></span>+M
+                                    <span className="odometer"></span>200+M
                                 </h2>
                                 <h3 className="title">Subscribers</h3>
                             </div>
@@ -53,7 +53,7 @@ const HomeComponent = () => {
                         <div className="col mb-30">
                             <div className="funfact-wrap text-center">
                                 <h2 className="value">
-                                    <span className="odometer" data-count-to="100"></span>+
+                                    <span className="odometer"></span>100+
                                 </h2>
                                 <h3 className="title">Awards</h3>
                             </div>
@@ -105,44 +105,44 @@ const HomeComponent = () => {
 const faqData = [
     {
         id: "One",
-        question: "Tại sao lại chọn Phgmnhd Film?",
+        question: "Tại sao lại chọn Phim Cũ?",
         answer:
-            "Phgmnhd Film mang lại trải nghiệm xem phim không có quảng cáo nền trên mọi ứng dụng",
+            "Phim Cũ mang lại trải nghiệm xem phim không có quảng cáo nền trên mọi ứng dụng",
         show: true,
     },
     {
         id: "Two",
-        question: "Phgmnhd Film có mất phí không?",
+        question: "Phim Cũ có mất phí không?",
         answer:
-            "Hướng đến sự tiện lợi cho người xem, Phgmnhd Film sẽ không mất bất cứ khoản phí nào!",
+            "Hướng đến sự tiện lợi cho người xem, Phim Cũ sẽ không mất bất cứ khoản phí nào!",
         show: false,
     },
     {
         id: "Three",
-        question: "Tôi có thể xem Phgmnhd Film ở mọi nơi không?",
+        question: "Tôi có thể xem Phim Cũ ở mọi nơi không?",
         answer:
-            "Phgmnhd Film có thể xem ở mọi nơi, mọi thiết bị. Nhưng hiện tại chỉ đang hoạt động đúng trên nền tảng Windows và Android, còn IOS thì tạm thời chưa hoạt động đúng",
+            "Phim Cũ có thể xem ở mọi nơi, mọi thiết bị",
         show: false,
     },
-    {
-        id: "Four",
-        question: "Làm thế nào để liên hệ với Admin?",
-        answer:
-            "Người dùng có thể liên hệ với thông tin cá nhân qua các đường dẫn được đính kèm trên Website",
-        show: false,
-    },
+    // {
+    //     id: "Four",
+    //     question: "Làm thế nào để liên hệ với Admin?",
+    //     answer:
+    //         "Người dùng có thể liên hệ với thông tin cá nhân qua các đường dẫn được đính kèm trên Website",
+    //     show: false,
+    // },
     {
         id: "Five",
-        question: "Tôi có thể xem những gì trên Phgmnhd Film?",
+        question: "Tôi có thể xem những gì trên Phim Cũ?",
         answer:
             "Người dùng có thể xem các thể loại phim từ các quốc gia, chương trình truyền hình,..",
         show: false,
     },
     {
         id: "Six",
-        question: "Phgmnhd Film có tốt cho trẻ em?",
+        question: "Phim Cũ có tốt cho trẻ em?",
         answer:
-            "Phgmnhd Film có các thể loại dành cho trẻ em như hoạt hình, thiếu nhi,...",
+            "Phim Cũ có các thể loại dành cho trẻ em như hoạt hình, thiếu nhi,...",
         show: false,
     },
 ];

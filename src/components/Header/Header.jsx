@@ -64,7 +64,7 @@ const Header = () => {
     return (
         <nav className="navbar navbar-expand-lg bg-black">
             <div className="container-fluid">
-                <a className="navbar-brand text-white fw-bold" href="/">Phgmnhd Film</a>
+                <a className="navbar-brand text-white fw-bold" href="/">Phim Cũ</a>
                 <button
                     className="navbar-toggler mb-10"
                     type="button"
@@ -135,9 +135,9 @@ const Header = () => {
                                 )}
                             </ul>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link to="/lien-he" className="nav-link text-white">Liên Hệ</Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
                 <form className="d-flex my-2" role="search" onSubmit={handleSearch}>

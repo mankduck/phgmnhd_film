@@ -1,6 +1,6 @@
 import React from "react";
 
-const Filter = ({ param, setParam, category, country, handleReset }) => {
+const Filter = ({ param, setParam, category, country, year, handleReset }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setParam((prev) => ({
@@ -37,7 +37,11 @@ const Filter = ({ param, setParam, category, country, handleReset }) => {
                         <div className="col-lg-3 col-md-3 contact-inner black">
                             <select name="year" className="form-control" value={param.year} onChange={handleChange}>
                                 <option value="">Năm Sản Xuất</option>
-                                {/* Thêm danh sách năm nếu có */}
+                                {year.map((y) => (
+                                    <option key={y.id} value={y.value}>
+                                        {y.name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                         <div className="col-lg-3 col-md-3 black">

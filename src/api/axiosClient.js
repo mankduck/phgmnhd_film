@@ -12,6 +12,7 @@ const movieAPI = {
     getCategoriesMovies: (slug, page) => client.get(`v1/api/the-loai/${slug}?page=${page}&limit=12`),
     getCountryMovies: (slug, page) => client.get(`v1/api/quoc-gia/${slug}?page=${page}&limit=12`),
     getCountry: () => client.get('quoc-gia'),
+    // getYear: () => client.get('year'),
     getMovieNewUpdate: (page) => client.get(`danh-sach/phim-moi-cap-nhat?page=${page}`),
     getSingleMovies: (page, param) => client.get(`v1/api/danh-sach/phim-le?category=${param.category}&country=${param.country}&year=${param.year}&page=${page}&limit=12`),
     getSerieMovies: (page, param) => client.get(`v1/api/danh-sach/phim-bo?category=${param.category}&country=${param.country}&year=${param.year}&page=${page}&limit=12`),
