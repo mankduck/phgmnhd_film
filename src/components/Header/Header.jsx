@@ -1,46 +1,46 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React from "react"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 const Header = () => {
-    const [keyword, setKeyword] = useState("");
-    const navigate = useNavigate();
+    const [keyword, setKeyword] = useState("")
+    const navigate = useNavigate()
 
     const handleSearch = (event) => {
-        event.preventDefault();
-        if (!keyword.trim()) return;
-        navigate(`/search?keyword=${encodeURIComponent(keyword)}`);
-    };
+        event.preventDefault()
+        if (!keyword.trim()) return
+        navigate(`/search?keyword=${encodeURIComponent(keyword)}`)
+    }
 
     useEffect(() => {
-        var menuNav = document.querySelector("nav.main-navigation");
+        var menuNav = document.querySelector("nav.main-navigation")
 
         if (menuNav) {
 
-            const mobileLinks = document.querySelectorAll(".mobile-menu a");
+            const mobileLinks = document.querySelectorAll(".mobile-menu a")
 
             mobileLinks.forEach((link) => {
-                link.removeEventListener("click", handleLinkClick);
-                link.addEventListener("click", handleLinkClick);
-            });
+                link.removeEventListener("click", handleLinkClick)
+                link.addEventListener("click", handleLinkClick)
+            })
 
             function handleLinkClick(e) {
-                e.preventDefault();
-                const targetUrl = e.target.getAttribute("href");
+                e.preventDefault()
+                const targetUrl = e.target.getAttribute("href")
                 if (targetUrl) {
-                    navigate(targetUrl);
+                    navigate(targetUrl)
                 }
             }
 
             return () => {
                 mobileLinks.forEach((link) => {
-                    link.removeEventListener("click", handleLinkClick);
-                });
-            };
+                    link.removeEventListener("click", handleLinkClick)
+                })
+            }
         }
-    }, [navigate]);
+    }, [navigate])
 
     return (
         <header className="header-area bg-black section-padding-lr">

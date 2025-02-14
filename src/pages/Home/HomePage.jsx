@@ -1,7 +1,7 @@
-import React from "react";
+import React from "react"
 
-import SlideHomeTop from "../../components/Slide/SlideHomeTop";
-import MovieList from "../../components/Movie/MovieList";
+import SlideHomeTop from "../../components/Slide/SlideHomeTop"
+import MovieList from "../../components/Movie/MovieList"
 
 
 const HomePage = () => {
@@ -11,6 +11,6 @@ const HomePage = () => {
             <MovieList />
         </>
     )
-};
+}
 
-export default HomePage;
+export default HomePage

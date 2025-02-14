@@ -1,59 +1,59 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
-import movieAPI from "../../../api/axiosClient";
-import Hls from "hls.js";
-import Slider from "react-slick"; // Import react-slick
-
-import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
-import Loader from "../../../components/Loader/Loader";
+import React, { useState, useEffect, useRef } from "react"
+import { useParams } from "react-router-dom"
+import movieAPI from "../../../api/axiosClient"
+import Hls from "hls.js"
+import Slider from "react-slick"
+import { toast } from "react-toastify"
+import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb"
+import Loader from "../../../components/Loader/Loader"
 
 const MovieDetail = () => {
-    const { slug } = useParams();
-    const videoRef = useRef(null); // Đảm bảo videoRef được khởi tạo
-    const [loading, setLoading] = useState(true);
-    const [movieInfo, setMovieInfo] = useState(null);
-    const [movieEpisodes, setMovieEpisodes] = useState([]);
+    const { slug } = useParams()
+    const videoRef = useRef(null) 
+    const [loading, setLoading] = useState(true)
+    const [movieInfo, setMovieInfo] = useState(null)
+    const [movieEpisodes, setMovieEpisodes] = useState([])
     const [selectedEpisode, setSelectedEpisode] = useState(0)
 
     useEffect(() => {
         const fetchMovie = async () => {
-            setLoading(true);
+            setLoading(true)
             try {
-                const data = await movieAPI.getMovieDetail(slug); // API lấy thông tin phim
-                console.log(data);
-                setMovieInfo(data.movie); // Cập nhật dữ liệu phim
-                setMovieEpisodes(data.episodes); // Cập nhật các tập phim, nếu có
-                setLoading(false);
+                const data = await movieAPI.getMovieDetail(slug) 
+                console.log(data)
+                setMovieInfo(data.movie) 
+                setMovieEpisodes(data.episodes) 
+                setLoading(false)
             } catch (error) {
-                console.error("Error fetching movie:", error);
-                setLoading(false);
+                toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")
+                setLoading(false)
             }
-        };
+        }
 
-        fetchMovie();
-    }, [slug]);
+        fetchMovie()
+    }, [slug])
 
     useEffect(() => {
         if (movieEpisodes.length > 0 && videoRef.current) {
-            const video = videoRef.current;
-            const videoSrc = movieEpisodes[0].server_data[selectedEpisode].link_m3u8; // Lấy link video từ tập phim đầu tiên
+            const video = videoRef.current
+            const videoSrc = movieEpisodes[0].server_data[selectedEpisode].link_m3u8
 
             if (Hls.isSupported()) {
-                const hls = new Hls();
-                hls.loadSource(videoSrc);
-                hls.attachMedia(video);
+                const hls = new Hls()
+                hls.loadSource(videoSrc)
+                hls.attachMedia(video)
 
                 return () => {
-                    hls.destroy();
-                };
+                    hls.destroy()
+                }
             } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-                video.src = linkMovie;
+                video.src = linkMovie
                 video.addEventListener("canplay", function () {
-                    video.play();
-                });
+                    video.play()
+                })
             }
         }
-    }, [selectedEpisode, movieEpisodes]);
+    }, [selectedEpisode, movieEpisodes])
 
     const settings = {
         dots: false,
@@ -109,7 +109,7 @@ const MovieDetail = () => {
                 },
             },
         ],
-    };
+    }
 
     return (
         <>
@@ -234,7 +234,7 @@ const MovieDetail = () => {
                                                 height="500"
                                                 src={movieInfo.trailer_url.replace("watch?v=", "embed/")}
                                                 title="YouTube video player"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allow="accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture"
                                                 allowFullScreen
                                             ></iframe>
                                         )}
@@ -246,7 +246,7 @@ const MovieDetail = () => {
                 )
             )}
         </>
-    );
-};
+    )
+}
 
-export default MovieDetail;
+export default MovieDetail
