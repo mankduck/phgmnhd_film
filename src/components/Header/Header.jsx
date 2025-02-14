@@ -48,7 +48,7 @@ const Header = () => {
                 <div className="header-wrap header-netflix-style">
                     <div className="logo-menu-wrap">
                         <div className="logo">
-                            <a href="/"><img src="/assets/images/logo/logo.png" alt="" /></a>
+                            <a href="/" className="fw-bold text-white">PHGMNHD FILM</a>
                         </div>
                         <div className="main-menu main-theme-color-four">
                             <nav className="main-navigation">
