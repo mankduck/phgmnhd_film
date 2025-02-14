@@ -9,7 +9,7 @@ import Loader from "../../../components/Loader/Loader"
 
 const MovieDetail = () => {
     const { slug } = useParams()
-    const videoRef = useRef(null) 
+    const videoRef = useRef(null)
     const [loading, setLoading] = useState(true)
     const [movieInfo, setMovieInfo] = useState(null)
     const [movieEpisodes, setMovieEpisodes] = useState([])
@@ -19,10 +19,10 @@ const MovieDetail = () => {
         const fetchMovie = async () => {
             setLoading(true)
             try {
-                const data = await movieAPI.getMovieDetail(slug) 
+                const data = await movieAPI.getMovieDetail(slug)
                 console.log(data)
-                setMovieInfo(data.movie) 
-                setMovieEpisodes(data.episodes) 
+                setMovieInfo(data.movie)
+                setMovieEpisodes(data.episodes)
                 setLoading(false)
             } catch (error) {
                 toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")

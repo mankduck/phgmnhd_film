@@ -98,7 +98,7 @@ const CountryMovie = () => {
                                 ))}
 
                             </div>
-                            {countryMovies.length > 1 ? (
+                            {countryMovies.length > 0 ? (
                                 <div className="pagination-style mt-30">
                                     <ul>
                                         {getPagination().map((page, index) => (
