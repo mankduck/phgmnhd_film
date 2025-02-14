@@ -13,6 +13,7 @@ const CartoonMovie = () => {
     const [totalPages, setTotalPages] = useState(0)
     const [category, setCategory] = useState([]);
     const [country, setCountry] = useState([]);
+    // const [year, setYear] = useState([]);
     const [param, setParam] = useState({
         country: "",
         category: "",
@@ -55,8 +56,10 @@ const CartoonMovie = () => {
             try {
                 const categoryRes = await movieAPI.getCategory();
                 const countryRes = await movieAPI.getCountry();
+                const yearRes = await movieAPI.getYear();
                 setCategory(categoryRes);
                 setCountry(countryRes);
+                // setYear(yearRes)
             } catch (error) {
                 toast.error("Không thể lấy dữ liệu! Vui lòng thử lại.");
             }
@@ -94,7 +97,7 @@ const CartoonMovie = () => {
         <>
             <Breadcrumb name="Phim Hoạt Hình" />
 
-            <Filter param={param} setParam={setParam} category={category} country={country} handleReset={handleReset} />
+            <Filter param={param} setParam={setParam} category={category} country={country} year={year} handleReset={handleReset} />
 
             {loading
                 ? (<Loader />)
@@ -156,5 +159,11 @@ const CartoonMovie = () => {
         </>
     )
 }
+
+const year = Array.from({ length: 2025 - 2001 + 1 }, (_, i) => {
+    const yearValue = 2001 + i;
+    return { id: i + 1, value: yearValue, name: `Năm ${yearValue}` };
+});
+
 
 export default CartoonMovie

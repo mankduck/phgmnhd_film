@@ -162,16 +162,16 @@ const MovieDetail = () => {
                                             <div className="social-share-wrap">
                                                 <span>Chia sẻ:</span>
                                                 <div className="social-style-1">
-                                                    <a className="facebook" href="https://www.facebook.com/phgmnhd" target="_blank" rel="noopener noreferrer">
+                                                    <a className="facebook" href="#">
                                                         <i className="zmdi zmdi-facebook"></i>
                                                     </a>
-                                                    <a className="pinterest" href="https://github.com/mankduck" target="_blank" rel="noopener noreferrer">
+                                                    <a className="pinterest" href="#">
                                                         <i className="zmdi zmdi-github"></i>
                                                     </a>
                                                     {/* <a className="linkedin" href="#">
                                                         <i className="zmdi zmdi-linkedin"></i>
                                                     </a> */}
-                                                    <a className="instagram" href="https://www.instagram.com/phgmnhd" target="_blank" rel="noopener noreferrer">
+                                                    <a className="instagram" href="#">
                                                         <i className="zmdi zmdi-instagram"></i>
                                                     </a>
                                                 </div>

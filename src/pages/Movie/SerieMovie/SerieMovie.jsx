@@ -92,7 +92,7 @@ const SerieMovie = () => {
         <>
             <Breadcrumb name="Phim Bộ" />
 
-            <Filter param={param} setParam={setParam} category={category} country={country} handleReset={handleReset} />
+            <Filter param={param} setParam={setParam} category={category} country={country} year={year} handleReset={handleReset} />
 
             {loading
                 ? (<Loader />)
@@ -154,5 +154,11 @@ const SerieMovie = () => {
         </>
     )
 }
+
+const year = Array.from({ length: 2025 - 2001 + 1 }, (_, i) => {
+    const yearValue = 2001 + i;
+    return { id: i + 1, value: yearValue, name: `Năm ${yearValue}` };
+});
+
 
 export default SerieMovie
