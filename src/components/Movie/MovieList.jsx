@@ -11,7 +11,8 @@ const MovieList = () => {
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const data = await movieAPI.getMovieNewUpdate(2)
+                const data = await movieAPI.getMovieNewUpdate(1)
+                console.log(data);
                 setMovies(data.items)
                 setLoading(false)
             } catch (err) {
@@ -90,13 +91,14 @@ const MovieList = () => {
                                             <div className="movie-wrap text-center">
                                                 <div className="movie-img">
                                                     <Link to={`/phim-moi/${item.slug}`}>
-                                                        <img src={item.thumb_url} alt={item.name} />
+                                                        <img src={item.poster_url} alt={item.name} />
                                                     </Link>
                                                 </div>
                                                 <div className="movie-content">
                                                     <h3 className="title">
                                                         <Link to={`/phim-moi/${item.slug}`}>{item.name}</Link>
                                                     </h3>
+                                                    <span>{item.origin_name}</span>
                                                     <div className="movie-btn">
                                                         <Link
                                                             to={`/phim-moi/${item.slug}`}
