@@ -39,6 +39,30 @@ const SearchMovie = () => {
     }, [keyword, currentPage])
 
 
+    const getPagination = () => {
+        const pages = []
+        const totalVisiblePages = 3
+
+        if (currentPage > 1) {
+            pages.push(currentPage - 1)
+        }
+
+        pages.push(currentPage)
+
+        if (currentPage < totalPages) {
+            pages.push(currentPage + 1)
+        }
+
+        if (currentPage > 2) {
+            pages.unshift('...')
+        }
+        if (currentPage < totalPages - 1) {
+            pages.push('...')
+        }
+
+        return [...new Set(pages)]
+    }
+
     return (
         <>
             <Breadcrumb name={breadcrumb} />
@@ -76,9 +100,27 @@ const SearchMovie = () => {
                                 ))}
 
                             </div>
-                            {searchMovies.length < 1 ? (
-                                <h4 className="text-white pt-100 pb-100 text-center">Không có phim nào</h4>
-                            ) : null}
+                            {searchMovies.length > 1 ? (
+                                <div className="pagination-style mt-30">
+                                    <ul>
+                                        {getPagination().map((page, index) => (
+                                            <li key={index}>
+                                                <a
+                                                    href="#"
+                                                    onClick={() => (typeof page === "number" ? setCurrentPage(page) : null)}
+                                                    className={page === currentPage ? "active" : ""}
+                                                >
+                                                    {page}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ) :
+                                (
+                                    <h4 className="text-white pt-100 pb-100 text-center">Không có phim nào</h4>
+                                )
+                            }
                         </div>
                     </div>)}
         </>

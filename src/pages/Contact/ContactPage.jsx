@@ -121,7 +121,7 @@ const ContactPage = () => {
                         <div className="map-wrapper relative">
                             <div className="google_map">
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.698649622355!2d105.80209297486307!3d21.04474048060858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab3d6f1cf6e1%3A0xd8149586c4bf6c21!2zbmfDtSA1IEhvw6BuZyBRdeG7kWMgVmnhu4d0LCBOZ2jEqWEgxJDDtCwgQ-G6p3UgR2nhuqV5LCBIw6AgTuG7mWkgMTIyMTAwLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1739460332412!5m2!1svi!2s"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d59587.9784046813!2d105.79576381968857!3d21.02273463975958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9bd9861ca1%3A0xe7887f7b72ca17a9!2zSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1739511900137!5m2!1svi!2s"
                                     width="100%"
                                     height="550"
                                     style={{ border: 0 }}
@@ -135,7 +135,9 @@ const ContactPage = () => {
                                     <div className="row">
                                         <div className="col-lg-5 ms-auto">
                                             <div className="contact-info-inner black">
-                                                <SingleContactInfo icon="zmdi-home" text="Ngõ 5 Hoàng Quốc Việt" subtext="Nghĩa Đô, Cầu Giấy, Hà Nội" />
+                                                {/* <SingleContactInfo icon="zmdi-home" text="Ngõ 5 Hoàng Quốc Việt" subtext="Nghĩa Đô, Cầu Giấy, Hà Nội" />
+                                                 */}
+                                                <SingleContactInfo icon="zmdi-home" text="Hà Nội"/>
                                                 <SingleContactInfo icon="zmdi-phone">
                                                     <p>+0921044773</p>
                                                 </SingleContactInfo>
