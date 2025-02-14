@@ -45,7 +45,7 @@ const Header = () => {
         }
     }, [navigate])
 
-    console.log(location);
+
 
     useEffect(() => {
         const fetchData = async () => {
