@@ -66,16 +66,15 @@ const Header = () => {
             <div className="container-fluid">
                 <a className="navbar-brand text-white fw-bold" href="/">Phgmnhd Film</a>
                 <button
-                    className="navbar-toggler"
+                    className="navbar-toggler mb-10"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown"
                     aria-controls="navbarNavDropdown"
                     aria-expanded="false"
-                    style={{ backgroundColor: 'white' }}
                     aria-label="Toggle navigation"
                 >
-                    <span className="navbar-toggler-icon"></span>
+                    <span className="zmdi zmdi-view-list-alt" style={{ color: 'white' }}></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav">
@@ -141,9 +140,15 @@ const Header = () => {
                         </li>
                     </ul>
                 </div>
-                <form className="d-flex" role="search">
-                    <input className="form-control me-2" type="search" placeholder="Tìm kiếm phim" aria-label="Search" />
-                    <button className="btn btn-danger bg-danger" type="submit">Search</button>
+                <form className="d-flex my-2" role="search" onSubmit={handleSearch}>
+                    <input className="form-control me-2"
+                        placeholder="Tìm kiếm phim"
+                        type="text"
+                        value={keyword}
+                        onChange={(e) => setKeyword(e.target.value)}
+                    // aria-label="Search" 
+                    />
+                    <button className="btn btn-danger bg-danger" type="submit"><i class="zmdi zmdi-search fw-bold"></i></button>
                 </form>
             </div>
         </nav>
