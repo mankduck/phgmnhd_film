@@ -1,11 +1,13 @@
-import React from "react"
-import { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
+import movieAPI from "../../api/axiosClient"
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
-
+import { toast } from "react-toastify"
 
 const Header = () => {
     const [keyword, setKeyword] = useState("")
+    const [category, setCategory] = useState([])
+    const [country, setCountry] = useState([])
     const navigate = useNavigate()
 
     const handleSearch = (event) => {
@@ -42,6 +44,36 @@ const Header = () => {
         }
     }, [navigate])
 
+
+    useEffect(() => {
+
+        const fetchCategory = async () => {
+            try {
+                const data = await movieAPI.getCategory()
+                setCategory(data)
+            } catch (error) {
+                toast.error("Không thể lấy dữ liệu thể loại! Vui lòng thử lại.")
+                setLoading(false)
+            }
+        }
+        fetchCategory()
+    }, [])
+
+    useEffect(() => {
+
+        const fetchCountry = async () => {
+            try {
+                const data = await movieAPI.getCountry()
+                setCountry(data)
+            } catch (error) {
+                toast.error("Không thể lấy dữ liệu quốc gia! Vui lòng thử lại.")
+                setLoading(false)
+            }
+        }
+        fetchCountry()
+    }, [])
+
+
     return (
         <header className="header-area bg-black section-padding-lr">
             <div className="container-fluid">
@@ -57,6 +89,32 @@ const Header = () => {
                                     <li><Link to="/phim-bo">Phim Bộ</Link></li>
                                     <li><Link to="/hoat-hinh">Hoạt Hình</Link></li>
                                     <li><Link to="/tv-show">TV Shows</Link></li>
+                                    <li><a href="#">Thể Loại</a>
+                                        <ul class="sub-menu">
+                                            {category.length > 0 ? (
+                                                category.map((item, index) => (
+                                                    <li key={index}>
+                                                        <Link to={`the-loai/${item.slug}`}>{item.name}</Link>
+                                                    </li>
+                                                ))
+                                            ) : (
+                                                <li>Đang tải...</li>
+                                            )}
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Quốc Gia</a>
+                                        <ul class="sub-menu">
+                                            {country.length > 0 ? (
+                                                country.map((item, index) => (
+                                                    <li key={index}>
+                                                        <Link to={`quoc-gia/${item.slug}`}>{item.name}</Link>
+                                                    </li>
+                                                ))
+                                            ) : (
+                                                <li>Đang tải...</li>
+                                            )}
+                                        </ul>
+                                    </li>
                                     <li><Link to="/lien-he">Liên Hệ</Link></li>
                                     <li><Link to="#">Comming Soon</Link></li>
                                 </ul>

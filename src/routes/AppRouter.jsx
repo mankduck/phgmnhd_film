@@ -9,12 +9,16 @@ import CartoonMovie from '../pages/Movie/Cartoon/CartoonMovie'
 import TVShow from '../pages/Movie/TVShow/TVShow'
 import SearchMovie from '../pages/Movie/SearchMovie/SearchMovie'
 import ContactPage from '../pages/Contact/ContactPage'
+import CategoriesMovie from '../pages/Movie/CategoriesMovie/CategoriesMovie'
+import CountryMovie from '../pages/Movie/CountryMovie/CountryMovie'
 
 const AppRouter = () => {
     return (
         <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/phim-le' element={<SingleMovie />} />
+            <Route path='/the-loai/:slug' element={<CategoriesMovie />} />
+            <Route path='/quoc-gia/:slug' element={<CountryMovie />} />
             <Route path='/phim-bo' element={<SerieMovie />} />
             <Route path='/tv-show' element={<TVShow />} />
             <Route path='/hoat-hinh' element={<CartoonMovie />} />

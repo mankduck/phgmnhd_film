@@ -9,6 +9,10 @@ const client = axios.create({
 
 const movieAPI = {
     // get
+    getCategory: () => client.get('the-loai'),
+    getCategoriesMovies: (slug, page) => client.get(`v1/api/the-loai/${slug}?page=${page}&limit=12`),
+    getCountryMovies: (slug, page) => client.get(`v1/api/quoc-gia/${slug}?page=${page}&limit=12`),
+    getCountry: () => client.get('quoc-gia'),
     getMovieNewUpdate: (page) => client.get(`danh-sach/phim-moi-cap-nhat?page=${page}`),
     getSingleMovies: (page) => client.get(`v1/api/danh-sach/phim-le?page=${page}&limit=12`),
     getSerieMovies: (page) => client.get(`v1/api/danh-sach/phim-bo?page=${page}&limit=12`),
