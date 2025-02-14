@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
 import movieAPI from "../../api/axiosClient"
 import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify"
 
 const Header = () => {
+    const location = useLocation();
     const [keyword, setKeyword] = useState("")
     const [category, setCategory] = useState([])
     const [country, setCountry] = useState([])
@@ -44,35 +45,22 @@ const Header = () => {
         }
     }, [navigate])
 
+    console.log(location);
 
     useEffect(() => {
-
-        const fetchCategory = async () => {
+        const fetchData = async () => {
             try {
-                const data = await movieAPI.getCategory()
-                setCategory(data)
+                const categoryRes = await movieAPI.getCategory()
+                const countryRes = await movieAPI.getCountry()
+                setCategory(categoryRes);
+                setCountry(countryRes);
             } catch (error) {
-                toast.error("Không thể lấy dữ liệu thể loại! Vui lòng thử lại.")
-                setLoading(false)
+                toast.error("Không thể lấy dữ liệu! Vui lòng thử lại.")
             }
-        }
-        fetchCategory()
-    }, [])
+        };
 
-    useEffect(() => {
-
-        const fetchCountry = async () => {
-            try {
-                const data = await movieAPI.getCountry()
-                setCountry(data)
-            } catch (error) {
-                toast.error("Không thể lấy dữ liệu quốc gia! Vui lòng thử lại.")
-                setLoading(false)
-            }
-        }
-        fetchCountry()
-    }, [])
-
+        fetchData();
+    }, []);
 
     return (
         <header className="header-area bg-black section-padding-lr">
@@ -85,10 +73,10 @@ const Header = () => {
                         <div className="main-menu main-theme-color-four">
                             <nav className="main-navigation">
                                 <ul>
-                                    <li><Link to="/phim-le">Phim Lẻ</Link></li>
-                                    <li><Link to="/phim-bo">Phim Bộ</Link></li>
-                                    <li><Link to="/hoat-hinh">Hoạt Hình</Link></li>
-                                    <li><Link to="/tv-show">TV Shows</Link></li>
+                                    <li><Link to="/phim-le" className={location.pathname == "/phim-le" ? "text-danger" : ""}>Phim Lẻ</Link></li>
+                                    <li><Link to="/phim-bo" className={location.pathname == "/phim-bo" ? "text-danger" : ""}>Phim Bộ</Link></li>
+                                    <li><Link to="/hoat-hinh" className={location.pathname == "/hoat-hinh" ? "text-danger" : ""}>Hoạt Hình</Link></li>
+                                    <li><Link to="/tv-show" className={location.pathname == "/tv-show" ? "text-danger" : ""}>TV Shows</Link></li>
                                     <li><a href="#">Thể Loại</a>
                                         <ul class="sub-menu">
                                             {category.length > 0 ? (
@@ -115,7 +103,7 @@ const Header = () => {
                                             )}
                                         </ul>
                                     </li>
-                                    <li><Link to="/lien-he">Liên Hệ</Link></li>
+                                    <li><Link to="/lien-he" className={location.pathname == "/lien-he" ? "text-danger" : ""}>Liên Hệ</Link></li>
                                     <li><Link to="#">Comming Soon</Link></li>
                                 </ul>
                             </nav>

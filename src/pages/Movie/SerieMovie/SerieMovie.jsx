@@ -4,30 +4,64 @@ import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb"
 import Loader from "../../../components/Loader/Loader"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
+import Filter from "../../../components/Filter/Filter";
 
 const SerieMovie = () => {
     const [serieMovies, setSerieMovies] = useState([])
     const [loading, setLoading] = useState()
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
+    const [category, setCategory] = useState([]);
+    const [country, setCountry] = useState([]);
+    const [param, setParam] = useState({
+        country: "",
+        category: "",
+        year: "",
+    });
 
+    const fetchSerieMovie = async (page, param) => {
+        setLoading(true)
+        try {
+            const data = await movieAPI.getSerieMovies(page, param)
+            const movies = data.data.items;
+            setSerieMovies(movies)
+            setTotalPages(data.data.params.pagination.totalPages)
+            setLoading(false)
+            if (movies.length === 0) {
+                toast.warning("Không có phim nào phù hợp với điều kiện bạn tìm!");
+            }
+        } catch (error) {
+            toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")
+            setLoading(false)
+        }
+    }
 
     useEffect(() => {
+        fetchSerieMovie(currentPage, param);
+    }, [currentPage, param]);
 
-        const fetchSerieMovie = async (page) => {
-            setLoading(true)
+    const handleReset = () => {
+        setParam({
+            country: "",
+            category: "",
+            year: "",
+        });
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
             try {
-                const data = await movieAPI.getSerieMovies(page)
-                setSerieMovies(data.data.items)
-                setTotalPages(data.data.params.pagination.totalPages)
-                setLoading(false)
+                const categoryRes = await movieAPI.getCategory();
+                const countryRes = await movieAPI.getCountry();
+                setCategory(categoryRes);
+                setCountry(countryRes);
             } catch (error) {
-                toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")
-                setLoading(false)
+                toast.error("Không thể lấy dữ liệu! Vui lòng thử lại.");
             }
-        }
-        fetchSerieMovie(currentPage)
-    }, [currentPage])
+        };
+
+        fetchData();
+    }, []);
 
     const getPagination = () => {
         const pages = []
@@ -56,7 +90,9 @@ const SerieMovie = () => {
 
     return (
         <>
-            <Breadcrumb name="Phim Lẻ" />
+            <Breadcrumb name="Phim Bộ" />
+
+            <Filter param={param} setParam={setParam} category={category} country={country} handleReset={handleReset} />
 
             {loading
                 ? (<Loader />)
@@ -92,21 +128,27 @@ const SerieMovie = () => {
 
                             </div>
 
-                            <div className="pagination-style mt-30">
-                                <ul>
-                                    {getPagination().map((page, index) => (
-                                        <li key={index}>
-                                            <a
-                                                href="#"
-                                                onClick={() => (typeof page === 'number' ? setCurrentPage(page) : null)} // Chỉ thay đổi khi click vào số trang
-                                                className={page === currentPage ? 'active' : ''}
-                                            >
-                                                {page}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            {serieMovies.length > 0 ? (
+                                <div className="pagination-style mt-30">
+                                    <ul>
+                                        {getPagination().map((page, index) => (
+                                            <li key={index}>
+                                                <a
+                                                    href="#"
+                                                    onClick={() => (typeof page === "number" ? setCurrentPage(page) : null)}
+                                                    className={page === currentPage ? "active" : ""}
+                                                >
+                                                    {page}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ) :
+                                (
+                                    <h4 className="text-white pt-100 pb-100 text-center">Không có phim nào</h4>
+                                )
+                            }
                         </div>
                     </div>)}
         </>
