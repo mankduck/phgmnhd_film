@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import movieAPI from "../../../api/axiosClient";
-import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb";
-import Loader from "../../../components/Loader/Loader";
+import movieAPI from "@api/axiosClient";
+import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb";
+import Loader from "@components/Frontend/Loader/Loader";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import Filter from "../../../components/Filter/Filter";
+import Filter from "@components/Frontend/Filter/Filter";
 
 const SingleMovie = () => {
     const [singleMovies, setSingleMovies] = useState([]);

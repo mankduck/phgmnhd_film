@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import movieAPI from "../../api/axiosClient"
+import movieAPI from "@api/axiosClient"
 import { useNavigate } from "react-router-dom"
 import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify"
