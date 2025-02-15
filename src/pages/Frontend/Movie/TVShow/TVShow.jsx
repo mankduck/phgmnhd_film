@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
-import movieAPI from "../../../api/axiosClient"
-import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb"
-import Loader from "../../../components/Loader/Loader"
+import movieAPI from "@api/axiosClient"
+import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
+import Loader from "@components/Frontend/Loader/Loader"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
-import Filter from "../../../components/Filter/Filter";
+import Filter from "@components/Frontend/Filter/Filter";
 
-const SerieMovie = () => {
-    const [serieMovies, setSerieMovies] = useState([])
+const TVShow = () => {
+    const [tVShow, setTVShow] = useState([])
     const [loading, setLoading] = useState()
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
@@ -19,12 +19,12 @@ const SerieMovie = () => {
         year: "",
     });
 
-    const fetchSerieMovie = async (page, param) => {
+    const fetchTVShow = async (page, param) => {
         setLoading(true)
         try {
-            const data = await movieAPI.getSerieMovies(page, param)
+            const data = await movieAPI.getTVShows(page, param)
             const movies = data.data.items;
-            setSerieMovies(movies)
+            setTVShow(movies)
             setTotalPages(data.data.params.pagination.totalPages)
             setLoading(false)
             if (movies.length === 0) {
@@ -37,7 +37,7 @@ const SerieMovie = () => {
     }
 
     useEffect(() => {
-        fetchSerieMovie(currentPage, param);
+        fetchTVShow(currentPage, param);
     }, [currentPage, param]);
 
     const handleReset = () => {
@@ -90,7 +90,7 @@ const SerieMovie = () => {
 
     return (
         <>
-            <Breadcrumb name="Phim Bộ" />
+            <Breadcrumb name="TV Show" />
 
             <Filter param={param} setParam={setParam} category={category} country={country} year={year} handleReset={handleReset} />
 
@@ -100,7 +100,7 @@ const SerieMovie = () => {
                     <div className="movie-list section-padding-lr section-pt-50 section-pb-50 bg-black">
                         <div className="container-fluid">
                             <div className="row">
-                                {serieMovies.map((item) => (
+                                {tVShow.map((item) => (
                                     <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12" key={item._id}>
                                         <div className="movie-wrap text-center mb-30">
                                             <div className="movie-img">
@@ -128,7 +128,7 @@ const SerieMovie = () => {
 
                             </div>
 
-                            {serieMovies.length > 0 ? (
+                            {tVShow.length > 0 ? (
                                 <div className="pagination-style mt-30">
                                     <ul>
                                         {getPagination().map((page, index) => (
@@ -160,5 +160,4 @@ const year = Array.from({ length: 2025 - 2001 + 1 }, (_, i) => {
     return { id: i + 1, value: yearValue, name: `Năm ${yearValue}` };
 });
 
-
-export default SerieMovie
+export default TVShow

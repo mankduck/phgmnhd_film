@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import emailjs from "emailjs-com"
 import { toast } from "react-toastify"
-import Breadcrumb from "../../components/Breadcrumb/Breadcrumb"
-import Loader from "../../components/Loader/Loader"
+import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
+import Loader from "@components/Frontend/Loader/Loader"
 import { Link } from "react-router-dom"
 
 const ContactPage = () => {
@@ -137,7 +137,7 @@ const ContactPage = () => {
                                             <div className="contact-info-inner black">
                                                 {/* <SingleContactInfo icon="zmdi-home" text="Ngõ 5 Hoàng Quốc Việt" subtext="Nghĩa Đô, Cầu Giấy, Hà Nội" />
                                                  */}
-                                                <SingleContactInfo icon="zmdi-home" text="Hà Nội"/>
+                                                <SingleContactInfo icon="zmdi-home" text="Hà Nội" />
                                                 <SingleContactInfo icon="zmdi-phone">
                                                     <p>+0921044773</p>
                                                 </SingleContactInfo>

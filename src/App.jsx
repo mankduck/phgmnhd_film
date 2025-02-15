@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { BrowserRouter as Router } from 'react-router-dom'
-import Layout from './components/Layout'
+import Layout from './components/Layout/LayoutFrontend'
 import AppRouter from './routes/AppRouter'
 import { requestWakeLock, releaseWakeLock } from "./utils/screen-lock"
 import { ToastContainer, toast } from "react-toastify"

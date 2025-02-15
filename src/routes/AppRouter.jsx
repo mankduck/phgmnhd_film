@@ -1,16 +1,16 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import HomePage from '../pages/Home/HomePage'
-import SingleMovie from '../pages/Movie/SingleMovie/SingleMovie'
-import MovieDetail from '../pages/Movie/MovieDetail/MovieDetail'
-import SerieMovie from '../pages/Movie/SerieMovie/SerieMovie'
-import CartoonMovie from '../pages/Movie/Cartoon/CartoonMovie'
-import TVShow from '../pages/Movie/TVShow/TVShow'
-import SearchMovie from '../pages/Movie/SearchMovie/SearchMovie'
-import ContactPage from '../pages/Contact/ContactPage'
-import CategoriesMovie from '../pages/Movie/CategoriesMovie/CategoriesMovie'
-import CountryMovie from '../pages/Movie/CountryMovie/CountryMovie'
+import HomePage from '../pages/Frontend/Home/HomePage'
+import SingleMovie from '../pages/Frontend/Movie/SingleMovie/SingleMovie'
+import MovieDetail from '../pages/Frontend/Movie/MovieDetail/MovieDetail'
+import SerieMovie from '../pages/Frontend/Movie/SerieMovie/SerieMovie'
+import CartoonMovie from '../pages/Frontend/Movie/Cartoon/CartoonMovie'
+import TVShow from '../pages/Frontend/Movie/TVShow/TVShow'
+import SearchMovie from '../pages/Frontend/Movie/SearchMovie/SearchMovie'
+import ContactPage from '../pages/Frontend/Contact/ContactPage'
+import CategoriesMovie from '../pages/Frontend/Movie/CategoriesMovie/CategoriesMovie'
+import CountryMovie from '../pages/Frontend/Movie/CountryMovie/CountryMovie'
 
 const AppRouter = () => {
     return (

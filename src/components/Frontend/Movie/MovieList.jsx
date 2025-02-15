@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import Slider from "react-slick"
-import movieAPI from "../../api/axiosClient"
-import Loader from "../Loader/Loader"
+import movieAPI from "@api/axiosClient"
+import Loader from "@components/Frontend/Loader/Loader"
 import { Link } from "react-router-dom"
-import HomeComponent from "../HomeComponent/HomeComponent"
+import HomeComponent from "@components/Frontend/HomeComponent/HomeComponent"
 
 const MovieList = () => {
     const [movies, setMovies] = useState([])

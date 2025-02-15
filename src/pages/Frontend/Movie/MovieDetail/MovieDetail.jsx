@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
 import { useParams } from "react-router-dom"
-import movieAPI from "../../../api/axiosClient"
+import movieAPI from "@api/axiosClient"
 import Hls from "hls.js"
 import Slider from "react-slick"
 import { toast } from "react-toastify"
-import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb"
-import Loader from "../../../components/Loader/Loader"
+import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
+import Loader from "@components/Frontend/Loader/Loader"
 
 const MovieDetail = () => {
     const { slug } = useParams()

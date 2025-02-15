@@ -1,8 +1,8 @@
 import React from "react"
 
-import SlideHomeTop from "../../components/Slide/SlideHomeTop"
-import MovieList from "../../components/Movie/MovieList"
-import HomeComponent from "../../components/HomeComponent/HomeComponent"
+import SlideHomeTop from "@components/Frontend/Slide/SlideHomeTop"
+import MovieList from "@components/Frontend/Movie/MovieList"
+import HomeComponent from "@components/Frontend/HomeComponent/HomeComponent"
 
 
 const HomePage = () => {

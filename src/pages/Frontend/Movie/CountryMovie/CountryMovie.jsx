@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import movieAPI from "../../../api/axiosClient"
-import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb"
-import Loader from "../../../components/Loader/Loader"
+import movieAPI from "@api/axiosClient"
+import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
 import { Link, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
+import Loader from "@components/Frontend/Loader/Loader"
 
 const CountryMovie = () => {
     const { slug } = useParams()

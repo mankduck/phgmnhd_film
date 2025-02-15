@@ -1,10 +1,10 @@
 import React from "react"
 import { Link } from 'react-router-dom'
 
-import Header from "./Header/Header"
-import Footer from "./Footer/Footer"
+import Header from "@components/Frontend/Header/Header"
+import Footer from "@components/Frontend/Footer/Footer"
 
-const Layout = ({ children }) => {
+const LayoutFrontend = ({ children }) => {
     return (
         <div className="main-wrapper">
             <Header />
@@ -14,4 +14,4 @@ const Layout = ({ children }) => {
     )
 }
 
-export default Layout
+export default LayoutFrontend

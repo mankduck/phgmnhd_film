@@ -1,69 +1,43 @@
 import React, { useEffect, useState } from "react"
-import movieAPI from "../../../api/axiosClient"
-import Breadcrumb from "../../../components/Breadcrumb/Breadcrumb"
-import Loader from "../../../components/Loader/Loader"
+import { useSearchParams } from "react-router-dom"
+import movieAPI from "@api/axiosClient"
+import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
+import Loader from "@components/Frontend/Loader/Loader"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
-import Filter from "../../../components/Filter/Filter";
 
-const CartoonMovie = () => {
-    const [cartoonMovies, setCartoonMovies] = useState([])
-    const [loading, setLoading] = useState()
+const SearchMovie = () => {
+    const [searchMovies, setSearchMovies] = useState([])
+    const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
-    const [category, setCategory] = useState([]);
-    const [country, setCountry] = useState([]);
-    const [param, setParam] = useState({
-        country: "",
-        category: "",
-        year: "",
-    });
-
-
-    const fetchCartoonMovie = async (page, param) => {
-        setLoading(true)
-        try {
-            const data = await movieAPI.getCartoon(page, param)
-            const movies = data.data.items;
-            setCartoonMovies(movies)
-            setTotalPages(data.data.params.pagination.totalPages)
-            setLoading(false)
-            if (movies.length === 0) {
-                toast.warning("Không có phim nào phù hợp với điều kiện bạn tìm!");
-            }
-        } catch (error) {
-            toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")
-            setLoading(false)
-        }
-    }
-
+    const [searchParams] = useSearchParams()
+    const keyword = searchParams.get("keyword") || ""
+    const [breadcrumb, setBreadcrumb] = useState("")
 
     useEffect(() => {
-        fetchCartoonMovie(currentPage, param);
-    }, [currentPage, param]);
+        const fetchSearchMovie = async () => {
+            if (!keyword.trim()) return
 
-    const handleReset = () => {
-        setParam({
-            country: "",
-            category: "",
-            year: "",
-        });
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
+            setLoading(true)
             try {
-                const categoryRes = await movieAPI.getCategory();
-                const countryRes = await movieAPI.getCountry();
-                setCategory(categoryRes);
-                setCountry(countryRes);
+                const data = await movieAPI.getMovieByKeyword(keyword, currentPage)
+                const movies = data.data.items;
+                setSearchMovies(movies);
+                setTotalPages(data.data.params.pagination.totalPages)
+                setBreadcrumb(`Kết quả tìm kiếm cho "${keyword}"`)
+                if (movies.length === 0) {
+                    toast.warning("Không có phim nào phù hợp với từ khóa bạn tìm!");
+                }
             } catch (error) {
-                toast.error("Không thể lấy dữ liệu! Vui lòng thử lại.");
+                toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")
+            } finally {
+                setLoading(false)
             }
-        };
+        }
+        fetchSearchMovie()
+    }, [keyword, currentPage])
 
-        fetchData();
-    }, []);
 
     const getPagination = () => {
         const pages = []
@@ -89,12 +63,9 @@ const CartoonMovie = () => {
         return [...new Set(pages)]
     }
 
-
     return (
         <>
-            <Breadcrumb name="Phim Hoạt Hình" />
-
-            <Filter param={param} setParam={setParam} category={category} country={country} year={year} handleReset={handleReset} />
+            <Breadcrumb name={breadcrumb} />
 
             {loading
                 ? (<Loader />)
@@ -102,7 +73,7 @@ const CartoonMovie = () => {
                     <div className="movie-list section-padding-lr section-pt-50 section-pb-50 bg-black">
                         <div className="container-fluid">
                             <div className="row">
-                                {cartoonMovies.map((item) => (
+                                {searchMovies.map((item) => (
                                     <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12" key={item._id}>
                                         <div className="movie-wrap text-center mb-30">
                                             <div className="movie-img">
@@ -129,8 +100,7 @@ const CartoonMovie = () => {
                                 ))}
 
                             </div>
-
-                            {cartoonMovies.length > 0 ? (
+                            {searchMovies.length > 0 ? (
                                 <div className="pagination-style mt-30">
                                     <ul>
                                         {getPagination().map((page, index) => (
@@ -157,10 +127,4 @@ const CartoonMovie = () => {
     )
 }
 
-const year = Array.from({ length: 2025 - 2001 + 1 }, (_, i) => {
-    const yearValue = 2001 + i;
-    return { id: i + 1, value: yearValue, name: `Năm ${yearValue}` };
-});
-
-
-export default CartoonMovie
+export default SearchMovie
