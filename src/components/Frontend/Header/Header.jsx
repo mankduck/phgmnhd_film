@@ -64,7 +64,7 @@ const Header = () => {
     return (
         <nav className="navbar navbar-expand-lg bg-black">
             <div className="container-fluid">
-                <a className="navbar-brand text-white fw-bold" href="/">Phim Cũ</a>
+                <a className="navbar-brand text-white fw-bold text-uppercase" href="/">Phim Cũ</a>
                 <button
                     className="navbar-toggler mb-10"
                     type="button"
