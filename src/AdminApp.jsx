@@ -1,9 +1,11 @@
 import React, { useEffect } from "react"
 import { BrowserRouter as Router } from 'react-router-dom'
+import LayoutAdmin from "@components/Layout/LayoutAdmin"
+import AdminRouter from "./routes/AdminRouter"
 import { requestWakeLock, releaseWakeLock } from "./utils/screen-lock"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import AdminRouter from "./routes/AdminRouter"
+
 
 const AdminApp = () => {
     useEffect(() => {
@@ -22,9 +24,12 @@ const AdminApp = () => {
 
 
     return (
-        <AdminRouter>
-            
-        </AdminRouter>
+        <Router>
+            <LayoutAdmin>
+                <AdminRouter />
+            </LayoutAdmin>
+            <ToastContainer position="top-right" autoClose={3000} />
+        </Router>
     )
 }
 
