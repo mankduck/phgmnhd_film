@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const AdminLogin = () => {
     const [email, setEmail] = useState("");
@@ -9,15 +10,31 @@ const AdminLogin = () => {
     const navigate = useNavigate();
 
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        if (email === "admin@example.com" && password === "123456") {
-            localStorage.setItem("admin_token", "fake-token");
-            navigate("/admin-phim-cu");
-        } else {
-            setError("Sai email hoặc mật khẩu");
+        setError("");
+        const apiUrl = import.meta.env.VITE_API_URL; // Nếu dùng Vite
+
+        try {
+            const { data } = await axios.post(`${apiUrl}/api/v1/auth/login`, { email, password });
+
+            localStorage.setItem("admin_token", data.token); // Lưu token vào localStorage
+            navigate("/admin-phim-cu"); // Chuyển hướng đến trang admin
+        } catch (error) {
+            if (error.response) {
+                if (error.response.status === 400) {
+                    setError("Vui lòng nhập email và mật khẩu.");
+                } else if (error.response.status === 401) {
+                    setError("Email hoặc mật khẩu không đúng.");
+                } else {
+                    setError("Lỗi server, vui lòng thử lại sau.");
+                }
+            } else {
+                setError("Không thể kết nối đến server.");
+            }
         }
     };
+
 
     return (
         <div className="main-wrapper">
