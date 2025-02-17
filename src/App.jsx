@@ -5,6 +5,7 @@ import AppRouter from './routes/AppRouter'
 import { requestWakeLock, releaseWakeLock } from "./utils/screen-lock"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { AuthProvider } from "./context/AuthContext"
 
 const App = () => {
   useEffect(() => {
@@ -24,12 +25,14 @@ const App = () => {
 
 
   return (
-    <Router>
-      <Layout>
-        <AppRouter />
-      </Layout>
-      <ToastContainer position="top-right" autoClose={3000} />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Layout>
+          <AppRouter />
+        </Layout>
+        <ToastContainer position="top-right" autoClose={3000} />
+      </Router>
+    </AuthProvider>
   )
 }
 

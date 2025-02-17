@@ -3,41 +3,74 @@ import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useAuth } from "@context/AuthContext";
 
 const Login = () => {
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
+    const { login } = useAuth()
+    const [emailLogin, setEmailLogin] = useState("");
+    const [passwordLogin, setPasswordLogin] = useState("");
+    const [errorLogin, setErrorLogin] = useState("");
+
+    const [emailReg, setEmailReg] = useState("");
+    const [usernameReg, setUsernameReg] = useState("");
+    const [passwordReg, setPasswordReg] = useState("");
+    const [errorReg, setErrorReg] = useState("");
+
+    const apiUrl = import.meta.env.VITE_API_URL;
 
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setError("");
-        const apiUrl = import.meta.env.VITE_API_URL; // Nếu dùng Vite
-        console.log(apiUrl);
+        setErrorLogin("");
 
         try {
-            const { data } = await axios.post(`${apiUrl}/api/v1/auth/login`, { email, password });
+
+            const { data } = await axios.post(`${apiUrl}/api/v1/auth/login`, { emailLogin, passwordLogin });
             if (data.user) {
-                localStorage.setItem("user", JSON.stringify(data.user)); // Lưu toàn bộ thông tin user
+                login(data.user);
+                navigate("/");
+                toast.success("Đăng nhập thành công!");
             }
-            console.log(data);
-            navigate("/");
-            toast.success("Đăng nhập thành công!")
         } catch (error) {
             if (error.response) {
                 if (error.response.status === 400) {
-                    setError("Vui lòng nhập email và mật khẩu.");
+                    setErrorLogin(error.response.data.message);
                 } else if (error.response.status === 401) {
-                    setError("Email hoặc mật khẩu không đúng.");
+                    setErrorLogin(error.response.data.message);
                 } else {
-                    setError("Lỗi server, vui lòng thử lại sau.");
+                    setErrorLogin("Lỗi server, vui lòng thử lại sau.");
                     console.error("ERR: " + error)
                 }
             } else {
-                setError("Không thể kết nối đến server.");
+                setErrorLogin("Không thể kết nối đến server.");
+                console.error("ERR: " + error)
+            }
+        }
+    };
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        setErrorReg("");
+
+        try {
+            const { data } = await axios.post(`${apiUrl}/api/v1/auth/register`, { emailReg, passwordReg, usernameReg });
+            if (data) {
+                setEmailReg("")
+                setPasswordReg("")
+                setUsernameReg("")
+                toast.success("Đăng kí thành công, vui lòng quay lại đăng nhập!");
+            }
+        } catch (error) {
+            if (error.response) {
+                if (error.response.status === 400) {
+                    setErrorReg(error.response.data.message);
+                } else {
+                    setErrorReg("Lỗi server, vui lòng thử lại sau.");
+                    console.error("ERR: " + error)
+                }
+            } else {
+                setErrorReg("Không thể kết nối đến server.");
                 console.error("ERR: " + error)
             }
         }
@@ -67,14 +100,14 @@ const Login = () => {
                                                     <div className="login-input-box">
                                                         <input type="email"
                                                             name="email"
-                                                            value={email}
-                                                            onChange={(e) => setEmail(e.target.value)}
+                                                            value={emailLogin}
+                                                            onChange={(e) => setEmailLogin(e.target.value)}
                                                             required
                                                             placeholder="Email của bạn" />
                                                         <input type="password"
                                                             name="password"
-                                                            value={password}
-                                                            onChange={(e) => setPassword(e.target.value)}
+                                                            value={passwordLogin}
+                                                            onChange={(e) => setPasswordLogin(e.target.value)}
                                                             required
                                                             placeholder="Password" />
                                                     </div>
@@ -84,7 +117,7 @@ const Login = () => {
                                                             <label>Remember me</label>
                                                             <a href="#">Forgot Password?</a>
                                                         </div> */}
-                                                        {error && <p className="text-red-500 text-center">{error}</p>}
+                                                        {errorLogin && <p className="text-red-500 text-center">{errorLogin}</p>}
                                                         <div className="button-box">
                                                             <button className="login-btn btn" type="submit">
                                                                 <span>Đăng Nhập</span>
@@ -98,12 +131,35 @@ const Login = () => {
                                     <div id="lg2" className="tab-pane">
                                         <div className="login-form-container border-black">
                                             <div className="login-register-form black-style">
-                                                <form action="#" method="post">
+                                                <form onSubmit={handleRegister}>
                                                     <div className="login-input-box">
-                                                        <input type="text" name="user-name" placeholder="User Name" />
-                                                        <input type="password" name="user-password" placeholder="Password" />
-                                                        <input name="user-email" placeholder="Email" type="email" />
+                                                        <input
+                                                            type="text"
+                                                            name="username"
+                                                            value={usernameReg}
+                                                            onChange={(e) => setUsernameReg(e.target.value)}
+                                                            required
+                                                            placeholder="Username của bạn"
+                                                        />
+                                                        <input
+                                                            type="password"
+                                                            name="password"
+                                                            value={passwordReg}
+                                                            onChange={(e) => setPasswordReg(e.target.value)}
+                                                            required
+                                                            placeholder="Password của bạn"
+                                                        />
+                                                        <input
+                                                            type="email"
+                                                            name="email"
+                                                            value={emailReg}
+                                                            onChange={(e) => setEmailReg(e.target.value)}
+                                                            required
+                                                            placeholder="Email của bạn"
+                                                        />
                                                     </div>
+                                                    {errorReg && <p className="text-red-500 text-center">{errorReg}</p>}
+
                                                     <div className="button-box">
                                                         <button className="register-btn btn" type="submit">
                                                             <span>Đăng Kí</span>

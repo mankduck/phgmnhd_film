@@ -3,14 +3,24 @@ import movieAPI from "@api/axiosClient"
 import { useNavigate } from "react-router-dom"
 import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify"
+import { useAuth } from "@context/AuthContext";
 
 const Header = () => {
+    const { user, logout } = useAuth();
     const location = useLocation();
     const [keyword, setKeyword] = useState("")
     const [category, setCategory] = useState([])
     const [country, setCountry] = useState([])
     const [username, setUsername] = useState("");
     const navigate = useNavigate()
+
+
+    // useEffect(() => {
+    //     const storedUser = localStorage.getItem("user");
+    //     if (storedUser) {
+    //         setUsername(JSON.parse(storedUser).name);
+    //     }
+    // }, []);
 
     const handleSearch = (event) => {
         event.preventDefault()
@@ -62,13 +72,12 @@ const Header = () => {
         fetchData();
     }, []);
 
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+        toast.success("Đăng xuất thành công!")
+    };
 
-    useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-            setUsername(JSON.parse(storedUser).name);
-        }
-    }, []);
 
     return (
         <nav className="navbar navbar-expand-lg bg-black">
@@ -144,30 +153,31 @@ const Header = () => {
                                 )}
                             </ul>
                         </li>
-                        <li className="nav-item">
-                            {username
-                                ?
-                                <li className="nav-item dropdown">
-                                    <a
-                                        className="nav-link dropdown-toggle text-white"
-                                        href="#"
-                                        role="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                    >
-                                        Chào, {username}
-                                    </a>
-                                    <ul className="dropdown-menu"
-                                    >
-                                        <Link to="/dang-xuat" className="nav-link text-white">Đăng Xuất</Link>
-                                    </ul>
-                                </li>
-                                :
-
+                        {/* <li className="nav-item"> */}
+                        {user ? (
+                            <li className="nav-item dropdown">
+                                <a
+                                    className="nav-link dropdown-toggle text-white"
+                                    href="#"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
+                                    Chào, {user.name}
+                                </a>
+                                <ul className="dropdown-menu">
+                                    <li>
+                                        <Link to="/" className="dropdown-item" onClick={handleLogout}>Đăng Xuất</Link>
+                                    </li>
+                                </ul>
+                            </li>
+                        ) : (
+                            <li className="nav-item">
                                 <Link to="/dang-nhap" className="nav-link text-white">Đăng Nhập</Link>
+                            </li>
+                        )}
 
-                            }
-                        </li>
+                        {/* </li> */}
                     </ul>
                 </div>
                 <form className="d-flex my-2" role="search" onSubmit={handleSearch}>
