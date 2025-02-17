@@ -26,7 +26,7 @@ const Login = () => {
 
         try {
 
-            const { data } = await axios.post(`${apiUrl}/api/v1/auth/login`, { emailLogin, passwordLogin });
+            const { data } = await axios.post(`https://phgmnhd-film-backend.onrender.com/api/v1/auth/login`, { emailLogin, passwordLogin });
             if (data.user) {
                 login(data.user);
                 navigate("/");
