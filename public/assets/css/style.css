@@ -180,6 +180,10 @@ h6 {
   margin-bottom: 30px;
 }
 
+.ml-10{
+  margin-left: 10px;
+}
+
 p:last-child {
   margin-bottom: 0;
 }
@@ -716,6 +720,14 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 
 .section-pb-70 {
   padding-bottom: 90px;
+}
+
+.pt-100{
+  padding-top: 100px;
+}
+
+.pb-100{
+  padding-bottom: 100px;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
@@ -1551,7 +1563,7 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 }
 
 .btn {
-  background: #0259ae;
+  /* background: #0259ae; */
   color: #ffffff;
   border-radius: 0;
   font-weight: 600;
@@ -2885,7 +2897,10 @@ only screen and (min-width: 768px) and (max-width: 991px) {
 }
 
 .main-menu ul>li .sub-menu {
-  width: 180px;
+  width: 450px;
+  column-count: 4;
+  column-gap: 20px;
+  /* width: 180px; */
   -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
   position: absolute;
@@ -9034,3 +9049,8 @@ only screen and (max-width: 767px) {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
+/* 
+.h-300{
+  height: 600px !important;
+} */
