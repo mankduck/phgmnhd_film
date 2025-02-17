@@ -8,6 +8,7 @@ import { useAuth } from "@context/AuthContext";
 const Login = () => {
 
     const { login } = useAuth()
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [emailLogin, setEmailLogin] = useState("");
     const [passwordLogin, setPasswordLogin] = useState("");
     const [errorLogin, setErrorLogin] = useState("");
@@ -24,6 +25,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         setErrorLogin("");
+        setIsLoggingIn(true);
 
         try {
 
@@ -47,6 +49,8 @@ const Login = () => {
                 setErrorLogin("Không thể kết nối đến server.");
                 console.error("ERR: " + error)
             }
+        }finally{
+            setIsLoggingIn(false);
         }
     };
 
@@ -120,8 +124,8 @@ const Login = () => {
                                                         </div> */}
                                                         {errorLogin && <p className="text-red-500 text-center">{errorLogin}</p>}
                                                         <div className="button-box">
-                                                            <button className="login-btn btn" type="submit">
-                                                                <span>Đăng Nhập</span>
+                                                            <button className="login-btn btn" type="submit" disabled={isLoggingIn}>
+                                                                <span>{isLoggingIn ? 'Đang đăng nhập...' : 'Đăng nhập'}</span>
                                                             </button>
                                                         </div>
                                                     </div>
