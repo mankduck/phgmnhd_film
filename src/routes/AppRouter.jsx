@@ -11,6 +11,7 @@ import SearchMovie from '../pages/Frontend/Movie/SearchMovie/SearchMovie'
 import ContactPage from '../pages/Frontend/Contact/ContactPage'
 import CategoriesMovie from '../pages/Frontend/Movie/CategoriesMovie/CategoriesMovie'
 import CountryMovie from '../pages/Frontend/Movie/CountryMovie/CountryMovie'
+import Login from '../pages/Auth/Login'
 
 const AppRouter = () => {
     return (
@@ -25,6 +26,7 @@ const AppRouter = () => {
             <Route path='/:category/:slug' element={<MovieDetail />} />
             <Route path="/search" element={<SearchMovie />} />
             <Route path="/lien-he" element={<ContactPage />} />
+            <Route path="/dang-nhap" element={<Login />} />
         </Routes>
     )
 }
