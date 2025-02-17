@@ -5,17 +5,13 @@ import HomeAdmin from "../pages/Backend/Home/HomeAdmin";
 import UserIndex from "../pages/Backend/User/UserIndex";
 
 const isAuthenticated = () => {
-    return localStorage.getItem("admin_token"); // Kiểm tra có token đăng nhập không
+    return localStorage.getItem("admin_token");
 };
 
 const AdminRouter = () => {
     return (
         <Routes>
-            {/* <Route
-                path="/admin-phim-cu/*"
-                element={isAuthenticated() ? <HomeAdmin /> : <Navigate to="/admin-phim-cu/login" />}
-            />
-            <Route path="/admin-phim-cu/login" element={<AdminLogin />} /> */}
+
             <Route path="/admin-phim-cu/tai-khoan" element={<UserIndex />} />
 
         </Routes>

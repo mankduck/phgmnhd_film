@@ -16,6 +16,7 @@ const Login = () => {
     const [usernameReg, setUsernameReg] = useState("");
     const [passwordReg, setPasswordReg] = useState("");
     const [errorReg, setErrorReg] = useState("");
+    const navigate = useNavigate();
 
     const apiUrl = import.meta.env.VITE_API_URL;
 
