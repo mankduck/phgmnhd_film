@@ -72,7 +72,7 @@ const Header = () => {
         fetchData();
     }, []);
 
-    const handleClickNumberRandom = (e) => {
+    const handleClick = (e) => {
         e.preventDefault(); 
         toast.warning("Chức năng đang được phát triển, chờ xíu nhé!")
     };
@@ -159,7 +159,7 @@ const Header = () => {
                             </ul>
                         </li>
                         <li className="nav-item">
-                            <Link to="/quay-so-may-man" className="nav-link text-white" onClick={handleClickNumberRandom}>Quay Số May Mắn</Link>
+                            <Link to="/quay-so-may-man" className="nav-link text-white" onClick={handleClick}>Quay Số May Mắn</Link>
                         </li>
                         {user ? (
                             <li className="nav-item dropdown">
@@ -174,8 +174,8 @@ const Header = () => {
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li>
-                                        <Link to="/yeu-thich" className="dropdown-item" onClick={handleLogout}>Phim Yêu Thích</Link>
-                                        <Link to="/tai-khoan" className="dropdown-item" onClick={handleLogout}>Thông Tin Tài Khoản</Link>
+                                        <Link to="/yeu-thich" className="dropdown-item" onClick={handleClick}>Phim Yêu Thích</Link>
+                                        <Link to="/tai-khoan" className="dropdown-item" onClick={handleClick}>Thông Tin Tài Khoản</Link>
                                         <Link to="/" className="dropdown-item" onClick={handleLogout}>Đăng Xuất</Link>
                                     </li>
                                 </ul>
