@@ -13,13 +13,15 @@ const AdminLogin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         setError("");
-        const apiUrl = import.meta.env.VITE_API_URL; // Nếu dùng Vite
+        const apiUrl = import.meta.env.VITE_API_URL;
+
+        console.log(apiUrl);
 
         try {
             const { data } = await axios.post(`${apiUrl}/api/v1/auth/login`, { email, password });
 
-            localStorage.setItem("admin_token", data.token); // Lưu token vào localStorage
-            navigate("/admin-phim-cu"); // Chuyển hướng đến trang admin
+            localStorage.setItem("admin_token", data.token);
+            navigate("/admin-phim-cu");
         } catch (error) {
             if (error.response) {
                 if (error.response.status === 400) {

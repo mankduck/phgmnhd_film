@@ -1,10 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-
 import AdminApp from './AdminApp'
-
-import { requestWakeLock, releaseWakeLock } from "./utils/screen-lock.js";
 
 const url = window.location.pathname;
 
