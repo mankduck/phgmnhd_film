@@ -72,6 +72,11 @@ const Header = () => {
         fetchData();
     }, []);
 
+    const handleClickNumberRandom = (e) => {
+        e.preventDefault(); 
+        toast.warning("Chức năng đang được phát triển, chờ xíu nhé!")
+    };
+
     const handleLogout = () => {
         logout();
         navigate("/");
@@ -153,7 +158,9 @@ const Header = () => {
                                 )}
                             </ul>
                         </li>
-                        {/* <li className="nav-item"> */}
+                        <li className="nav-item">
+                            <Link to="/quay-so-may-man" className="nav-link text-white" onClick={handleClickNumberRandom}>Quay Số May Mắn</Link>
+                        </li>
                         {user ? (
                             <li className="nav-item dropdown">
                                 <a
@@ -167,6 +174,8 @@ const Header = () => {
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li>
+                                        <Link to="/yeu-thich" className="dropdown-item" onClick={handleLogout}>Phim Yêu Thích</Link>
+                                        <Link to="/tai-khoan" className="dropdown-item" onClick={handleLogout}>Thông Tin Tài Khoản</Link>
                                         <Link to="/" className="dropdown-item" onClick={handleLogout}>Đăng Xuất</Link>
                                     </li>
                                 </ul>
