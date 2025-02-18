@@ -106,18 +106,18 @@ const MovieDetail = () => {
 
     useEffect(() => {
         if (watchTime < 300) return
-        if (watchTime > 310) return
+        if (watchTime > 400) return
         const token = localStorage.getItem("token")
         const user = JSON.parse(localStorage.getItem("user"))
-        const username = user.username
+        // const username = user.username
         if (!token || !username) return
         const fetchWatchedMovies = async () => {
             try {
-                const response = await apiService.get(`/movie-user/${username}`)
-                const watchedMovies = response.list_movie || []
-                if (!watchedMovies.includes(slug)) {
-                    await saveWatchedMovie(slug, user)
-                }
+                // const response = await apiService.get(`/movie-user/${username}`)
+                // const watchedMovies = response.list_movie || []
+                // if (!watchedMovies.includes(slug)) {
+                saveWatchedMovie(slug, user)
+                // }
             } catch (error) {
                 console.error("ERR: :", error)
             }
