@@ -14,12 +14,11 @@ const api = axios.create({
 // Tạo object apiService
 const apiService = {
     get: async (endpoint, params = {}) => {
-        console.log(endpoint);
         try {
             const response = await api.get(endpoint, { params });
             return response.data;
         } catch (error) {
-            console.error("Lỗi khi gọi API GET:", error);
+            console.error("ERR: ", error.message);
             throw error;
         }
     },
@@ -29,7 +28,7 @@ const apiService = {
             const response = await api.post(endpoint, data);
             return response.data;
         } catch (error) {
-            console.error("Lỗi khi gọi API POST:", error);
+            console.error("ERR: ", error);
             throw error;
         }
     },
@@ -39,7 +38,7 @@ const apiService = {
             const response = await api.put(endpoint, data);
             return response.data;
         } catch (error) {
-            console.error("Lỗi khi gọi API PUT:", error);
+            console.error("ERR: ", error);
             throw error;
         }
     },
@@ -49,7 +48,7 @@ const apiService = {
             const response = await api.delete(endpoint);
             return response.data;
         } catch (error) {
-            console.error("Lỗi khi gọi API DELETE:", error);
+            console.error("ERR: ", error);
             throw error;
         }
     },

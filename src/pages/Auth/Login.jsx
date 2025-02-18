@@ -30,7 +30,7 @@ const Login = () => {
         try {
             const { data } = await axios.post(`${apiUrl}/api/v1/auth/login`, { emailLogin, passwordLogin });
             if (data.user) {
-                login(data.user);
+                login(data.user, data.token);
                 navigate("/");
                 toast.success("Đăng nhập thành công!");
             }
@@ -48,13 +48,14 @@ const Login = () => {
                 setErrorLogin("Không thể kết nối đến server.");
                 console.error("ERR: " + error)
             }
-        }finally{
+        } finally {
             setIsLoggingIn(false);
         }
     };
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        setIsLoggingIn(true);
         setErrorReg("");
 
         try {
@@ -77,6 +78,8 @@ const Login = () => {
                 setErrorReg("Không thể kết nối đến server.");
                 console.error("ERR: " + error)
             }
+        } finally {
+            setIsLoggingIn(false);
         }
     };
 
@@ -107,12 +110,14 @@ const Login = () => {
                                                             value={emailLogin}
                                                             onChange={(e) => setEmailLogin(e.target.value)}
                                                             required
+                                                            disabled={isLoggingIn}
                                                             placeholder="Email của bạn" />
                                                         <input type="password"
                                                             name="password"
                                                             value={passwordLogin}
                                                             onChange={(e) => setPasswordLogin(e.target.value)}
                                                             required
+                                                            disabled={isLoggingIn}
                                                             placeholder="Password" />
                                                     </div>
                                                     <div className="button-box">
@@ -143,6 +148,7 @@ const Login = () => {
                                                             value={usernameReg}
                                                             onChange={(e) => setUsernameReg(e.target.value)}
                                                             required
+                                                            disabled={isLoggingIn}
                                                             placeholder="Username của bạn"
                                                         />
                                                         <input
@@ -151,6 +157,7 @@ const Login = () => {
                                                             value={passwordReg}
                                                             onChange={(e) => setPasswordReg(e.target.value)}
                                                             required
+                                                            disabled={isLoggingIn}
                                                             placeholder="Password của bạn"
                                                         />
                                                         <input
@@ -159,13 +166,14 @@ const Login = () => {
                                                             value={emailReg}
                                                             onChange={(e) => setEmailReg(e.target.value)}
                                                             required
+                                                            disabled={isLoggingIn}
                                                             placeholder="Email của bạn"
                                                         />
                                                     </div>
                                                     {errorReg && <p className="text-red-500 text-center">{errorReg}</p>}
 
                                                     <div className="button-box">
-                                                        <button className="register-btn btn" type="submit">
+                                                        <button className="register-btn btn" type="submit" disabled={isLoggingIn}>
                                                             <span>Đăng Kí</span>
                                                         </button>
                                                     </div>
