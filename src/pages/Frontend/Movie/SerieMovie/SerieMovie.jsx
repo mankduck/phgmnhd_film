@@ -25,6 +25,7 @@ const SerieMovie = () => {
             const data = await movieAPI.getSerieMovies(page, param)
             const movies = data.data.items;
             setSerieMovies(movies)
+            console.log(data);
             setTotalPages(data.data.params.pagination.totalPages)
             setLoading(false)
             if (movies.length === 0) {

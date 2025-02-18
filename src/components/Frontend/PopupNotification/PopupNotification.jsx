@@ -43,7 +43,6 @@ const PopupNotification = () => {
                         <p>Đây là nội dung modal!</p>
                         <p>Đây là nội dung modal!</p>
                         <p>Đây là nội dung modal!</p>
-
                     </div>
                 </div>
             </div>

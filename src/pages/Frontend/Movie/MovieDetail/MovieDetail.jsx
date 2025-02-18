@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react"
 import { useParams } from "react-router-dom"
 import movieAPI from "@api/axiosClient"
 import Hls from "hls.js"
+import apiService from "@api/apiBackend";
 import Slider from "react-slick"
 import { toast } from "react-toastify"
 import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
@@ -14,13 +15,17 @@ const MovieDetail = () => {
     const [movieInfo, setMovieInfo] = useState(null)
     const [movieEpisodes, setMovieEpisodes] = useState([])
     const [selectedEpisode, setSelectedEpisode] = useState(0)
+    const [isPlaying, setIsPlaying] = useState(false) // To track if the video is playing
+    const [watchTime, setWatchTime] = useState(0) // To track the watch time in seconds
+
+
+
 
     useEffect(() => {
         const fetchMovie = async () => {
             setLoading(true)
             try {
                 const data = await movieAPI.getMovieDetail(slug)
-                console.log(data)
                 setMovieInfo(data.movie)
                 setMovieEpisodes(data.episodes)
                 setLoading(false)
@@ -29,31 +34,98 @@ const MovieDetail = () => {
                 setLoading(false)
             }
         }
-
         fetchMovie()
     }, [slug])
+
+
+
+    const saveWatchedMovie = async (movieSlugIn, user) => {
+        try {
+            const response = await apiService.post("/movie-user/store", {
+                user_id: user.id,
+                username: user.username,
+                movieSlug: movieSlugIn,
+            })
+        } catch (error) {
+            console.error("ERR :", error)
+        }
+    }
+
+
 
     useEffect(() => {
         if (movieEpisodes.length > 0 && videoRef.current) {
             const video = videoRef.current
             const videoSrc = movieEpisodes[0].server_data[selectedEpisode].link_m3u8
-
             if (Hls.isSupported()) {
                 const hls = new Hls()
                 hls.loadSource(videoSrc)
                 hls.attachMedia(video)
-
+                video.onplay = () => {
+                    const token = localStorage.getItem("token")
+                    if (!token) {
+                        toast.warning("Bạn nên đăng nhập để lưu lại thông tin các bộ phim đã xem!")
+                        return
+                    }
+                    setIsPlaying(true)
+                };
+                video.onpause = () => {
+                    setIsPlaying(false)
+                }
                 return () => {
                     hls.destroy()
                 }
             } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
                 video.src = linkMovie
                 video.addEventListener("canplay", function () {
+                    video.load()
                     video.play()
                 })
             }
         }
     }, [selectedEpisode, movieEpisodes])
+
+
+
+    useEffect(() => {
+        if (isPlaying) {
+            const timer = setInterval(() => {
+                setWatchTime((prevTime) => {
+                    if (prevTime + 1 >= 60) {
+                        setIsPlaying(false)
+                        return 60
+                    }
+                    return prevTime + 1
+                })
+            }, 1000)
+            return () => clearInterval(timer)
+        }
+    }, [isPlaying])
+
+
+
+    useEffect(() => {
+        if (watchTime < 300) return
+        if (watchTime > 310) return
+        const token = localStorage.getItem("token")
+        const user = JSON.parse(localStorage.getItem("user"))
+        const username = user.username
+        if (!token || !username) return
+        const fetchWatchedMovies = async () => {
+            try {
+                const response = await apiService.get(`/movie-user/${username}`)
+                const watchedMovies = response.list_movie || []
+                if (!watchedMovies.includes(slug)) {
+                    await saveWatchedMovie(slug, user)
+                }
+            } catch (error) {
+                console.error("ERR: :", error)
+            }
+        }
+        fetchWatchedMovies()
+    }, [watchTime, slug])
+
+
 
     const settings = {
         dots: false,
@@ -127,8 +199,10 @@ const MovieDetail = () => {
                                             id="movieVideo"
                                             ref={videoRef}
                                             controls
+                                            // autoplay
+                                            preload="auto"
                                             disablepictureinpicture
-                                            controlslist
+                                            controlsList="true"
                                             loop="loop"
                                             poster={movieInfo.thumb_url}
                                             style={{ width: "100%", height: "auto" }}
