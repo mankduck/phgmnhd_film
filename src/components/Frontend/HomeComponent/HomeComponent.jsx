@@ -31,7 +31,7 @@ const HomeComponent = () => {
                                 <h2 className="value">
                                     <span className="odometer"></span>500+M
                                 </h2>
-                                <h3 className="title">Total Videos</h3>
+                                <h3 className="title">Videos</h3>
                             </div>
                         </div>
                         <div className="col mb-30">
@@ -39,7 +39,7 @@ const HomeComponent = () => {
                                 <h2 className="value">
                                     <span className="odometer"></span>10th
                                 </h2>
-                                <h3 className="title">Position</h3>
+                                <h3 className="title">Thể Loại</h3>
                             </div>
                         </div>
                         <div className="col mb-30">
@@ -47,7 +47,7 @@ const HomeComponent = () => {
                                 <h2 className="value">
                                     <span className="odometer"></span>200+M
                                 </h2>
-                                <h3 className="title">Subscribers</h3>
+                                <h3 className="title">Người Theo Dõi</h3>
                             </div>
                         </div>
                         <div className="col mb-30">
