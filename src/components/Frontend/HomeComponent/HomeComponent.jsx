@@ -124,13 +124,6 @@ const faqData = [
             "Phim Cũ có thể xem ở mọi nơi, mọi thiết bị",
         show: false,
     },
-    // {
-    //     id: "Four",
-    //     question: "Làm thế nào để liên hệ với Admin?",
-    //     answer:
-    //         "Người dùng có thể liên hệ với thông tin cá nhân qua các đường dẫn được đính kèm trên Website",
-    //     show: false,
-    // },
     {
         id: "Five",
         question: "Tôi có thể xem những gì trên Phim Cũ?",
