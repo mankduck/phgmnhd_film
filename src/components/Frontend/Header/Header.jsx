@@ -161,7 +161,7 @@ const Header = () => {
                         <li className="nav-item">
                             <Link to="/quay-so-may-man" className="nav-link text-white" onClick={handleClick}>Quay Số May Mắn</Link>
                         </li>
-                        {user ? (
+                        {/* {user ? (
                             <li className="nav-item dropdown">
                                 <a
                                     className="nav-link dropdown-toggle text-white"
@@ -185,9 +185,7 @@ const Header = () => {
                             <li className="nav-item">
                                 <Link to="/dang-nhap" className="nav-link text-white">Đăng Nhập</Link>
                             </li>
-                        )}
-
-                        {/* </li> */}
+                        )} */}
                     </ul>
                 </div>
                 <form className="d-flex my-2" role="search" onSubmit={handleSearch}>

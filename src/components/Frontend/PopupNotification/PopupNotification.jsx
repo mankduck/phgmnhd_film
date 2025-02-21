@@ -23,8 +23,6 @@ const PopupNotification = () => {
       if (!showPopup) return null;
 
     return (
-        // <Popup open={showPopup} modal closeOnDocumentClick onClose={() => setShowPopup(false)}>
-        // {(close) => (
         <div className="modal fade show" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style={{ display: "block" }}>
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">

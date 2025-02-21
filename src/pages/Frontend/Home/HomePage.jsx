@@ -10,7 +10,6 @@ const HomePage = () => {
         <>
             <SlideHomeTop />
             <MovieList />
-            {/* <HomeComponent /> */}
         </>
     )
 }
