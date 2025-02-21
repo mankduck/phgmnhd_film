@@ -62,10 +62,6 @@ const MovieDetail = () => {
                 const hls = new Hls()
                 hls.loadSource(videoSrc)
                 hls.attachMedia(video)
-                hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                    videoRef.current.load();
-                });
-                
                 // video.onplay = () => {
                 //     const token = localStorage.getItem("token")
                 //     if (!token) {
