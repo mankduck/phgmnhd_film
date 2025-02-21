@@ -62,17 +62,21 @@ const MovieDetail = () => {
                 const hls = new Hls()
                 hls.loadSource(videoSrc)
                 hls.attachMedia(video)
-                video.onplay = () => {
-                    const token = localStorage.getItem("token")
-                    if (!token) {
-                        toast.warning("Bạn nên đăng nhập để lưu lại thông tin các bộ phim đã xem!")
-                        return
-                    }
-                    setIsPlaying(true)
-                };
-                video.onpause = () => {
-                    setIsPlaying(false)
-                }
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    videoRef.current.load();
+                });
+                
+                // video.onplay = () => {
+                //     const token = localStorage.getItem("token")
+                //     if (!token) {
+                //         toast.warning("Bạn nên đăng nhập để lưu lại thông tin các bộ phim đã xem!")
+                //         return
+                //     }
+                //     setIsPlaying(true)
+                // };
+                // video.onpause = () => {
+                //     setIsPlaying(false)
+                // }
                 return () => {
                     hls.destroy()
                 }
