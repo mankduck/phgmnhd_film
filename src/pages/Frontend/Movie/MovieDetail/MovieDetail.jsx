@@ -7,6 +7,7 @@ import Slider from "react-slick"
 import { toast } from "react-toastify"
 import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
 import Loader from "@components/Frontend/Loader/Loader"
+import FacebookComment from "../../../../components/Frontend/FacebookComment/FacebookComment";
 
 const MovieDetail = () => {
     const { slug } = useParams()
@@ -294,6 +295,8 @@ const MovieDetail = () => {
                                 </div>
                             </div>
                         </div>
+
+                        <FacebookComment url={window.location.href} />
 
                         <div className="movie-details-wrap section-ptb-50 bg-black">
                             <div className="container">
