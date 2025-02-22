@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate, useSearchParams } from "react-router-dom"
 import movieAPI from "@api/axiosClient"
 import Hls from "hls.js"
 import apiService from "@api/apiBackend";
@@ -7,7 +7,7 @@ import Slider from "react-slick"
 import { toast } from "react-toastify"
 import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
 import Loader from "@components/Frontend/Loader/Loader"
-import FacebookComment from "../../../../components/Frontend/FacebookComment/FacebookComment";
+import FacebookComment from "@components/Frontend/FacebookComment/FacebookComment";
 
 const MovieDetail = () => {
     const { slug } = useParams()
@@ -18,15 +18,22 @@ const MovieDetail = () => {
     const [selectedEpisode, setSelectedEpisode] = useState(0)
     const [isPlaying, setIsPlaying] = useState(false) // To track if the video is playing
     const [watchTime, setWatchTime] = useState(0) // To track the watch time in seconds
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const tap = searchParams.get("tap"); // Lấy giá trị tap từ URL
 
-
-
+    useEffect(() => {
+        if (tap) {
+            setSelectedEpisode(Number(tap) - 1); // Chuyển tap sang số để tránh lỗi
+        }
+    })
 
     useEffect(() => {
         const fetchMovie = async () => {
             setLoading(true)
             try {
                 const data = await movieAPI.getMovieDetail(slug)
+                console.log(data);
                 setMovieInfo(data.movie)
                 setMovieEpisodes(data.episodes)
                 setLoading(false)
@@ -85,6 +92,12 @@ const MovieDetail = () => {
             }
         }
     }, [selectedEpisode, movieEpisodes])
+
+
+
+    const handleEpisodeClick = (episode) => {
+        navigate(`?tap=${episode}`);
+    };
 
 
 
@@ -228,7 +241,7 @@ const MovieDetail = () => {
                                                 </li>
                                                 <li>
                                                     <span>Tập: </span>
-                                                    {movieEpisodes[0].server_data[selectedEpisode].name || "Không rõ"}
+                                                    {movieEpisodes[0].server_data[selectedEpisode].name + (movieInfo.episode_total > 1 ? ` / ${movieInfo.episode_total} tập` : "") || "Không rõ"}
                                                 </li>
                                             </ul>
                                         </div>
@@ -269,7 +282,12 @@ const MovieDetail = () => {
                                                 movieEpisodes[0].server_data.map((episode, index) => (
                                                     <div key={index} className="movie-wrap px-2 text-center">
                                                         <div className="movie-img">
-                                                            <a href="#" onClick={() => setSelectedEpisode(index)}>
+                                                            <a href="#"
+                                                                onClick={() => {
+                                                                    setSelectedEpisode(index);
+                                                                    handleEpisodeClick(index + 1);
+                                                                }}
+                                                            >
                                                                 <img src={movieInfo.poster_url} alt="" />
                                                             </a>
                                                         </div>
