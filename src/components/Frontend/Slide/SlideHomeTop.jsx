@@ -12,7 +12,7 @@ const SlideHomeTop = () => {
             <div className="carousel-inner">
                 <div className="carousel-item active" data-bs-interval="2000">
                     <img
-                        src="/assets/images/slider/dau-gau-hoc-nhom.webp"
+                        src="/assets/images/slider/kho-do-danh.jpg"
                         className="d-block w-100"
                         // style={{ objectFit: "cover" }}
                         alt="..." />
