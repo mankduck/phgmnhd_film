@@ -8,6 +8,7 @@ import { toast } from "react-toastify"
 import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
 import Loader from "@components/Frontend/Loader/Loader"
 import FacebookComment from "@components/Frontend/FacebookComment/FacebookComment";
+import FacebookLike from "@components/Frontend/FacebookLike/FacebookLike";
 
 const MovieDetail = () => {
     const { slug } = useParams()
@@ -249,20 +250,21 @@ const MovieDetail = () => {
                                         <div className="like-share-wrap">
                                             <div className="social-share-wrap">
                                                 <span>Chia sẻ:</span>
-                                                <div className="social-style-1">
+                                                <FacebookLike url={window.location.href} />
+                                                {/* <div className="social-style-1">
                                                     <a className="facebook" href="#">
                                                         <i className="zmdi zmdi-facebook"></i>
                                                     </a>
                                                     <a className="pinterest" href="#">
                                                         <i className="zmdi zmdi-github"></i>
                                                     </a>
-                                                    {/* <a className="linkedin" href="#">
+                                                    <a className="linkedin" href="#">
                                                         <i className="zmdi zmdi-linkedin"></i>
-                                                    </a> */}
+                                                    </a>
                                                     <a className="instagram" href="#">
                                                         <i className="zmdi zmdi-instagram"></i>
                                                     </a>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
