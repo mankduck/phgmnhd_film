@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 
 const FacebookComment = ({ url }) => {
 
-    console.log(url);
     useEffect(() => {
         if (window.FB) {
             window.FB.XFBML.parse();

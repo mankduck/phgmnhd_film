@@ -48,7 +48,9 @@ const MovieDetail = () => {
 
 
     const saveWatchedMovie = async (movieSlugIn, user) => {
+
         try {
+            
             const response = await apiService.post("/movie-user/store", {
                 user_id: user.id,
                 username: user.username,
@@ -69,17 +71,17 @@ const MovieDetail = () => {
                 const hls = new Hls()
                 hls.loadSource(videoSrc)
                 hls.attachMedia(video)
-                // video.onplay = () => {
-                //     const token = localStorage.getItem("token")
-                //     if (!token) {
-                //         toast.warning("Bạn nên đăng nhập để lưu lại thông tin các bộ phim đã xem!")
-                //         return
-                //     }
-                //     setIsPlaying(true)
-                // };
-                // video.onpause = () => {
-                //     setIsPlaying(false)
-                // }
+                video.onplay = () => {
+                    const token = localStorage.getItem("token")
+                    if (!token) {
+                        toast.warning("Bạn nên đăng nhập để lưu lại thông tin các bộ phim đã xem!")
+                        return
+                    }
+                    setIsPlaying(true)
+                };
+                video.onpause = () => {
+                    setIsPlaying(false)
+                }
                 return () => {
                     hls.destroy()
                 }
@@ -119,12 +121,12 @@ const MovieDetail = () => {
 
 
     useEffect(() => {
-        if (watchTime < 300) return
-        if (watchTime > 400) return
+        if (watchTime < 10) return
+        if (watchTime > 20) return
         const token = localStorage.getItem("token")
         const user = JSON.parse(localStorage.getItem("user"))
-        // const username = user.username
-        if (!token || !username) return
+        const username = user.username
+        if (!token || !user) return
         const fetchWatchedMovies = async () => {
             try {
                 // const response = await apiService.get(`/movie-user/${username}`)
@@ -314,7 +316,7 @@ const MovieDetail = () => {
                             </div>
                         </div>
 
-                        <FacebookComment url={window.location.href} />
+                        {/* <FacebookComment url={window.location.href} /> */}
 
                         <div className="movie-details-wrap section-ptb-50 bg-black">
                             <div className="container">
