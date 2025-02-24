@@ -24,7 +24,7 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setErrorLogin("");
+        setErrorLogin("*Đôi khi do server mà quá trình load đăng nhập sẽ lâu, vui lòng chờ đợi");
         setIsLoggingIn(true);
 
         try {
@@ -38,26 +38,28 @@ const Login = () => {
             if (error.response) {
                 if (error.response.status === 400) {
                     toast.error(error.response.data.message)
-                    setErrorLogin();
+                    setErrorLogin("");
                 } else if (error.response.status === 401) {
                     toast.error(error.response.data.message)
+                    setErrorLogin("")
                 } else {
                     setErrorLogin("Lỗi server, vui lòng thử lại sau.");
-                    console.error("ERR: " + error)
+                    setErrorLogin("")
                 }
             } else {
-                setErrorLogin("Không thể kết nối đến server.");
-                console.error("ERR: " + error)
+                toast.error("Không thể kết nối đến server")
+                setErrorLogin("");
             }
         } finally {
             setIsLoggingIn(false);
+            setErrorLogin("");
         }
     };
 
     const handleRegister = async (e) => {
         e.preventDefault();
         setIsLoggingIn(true);
-        setErrorReg("");
+        setErrorReg("*Đôi khi do server mà quá trình load đăng nhập sẽ lâu, vui lòng chờ đợi");
 
         try {
             const { data } = await axios.post(`${apiUrl}/api/v1/auth/register`, { emailReg, passwordReg, usernameReg });
@@ -71,17 +73,18 @@ const Login = () => {
             if (error.response) {
                 if (error.response.status === 400) {
                     toast.error(error.response.data.message)
+                    setErrorReg("");
                 } else {
-                console.log(error.response.data.message);
+                    setErrorReg("");
                     toast.error(error.response.data.message)
-                    console.error("ERR: " + error)
                 }
             } else {
-                setErrorReg("Không thể kết nối đến server.");
-                console.error("ERR: " + error)
+                toast.error("Không thể kết nối đến server.")
+                setErrorReg("");
             }
         } finally {
             setIsLoggingIn(false);
+            setErrorReg("");
         }
     };
 
@@ -107,6 +110,7 @@ const Login = () => {
                                             <div className="login-register-form black-style">
                                                 <form onSubmit={handleLogin}>
                                                     <div className="login-input-box">
+                                                        {/* <p className="text-primary"></p> */}
                                                         <input type="email"
                                                             name="email"
                                                             value={emailLogin}
@@ -128,7 +132,7 @@ const Login = () => {
                                                             <label>Remember me</label>
                                                             <a href="#">Forgot Password?</a>
                                                         </div> */}
-                                                        {/* {errorLogin && <p className="text-red-500 text-center">{errorLogin}</p>} */}
+                                                        {errorLogin && <p className="text-red-500 text-center text-primary">{errorLogin}</p>}
                                                         <div className="button-box">
                                                             <button className="login-btn btn" type="submit" disabled={isLoggingIn}>
                                                                 <span>{isLoggingIn ? 'Đang đăng nhập...' : 'Đăng nhập'}</span>
@@ -172,7 +176,7 @@ const Login = () => {
                                                             placeholder="Email của bạn"
                                                         />
                                                     </div>
-                                                    {/* {errorReg && <p className="text-red-500 text-center">{errorReg}</p>} */}
+                                                    {errorReg && <p className="text-red-500 text-center text-primary">{errorReg}</p>}
 
                                                     <div className="button-box">
                                                         <button className="register-btn btn" type="submit" disabled={isLoggingIn}>
