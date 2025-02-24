@@ -15,12 +15,12 @@ const Header = () => {
     const navigate = useNavigate()
 
 
-    // useEffect(() => {
-    //     const storedUser = localStorage.getItem("user");
-    //     if (storedUser) {
-    //         setUsername(JSON.parse(storedUser).name);
-    //     }
-    // }, []);
+    useEffect(() => {
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            setUsername(JSON.parse(storedUser).name);
+        }
+    }, []);
 
     const handleSearch = (event) => {
         event.preventDefault()
@@ -161,7 +161,7 @@ const Header = () => {
                         <li className="nav-item">
                             <Link to="/quay-so-may-man" className="nav-link text-white" onClick={handleClick}>Quay Số May Mắn</Link>
                         </li>
-                        {/* {user ? (
+                        {user ? (
                             <li className="nav-item dropdown">
                                 <a
                                     className="nav-link dropdown-toggle text-white"
@@ -185,7 +185,7 @@ const Header = () => {
                             <li className="nav-item">
                                 <Link to="/dang-nhap" className="nav-link text-white">Đăng Nhập</Link>
                             </li>
-                        )} */}
+                        )}
                     </ul>
                 </div>
                 <form className="d-flex my-2" role="search" onSubmit={handleSearch}>
