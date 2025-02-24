@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import movieAPI from "@api/axiosClient";
 import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb";
 import Loader from "@components/Frontend/Loader/Loader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Filter from "@components/Frontend/Filter/Filter";
 
