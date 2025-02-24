@@ -175,7 +175,7 @@ const Header = () => {
                                 <ul className="dropdown-menu">
                                     <li>
                                         <Link to="/yeu-thich" className="dropdown-item" onClick={handleClick}>Phim Yêu Thích</Link>
-                                        <Link to="/phim-da-xem" className="dropdown-item" onClick={handleClick}>Phim Đã Xem</Link>
+                                        <Link to="/phim-da-xem" className="dropdown-item">Phim Đã Xem</Link>
                                         <Link to="/tai-khoan" className="dropdown-item" onClick={handleClick}>Thông Tin Tài Khoản</Link>
                                         <Link to="/" className="dropdown-item" onClick={handleLogout}>Đăng Xuất</Link>
                                     </li>

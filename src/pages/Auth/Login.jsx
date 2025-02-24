@@ -37,9 +37,10 @@ const Login = () => {
         } catch (error) {
             if (error.response) {
                 if (error.response.status === 400) {
-                    setErrorLogin(error.response.data.message);
+                    toast.error(error.response.data.message)
+                    setErrorLogin();
                 } else if (error.response.status === 401) {
-                    setErrorLogin(error.response.data.message);
+                    toast.error(error.response.data.message)
                 } else {
                     setErrorLogin("Lỗi server, vui lòng thử lại sau.");
                     console.error("ERR: " + error)
@@ -69,9 +70,10 @@ const Login = () => {
         } catch (error) {
             if (error.response) {
                 if (error.response.status === 400) {
-                    setErrorReg(error.response.data.message);
+                    toast.error(error.response.data.message)
                 } else {
-                    setErrorReg("Lỗi server, vui lòng thử lại sau.");
+                console.log(error.response.data.message);
+                    toast.error(error.response.data.message)
                     console.error("ERR: " + error)
                 }
             } else {
@@ -126,7 +128,7 @@ const Login = () => {
                                                             <label>Remember me</label>
                                                             <a href="#">Forgot Password?</a>
                                                         </div> */}
-                                                        {errorLogin && <p className="text-red-500 text-center">{errorLogin}</p>}
+                                                        {/* {errorLogin && <p className="text-red-500 text-center">{errorLogin}</p>} */}
                                                         <div className="button-box">
                                                             <button className="login-btn btn" type="submit" disabled={isLoggingIn}>
                                                                 <span>{isLoggingIn ? 'Đang đăng nhập...' : 'Đăng nhập'}</span>
@@ -170,7 +172,7 @@ const Login = () => {
                                                             placeholder="Email của bạn"
                                                         />
                                                     </div>
-                                                    {errorReg && <p className="text-red-500 text-center">{errorReg}</p>}
+                                                    {/* {errorReg && <p className="text-red-500 text-center">{errorReg}</p>} */}
 
                                                     <div className="button-box">
                                                         <button className="register-btn btn" type="submit" disabled={isLoggingIn}>
