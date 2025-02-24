@@ -10,7 +10,7 @@ const FacebookLike = ({ url }) => {
 
     return (
         <div>
-            <div class="fb-like" data-href={url} data-width="" data-layout="" data-action="" data-size="" data-share="true"></div>
+            <div class="fb-like" data-href={url} data-layout="button_count" data-width="" data-action="" data-size="" data-share="true"></div>
         </div>
     );
 };
