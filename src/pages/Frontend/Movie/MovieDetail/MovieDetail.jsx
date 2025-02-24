@@ -24,6 +24,7 @@ const MovieDetail = () => {
 
     useEffect(() => {
         if (tap) {
+            console.log(window.location.href);
             setSelectedEpisode(Number(tap) - 1);
         }
     })
@@ -312,9 +313,7 @@ const MovieDetail = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* <FacebookComment url={window.location.href} /> */}
-
+                        <FacebookComment url={window.location.href} />
                         <div className="movie-details-wrap section-ptb-50 bg-black">
                             <div className="container">
                                 <div className="section-title-4 st-border-bottom">
