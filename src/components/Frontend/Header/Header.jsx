@@ -110,9 +110,9 @@ const Header = () => {
                         <li className="nav-item">
                             <Link to="/hoat-hinh" className="nav-link text-white">Hoạt Hình</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link to="/tv-show" className="nav-link text-white">TV Shows</Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item dropdown">
                             <a
                                 className="nav-link dropdown-toggle text-white"
