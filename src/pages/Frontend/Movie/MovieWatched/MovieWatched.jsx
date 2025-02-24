@@ -45,6 +45,7 @@ const MovieWatched = () => {
                                 <div className="movie-list-top-bar">
                                     <div className="movie-list-title">
                                         <h2 className="title">Phim Đã Xem</h2>
+                                        <p className="text-danger pt--10">*Xem phim 10 phút để lưu vào danh sách đã xem</p>
                                     </div>
                                 </div>
                                 <div className="movielist-wrap">

@@ -122,8 +122,8 @@ const MovieDetail = () => {
 
 
     useEffect(() => {
-        if (watchTime < 300) return
-        if (watchTime > 310) return
+        if (watchTime < 600) return
+        if (watchTime > 610) return
         const token = localStorage.getItem("token")
         const user = JSON.parse(localStorage.getItem("user"))
         const username = user.username

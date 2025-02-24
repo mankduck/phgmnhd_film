@@ -22,7 +22,7 @@ const AppRouter = () => {
             <Route path='/the-loai/:slug' element={<CategoriesMovie />} />
             <Route path='/quoc-gia/:slug' element={<CountryMovie />} />
             <Route path='/phim-bo' element={<SerieMovie />} />
-            <Route path='/tv-show' element={<TVShow />} />
+            {/* <Route path='/tv-show' element={<TVShow />} /> */}
             <Route path='/hoat-hinh' element={<CartoonMovie />} />
             <Route path='/phim/:slug' element={<MovieDetail />} />
             <Route path="/search" element={<SearchMovie />} />
