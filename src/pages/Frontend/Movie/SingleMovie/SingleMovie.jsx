@@ -18,6 +18,15 @@ const SingleMovie = () => {
         category: "",
         year: "",
     });
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const trang = searchParams.get("trang");
+
+    useEffect(() => {
+        if (trang) {
+            setCurrentPage(Number(trang));
+        }
+    })
 
     const fetchSingleMovie = async (page, param) => {
         setLoading(true);
@@ -62,6 +71,10 @@ const SingleMovie = () => {
 
         fetchData();
     }, []);
+
+    const handlePaginateClick = (episode) => {
+        navigate(`?trang=${episode}`);
+    };
 
     const getPagination = () => {
         const pages = [];
@@ -131,7 +144,10 @@ const SingleMovie = () => {
                                         <li key={index}>
                                             <a
                                                 href="#"
-                                                onClick={() => (typeof page === "number" ? setCurrentPage(page) : null)}
+                                                onClick={() => {
+                                                    typeof page === "number" ? setCurrentPage(page) : null;
+                                                    handlePaginateClick(page);
+                                                }}
                                                 className={page === currentPage ? "active" : ""}
                                             >
                                                 {page}

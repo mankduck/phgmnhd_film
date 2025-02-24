@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import movieAPI from "@api/axiosClient"
 import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
 import Loader from "@components/Frontend/Loader/Loader"
-import { Link } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import Filter from "@components/Frontend/Filter/Filter";
 
@@ -18,6 +18,16 @@ const SerieMovie = () => {
         category: "",
         year: "",
     });
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const trang = searchParams.get("trang");
+
+    useEffect(() => {
+        if (trang) {
+            setCurrentPage(Number(trang));
+        }
+    })
+
 
     const fetchSerieMovie = async (page, param) => {
         setLoading(true)
@@ -25,7 +35,6 @@ const SerieMovie = () => {
             const data = await movieAPI.getSerieMovies(page, param)
             const movies = data.data.items;
             setSerieMovies(movies)
-            console.log(data);
             setTotalPages(data.data.params.pagination.totalPages)
             setLoading(false)
             if (movies.length === 0) {
@@ -63,6 +72,11 @@ const SerieMovie = () => {
 
         fetchData();
     }, []);
+
+    const handlePaginateClick = (episode) => {
+        navigate(`?trang=${episode}`);
+    };
+
 
     const getPagination = () => {
         const pages = []
@@ -136,7 +150,10 @@ const SerieMovie = () => {
                                             <li key={index}>
                                                 <a
                                                     href="#"
-                                                    onClick={() => (typeof page === "number" ? setCurrentPage(page) : null)}
+                                                    onClick={() => {
+                                                        typeof page === "number" ? setCurrentPage(page) : null;
+                                                        handlePaginateClick(page);
+                                                    }}
                                                     className={page === currentPage ? "active" : ""}
                                                 >
                                                     {page}

@@ -16,15 +16,15 @@ const MovieDetail = () => {
     const [movieInfo, setMovieInfo] = useState(null)
     const [movieEpisodes, setMovieEpisodes] = useState([])
     const [selectedEpisode, setSelectedEpisode] = useState(0)
-    const [isPlaying, setIsPlaying] = useState(false) // To track if the video is playing
-    const [watchTime, setWatchTime] = useState(0) // To track the watch time in seconds
+    const [isPlaying, setIsPlaying] = useState(false)
+    const [watchTime, setWatchTime] = useState(0)
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const tap = searchParams.get("tap"); // Lấy giá trị tap từ URL
+    const tap = searchParams.get("tap");
 
     useEffect(() => {
         if (tap) {
-            setSelectedEpisode(Number(tap) - 1); // Chuyển tap sang số để tránh lỗi
+            setSelectedEpisode(Number(tap) - 1);
         }
     })
 

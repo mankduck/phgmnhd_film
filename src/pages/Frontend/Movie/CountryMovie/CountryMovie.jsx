@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import movieAPI from "@api/axiosClient"
 import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import Loader from "@components/Frontend/Loader/Loader"
 
@@ -12,6 +12,15 @@ const CountryMovie = () => {
     const [title, setTitle] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const trang = searchParams.get("trang");
+
+    useEffect(() => {
+        if (trang) {
+            setCurrentPage(Number(trang));
+        }
+    })
 
 
     useEffect(() => {
@@ -35,6 +44,10 @@ const CountryMovie = () => {
         }
         fetchCountryMovie(currentPage)
     }, [currentPage, slug])
+
+    const handlePaginateClick = (episode) => {
+        navigate(`?trang=${episode}`);
+    };
 
     const getPagination = () => {
         const pages = []
@@ -105,7 +118,10 @@ const CountryMovie = () => {
                                             <li key={index}>
                                                 <a
                                                     href="#"
-                                                    onClick={() => (typeof page === "number" ? setCurrentPage(page) : null)}
+                                                    onClick={() => {
+                                                        typeof page === "number" ? setCurrentPage(page) : null;
+                                                        handlePaginateClick(page);
+                                                    }}
                                                     className={page === currentPage ? "active" : ""}
                                                 >
                                                     {page}
