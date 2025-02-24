@@ -313,8 +313,8 @@ const MovieDetail = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="movie-list section-pb-50">
-                            <div className="container">
+                        <div className="movie-list section-pb-50 bg-black">
+                            <div className="container bg-white">
                                 <FacebookComment url={window.location.href} />
                             </div>
                         </div>
