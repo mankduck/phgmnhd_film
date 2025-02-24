@@ -23,6 +23,9 @@ const MovieWatched = () => {
                 const response = await apiService.get(`/movie-user/${id}`)
                 setListWatched(response.list_movie)
                 setLoading(false)
+                if (response.list_movie.length === 0) {
+                    toast.warning("Không có phim nào đã xem!");
+                }
             } catch (error) {
                 toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")
                 console.error("ERR :", error)
@@ -77,6 +80,9 @@ const MovieWatched = () => {
                                 )}
                             </div>
                         </div>
+                        {listWatched.length === 0 && (
+                            <h4 className="text-white pt-100 pb-100 text-center">Không có phim nào</h4>
+                        )}
                     </div>
                 </div>
             )}
