@@ -35,46 +35,50 @@ const MovieWatched = () => {
 
     return (
         <>
-            <div className="movie-list-area section-ptb-50 bg-black-2">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xl-9 col-lg-12 me-auto ms-auto">
-                            <div className="movie-list-top-bar">
-                                <div className="movie-list-title">
-                                    <h2 className="title">Phim Đã Xem</h2>
+            {loading ? (
+                <Loader />
+            ) : (
+                <div className="movie-list-area section-ptb-50 bg-black-2">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-xl-9 col-lg-12 me-auto ms-auto">
+                                <div className="movie-list-top-bar">
+                                    <div className="movie-list-title">
+                                        <h2 className="title">Phim Đã Xem</h2>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="movielist-wrap">
-                                {listWatched.slice(0, visibleMovies).map((movie, index) => (
-                                    <div className="single-movielist" key={index}>
-                                        <div className="movielist-img-content">
-                                            <div className="movielist-img">
-                                                <Link to={`/phim/${movie.slug}`}>
-                                                    <img src={movie.image_url} alt="" />
-                                                    <i className="zmdi zmdi-play play-btn-style"></i>
-                                                </Link>
-                                            </div>
-                                            <div className="movielist-content">
-                                                <h3 className="title">
-                                                    <Link to={`/phim/${movie.slug}`}>{movie.name}</Link>
-                                                </h3>
-                                                <p>{movie.origin_name}</p>
+                                <div className="movielist-wrap">
+                                    {listWatched.slice(0, visibleMovies).map((movie, index) => (
+                                        <div className="single-movielist" key={index}>
+                                            <div className="movielist-img-content">
+                                                <div className="movielist-img">
+                                                    <Link to={`/phim/${movie.slug}`}>
+                                                        <img src={movie.image_url} alt="" />
+                                                        <i className="zmdi zmdi-play play-btn-style"></i>
+                                                    </Link>
+                                                </div>
+                                                <div className="movielist-content">
+                                                    <h3 className="title">
+                                                        <Link to={`/phim/${movie.slug}`}>{movie.name}</Link>
+                                                    </h3>
+                                                    <p>{movie.origin_name}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                            {visibleMovies < listWatched.length && (
-                                <div className="text-center mt-3">
-                                    <button className="btn btn-danger px-4 py-2" onClick={loadMoreMovies}>
-                                        Xem thêm
-                                    </button>
+                                    ))}
                                 </div>
-                            )}
+                                {visibleMovies < listWatched.length && (
+                                    <div className="text-center mt-3">
+                                        <button className="btn btn-danger px-4 py-2" onClick={loadMoreMovies}>
+                                            Xem thêm
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            )}
         </>
     )
 }
