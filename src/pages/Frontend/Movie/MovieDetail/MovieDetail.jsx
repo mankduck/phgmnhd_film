@@ -33,7 +33,6 @@ const MovieDetail = () => {
             setLoading(true)
             try {
                 const data = await movieAPI.getMovieDetail(slug)
-                console.log(data);
                 setMovieInfo(data.movie)
                 setMovieEpisodes(data.episodes)
                 setLoading(false)
@@ -47,16 +46,18 @@ const MovieDetail = () => {
 
 
 
-    const saveWatchedMovie = async (movieSlugIn, user) => {
-
+    const saveWatchedMovie = async (movieInfo, user) => {
         try {
-            
             const response = await apiService.post("/movie-user/store", {
                 user_id: user.id,
                 username: user.username,
-                movieSlug: movieSlugIn,
+                movieSlug: movieInfo.slug,
+                movieName: movieInfo.name,
+                originName: movieInfo.origin_name,
+                image: movieInfo.thumb_url
             })
         } catch (error) {
+            toast.error("Không thể lưu vào danh sách đã xem")
             console.error("ERR :", error)
         }
     }
@@ -132,7 +133,7 @@ const MovieDetail = () => {
                 // const response = await apiService.get(`/movie-user/${username}`)
                 // const watchedMovies = response.list_movie || []
                 // if (!watchedMovies.includes(slug)) {
-                saveWatchedMovie(slug, user)
+                saveWatchedMovie(movieInfo, user)
                 // }
             } catch (error) {
                 console.error("ERR: :", error)

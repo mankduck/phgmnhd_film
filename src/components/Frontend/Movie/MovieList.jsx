@@ -93,18 +93,18 @@ const MovieList = () => {
                                         <div className="movie-wrap-plr" key={item._id}>
                                             <div className="movie-wrap text-center">
                                                 <div className="movie-img">
-                                                    <Link to={`/phim-moi/${item.slug}`}>
+                                                    <Link to={`/phim/${item.slug}`}>
                                                         <img src={item.poster_url} alt={item.name} />
                                                     </Link>
                                                 </div>
                                                 <div className="movie-content">
                                                     <h3 className="title">
-                                                        <Link to={`/phim-moi/${item.slug}`}>{item.name}</Link>
+                                                        <Link to={`/phim/${item.slug}`}>{item.name}</Link>
                                                     </h3>
                                                     <span>{item.origin_name}</span>
                                                     <div className="movie-btn">
                                                         <Link
-                                                            to={`/phim-moi/${item.slug}`}
+                                                            to={`/phim/${item.slug}`}
                                                             className="btn-style-hm4-2 animated"
                                                         >
                                                             Xem Ngay
@@ -133,18 +133,18 @@ const MovieList = () => {
                                         <div className="movie-wrap-plr" key={item._id}>
                                             <div className="movie-wrap text-center">
                                                 <div className="movie-img">
-                                                    <Link to={`/phim-moi/${item.slug}`}>
+                                                    <Link to={`/phim/${item.slug}`}>
                                                         <img src={item.poster_url} alt={item.name} />
                                                     </Link>
                                                 </div>
                                                 <div className="movie-content">
                                                     <h3 className="title">
-                                                        <Link to={`/phim-moi/${item.slug}`}>{item.name}</Link>
+                                                        <Link to={`/phim/${item.slug}`}>{item.name}</Link>
                                                     </h3>
                                                     <span>{item.origin_name}</span>
                                                     <div className="movie-btn">
                                                         <Link
-                                                            to={`/phim-moi/${item.slug}`}
+                                                            to={`/phim/${item.slug}`}
                                                             className="btn-style-hm4-2 animated"
                                                         >
                                                             Xem Ngay

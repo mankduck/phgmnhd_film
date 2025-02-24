@@ -12,6 +12,7 @@ import ContactPage from '../pages/Frontend/Contact/ContactPage'
 import CategoriesMovie from '../pages/Frontend/Movie/CategoriesMovie/CategoriesMovie'
 import CountryMovie from '../pages/Frontend/Movie/CountryMovie/CountryMovie'
 import Login from '../pages/Auth/Login'
+import MovieWatched from '../pages/Frontend/Movie/MovieWatched/MovieWatched'
 
 const AppRouter = () => {
     return (
@@ -23,9 +24,10 @@ const AppRouter = () => {
             <Route path='/phim-bo' element={<SerieMovie />} />
             <Route path='/tv-show' element={<TVShow />} />
             <Route path='/hoat-hinh' element={<CartoonMovie />} />
-            <Route path='/:category/:slug' element={<MovieDetail />} />
+            <Route path='/phim/:slug' element={<MovieDetail />} />
             <Route path="/search" element={<SearchMovie />} />
             <Route path="/lien-he" element={<ContactPage />} />
+            <Route path="/phim-da-xem" element={<MovieWatched />} />
             <Route path="/dang-nhap" element={<Login />} />
         </Routes>
     )
