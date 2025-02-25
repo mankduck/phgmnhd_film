@@ -13,7 +13,7 @@ const Header = () => {
     const [country, setCountry] = useState([])
     const [username, setUsername] = useState("");
     const navigate = useNavigate()
-
+    const [suggestedMovies, setSuggestedMovies] = useState([]);
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -22,11 +22,34 @@ const Header = () => {
         }
     }, []);
 
+
     const handleSearch = (event) => {
         event.preventDefault()
         if (!keyword.trim()) return
         navigate(`/search?keyword=${encodeURIComponent(keyword)}`)
     }
+
+    useEffect(() => {
+        if (keyword.trim().length === 0) {
+            setSuggestedMovies([]); // Xóa danh sách gợi ý nếu không có từ khóa
+            return;
+        }
+
+        const fetchMovies = async () => {
+            try {
+                const response = await movieAPI.getMovieByKeyword(keyword, "")
+                const data = response.data.items
+                setSuggestedMovies(data.slice(0, 5))
+            } catch (error) {
+                console.error("Lỗi khi tìm kiếm phim:", error);
+            }
+        };
+
+        const timeoutId = setTimeout(fetchMovies, 200); // Chờ 300ms để tránh gọi API quá nhiều lần
+
+        return () => clearTimeout(timeoutId);
+    }, [keyword]);
+
 
     useEffect(() => {
         var menuNav = document.querySelector("nav.main-navigation")
@@ -188,15 +211,33 @@ const Header = () => {
                         )}
                     </ul>
                 </div>
-                <form className="d-flex my-2" role="search" onSubmit={handleSearch}>
-                    <input className="form-control me-2"
+                <form className="d-flex my-2 position-relative" role="search" onSubmit={handleSearch}>
+                    <input
+                        className="form-control me-2"
                         placeholder="Tìm kiếm phim"
                         type="text"
                         value={keyword}
                         onChange={(e) => setKeyword(e.target.value)}
                     />
                     <button className="btn btn-danger bg-danger" type="submit">Search</button>
+
+                    {keyword && suggestedMovies.length > 0 && (
+                        <div className="list-group position-absolute bg-white shadow p-2 w-100 mt--10" style={{ top: "100%", left: 0, zIndex: 1000 }}>
+                            {suggestedMovies.map((movie) => (
+                                <Link
+                                    key={movie.slug}
+                                    to={`/phim/${movie.slug}`}
+                                    className="list-group-item list-group-item-action d-flex align-items-center"
+                                    onClick={() => setKeyword("")} // Reset ô tìm kiếm khi chọn phim
+                                >
+                                    <img src={`https://phimimg.com/${movie.thumb_url}`} alt={movie.name} width="40" className="me-2" />
+                                    {movie.name}
+                                </Link>
+                            ))}
+                        </div>
+                    )}
                 </form>
+
             </div>
         </nav>
     )
