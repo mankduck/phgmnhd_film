@@ -13,6 +13,7 @@ import CategoriesMovie from '../pages/Frontend/Movie/CategoriesMovie/CategoriesM
 import CountryMovie from '../pages/Frontend/Movie/CountryMovie/CountryMovie'
 import Login from '../pages/Auth/Login'
 import MovieWatched from '../pages/Frontend/Movie/MovieWatched/MovieWatched'
+import MyAccount from '../pages/Auth/MyAccount'
 
 const AppRouter = () => {
     return (
@@ -28,6 +29,7 @@ const AppRouter = () => {
             <Route path="/search" element={<SearchMovie />} />
             <Route path="/lien-he" element={<ContactPage />} />
             <Route path="/phim-da-xem" element={<MovieWatched />} />
+            <Route path="/quan-ly-tai-khoan" element={<MyAccount />} />
             <Route path="/dang-nhap" element={<Login />} />
         </Routes>
     )

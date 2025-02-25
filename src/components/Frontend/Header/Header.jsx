@@ -15,12 +15,12 @@ const Header = () => {
     const navigate = useNavigate()
     const [suggestedMovies, setSuggestedMovies] = useState([]);
 
-    useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-            setUsername(JSON.parse(storedUser).name);
-        }
-    }, []);
+    // useEffect(() => {
+    //     const storedUser = localStorage.getItem("user");
+    //     if (storedUser) {
+    //         setUsername(JSON.parse(storedUser).name);
+    //     }
+    // }, []);
 
 
     const handleSearch = (event) => {
@@ -194,13 +194,13 @@ const Header = () => {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    Chào, {user.name}
+                                    Chào, {user ? user.name : "Khách"}
                                 </a>
                                 <ul className="dropdown-menu">
                                     <li>
                                         {/* <Link to="/yeu-thich" className="dropdown-item" onClick={handleClick}>Phim Yêu Thích</Link> */}
                                         <Link to="/phim-da-xem" className="dropdown-item">Phim Đã Xem</Link>
-                                        <Link to="/tai-khoan" className="dropdown-item" onClick={handleClick}>Thông Tin Tài Khoản</Link>
+                                        <Link to="/quan-ly-tai-khoan" className="dropdown-item" >Thông Tin Tài Khoản</Link>
                                         <Link to="/" className="dropdown-item" onClick={handleLogout}>Đăng Xuất</Link>
                                     </li>
                                 </ul>

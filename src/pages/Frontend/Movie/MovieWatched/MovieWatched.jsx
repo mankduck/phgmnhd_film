@@ -20,7 +20,6 @@ const MovieWatched = () => {
             try {
                 const user = JSON.parse(localStorage.getItem("user"))
                 const id = user.id
-                console.log(id);
                 const response = await apiService.get(`/movie-user/${id}`)
                 setListWatched(response.list_movie)
                 setLoading(false)
