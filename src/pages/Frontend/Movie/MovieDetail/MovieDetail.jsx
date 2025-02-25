@@ -110,9 +110,9 @@ const MovieDetail = () => {
         if (isPlaying) {
             const timer = setInterval(() => {
                 setWatchTime((prevTime) => {
-                    if (prevTime + 1 >= 60) {
+                    if (prevTime + 1 >= 600) {
                         setIsPlaying(false)
-                        return 60
+                        return 600
                     }
                     return prevTime + 1
                 })
@@ -124,7 +124,7 @@ const MovieDetail = () => {
 
 
     useEffect(() => {
-        if (watchTime < 60) return
+        if (watchTime < 600) return
         // if (watchTime > 610) return
         const token = localStorage.getItem("token")
         const user = JSON.parse(localStorage.getItem("user"))
