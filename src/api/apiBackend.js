@@ -43,6 +43,16 @@ const apiService = {
         }
     },
 
+    patch: async (endpoint, data) => {
+        try {
+            const response = await api.patch(endpoint, data);
+            return response.data;
+        } catch (error) {
+            console.error("ERR: ", error);
+            throw error;
+        }
+    },
+
     delete: async (endpoint) => {
         try {
             const response = await api.delete(endpoint);
