@@ -27,6 +27,7 @@ const Header = () => {
         event.preventDefault()
         if (!keyword.trim()) return
         navigate(`/search?keyword=${encodeURIComponent(keyword)}`)
+        setSuggestedMovies([])
     }
 
     useEffect(() => {
