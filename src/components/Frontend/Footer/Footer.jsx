@@ -12,7 +12,7 @@ const Footer = () => {
                                 <div className="footer-logo">
                                     <a className="navbar-brand text-white fw-bold text-uppercase" href="/">Phim cũ</a>
                                 </div>
-                                <p>Chúc các bạn xem phim vui vẻ - Nói không với quảng cáo!</p>
+                                <p>Chúc các bạn xem phim vui vẻ!</p>
                                 <div className="social-style-1 center-footer">
                                     <a className="facebook" href="#"><i className="zmdi zmdi-facebook"></i></a>
                                     <a className="pinterest" href="#"><i className="zmdi zmdi-github"></i></a>

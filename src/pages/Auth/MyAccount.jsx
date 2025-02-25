@@ -103,12 +103,12 @@ const MyAccount = () => {
                             <ul role="tablist" className="nav dashboard-list white mb--60">
                                 <li className="active" role="presentation">
                                     <a href="#account-details" data-bs-toggle="tab" className="tablist-btn active">
-                                        Thông tin tài khoản
+                                        Tài khoản
                                     </a>
                                 </li>
                                 <li role="presentation">
                                     <a href="#password-info" data-bs-toggle="tab" className="tablist-btn">
-                                        Đổi mật khẩu
+                                        Mật khẩu
                                     </a>
                                 </li>
                             </ul>
