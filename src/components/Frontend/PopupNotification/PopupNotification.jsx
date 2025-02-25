@@ -11,7 +11,7 @@ const PopupNotification = () => {
         const hasSeenPopup = localStorage.getItem("seenPopup");
         const expireTime = localStorage.getItem("popupExpireTime");
         const currentTime = Date.now();
-        const expireDuration = 6 * 60 * 60 * 1000; // 6 tiếng
+        const expireDuration = 2 * 60 * 60 * 1000;
 
         if (location.pathname === "/" && (!hasSeenPopup || currentTime > expireTime)) {
             setShowPopup(true);
@@ -40,7 +40,6 @@ const PopupNotification = () => {
                             PHIM CŨ sẽ cố gắng khắc phục sớm nhất có thể.
                             Xin cảm ơn.
                         </p>
-                        <img src="/assets/images/bg/canhbao.webp" alt="" />
                     </div>
                 </div>
             </div>
