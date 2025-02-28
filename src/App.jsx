@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import Layout from './components/Layout/LayoutFrontend'
 import AppRouter from './routes/AppRouter'
 import { requestWakeLock, releaseWakeLock } from "./utils/screen-lock"
+import { sendIpToTelegram } from "./utils/telegram"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { AuthProvider } from "./context/AuthContext"
@@ -10,11 +11,14 @@ import { AuthProvider } from "./context/AuthContext"
 const App = () => {
   useEffect(() => {
     requestWakeLock()
-
     return () => {
       releaseWakeLock()
     }
   }, [])
+
+  useEffect(() => {
+    sendIpToTelegram();
+  }, []);
 
   const notify = () => {
     toast.success("Thành công!")
