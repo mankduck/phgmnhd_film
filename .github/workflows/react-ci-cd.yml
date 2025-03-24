@@ -6,8 +6,8 @@ on:
       - main  # Chạy khi push code lên nhánh main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  # build:
+  #   runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
