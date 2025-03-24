@@ -82,6 +82,7 @@ const MovieDetail = () => {
                         toast.warning("Bạn nên đăng nhập để lưu lại thông tin các bộ phim đã xem!")
                         checkToastWarning = false
                         return
+                        
                     }
                     setIsPlaying(true)
                 };
