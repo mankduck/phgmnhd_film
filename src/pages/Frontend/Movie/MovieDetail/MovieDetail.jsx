@@ -20,6 +20,7 @@ const MovieDetail = () => {
     const [isPlaying, setIsPlaying] = useState(false)
     const [watchTime, setWatchTime] = useState(0)
     const navigate = useNavigate();
+    let checkToastWarning = true
     const [searchParams] = useSearchParams();
     const tap = searchParams.get("tap");
 
@@ -72,33 +73,14 @@ const MovieDetail = () => {
             const videoSrc = movieEpisodes[0].server_data[selectedEpisode].link_m3u8
             if (Hls.isSupported()) {
                 const hls = new Hls()
-
-                // Tải file M3U8 và xử lý trước khi truyền vào HLS
-                fetch(videoSrc)
-                    .then(response => response.text())
-                    .then(m3u8Content => {
-                        // Lọc bỏ dòng chứa quảng cáo "/adjump/"
-                        const filteredContent = m3u8Content
-                            .split("\n")
-                            .filter(line => !line.includes("/adjump/"))
-                            .join("\n");
-
-                        // Tạo Blob URL từ nội dung đã lọc
-                        const blob = new Blob([filteredContent], { type: "application/vnd.apple.mpegurl" });
-                        const newVideoSrc = URL.createObjectURL(blob);
-
-                        console.log("✅ Đã tạo nguồn video mới không chứa quảng cáo:", newVideoSrc);
-
-                        // Load video đã lọc quảng cáo vào HLS
-                        hls.loadSource(newVideoSrc);
-                        hls.attachMedia(video);
-                    })
-                    .catch(error => console.error("❌ Lỗi khi tải M3U8:", error));
-
+                hls.loadSource(videoSrc)
+                hls.attachMedia(video)
                 video.onplay = () => {
                     const token = localStorage.getItem("token")
-                    if (!token) {
+                    console.log(checkToastWarning);
+                    if (!token && checkToastWarning) {
                         toast.warning("Bạn nên đăng nhập để lưu lại thông tin các bộ phim đã xem!")
+                        checkToastWarning = false
                         return
                     }
                     setIsPlaying(true)
