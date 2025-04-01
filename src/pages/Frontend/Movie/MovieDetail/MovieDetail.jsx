@@ -82,7 +82,7 @@ const MovieDetail = () => {
                         toast.warning("Bạn nên đăng nhập để lưu lại thông tin các bộ phim đã xem!")
                         checkToastWarning = false
                         return
-                        
+
                     }
                     setIsPlaying(true)
                 };
@@ -143,6 +143,19 @@ const MovieDetail = () => {
         fetchWatchedMovies()
     }, [watchTime, slug])
 
+    const enterFullscreen = () => {
+        if (videoRef.current) {
+            if (videoRef.current.requestFullscreen) {
+                videoRef.current.requestFullscreen();
+            } else if (videoRef.current.webkitRequestFullscreen) {
+                videoRef.current.webkitRequestFullscreen();
+            } else if (videoRef.current.mozRequestFullScreen) {
+                videoRef.current.mozRequestFullScreen();
+            } else if (videoRef.current.msRequestFullscreen) {
+                videoRef.current.msRequestFullscreen();
+            }
+        }
+    };
 
 
     const settings = {
@@ -224,6 +237,7 @@ const MovieDetail = () => {
                                             loop="loop"
                                             poster={movieInfo.thumb_url}
                                             style={{ width: "100%", height: "auto" }}
+                                            onPlay={enterFullscreen}
                                         ></video>
                                     </div>
                                     <div className="movie-details-content">
