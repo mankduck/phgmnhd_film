@@ -9,7 +9,7 @@ const LayoutFrontend = ({ children }) => {
     return (
         <div className="main-wrapper">
             <Header />
-            <PopupNotification />
+            {/* <PopupNotification /> */}
             {children}
             <Footer />
         </div>

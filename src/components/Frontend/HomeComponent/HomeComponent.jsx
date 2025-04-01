@@ -107,7 +107,7 @@ const faqData = [
         id: "One",
         question: "Tại sao lại chọn Phim Cũ?",
         answer:
-            "Phim Cũ mang lại trải nghiệm xem phim không có quảng cáo nền trên mọi ứng dụng",
+            "Phim Cũ mang lại trải nghiệm xem phim trên mọi ứng dụng",
         show: true,
     },
     {
