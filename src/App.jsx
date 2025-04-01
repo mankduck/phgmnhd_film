@@ -7,14 +7,15 @@ import { sendIpToTelegram } from "./utils/telegram"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { AuthProvider } from "./context/AuthContext"
+import { WakeLockProvider } from "./context/WakeLockContext"; // Import file vừa tạo
 
 const App = () => {
-  useEffect(() => {
-    requestWakeLock()
-    return () => {
-      releaseWakeLock()
-    }
-  }, [])
+  // useEffect(() => {
+  //   requestWakeLock()
+  //   return () => {
+  //     releaseWakeLock()
+  //   }
+  // }, [])
 
   useEffect(() => {
     sendIpToTelegram();
@@ -30,12 +31,14 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <Router>
-        <Layout>
-          <AppRouter />
-        </Layout>
-        <ToastContainer position="top-right" autoClose={3000} />
-      </Router>
+      <WakeLockProvider>
+        <Router>
+          <Layout>
+            <AppRouter />
+          </Layout>
+          <ToastContainer position="top-right" autoClose={3000} />
+        </Router>
+      </WakeLockProvider>
     </AuthProvider>
   )
 }
