@@ -122,7 +122,7 @@ const Header = () => {
                     <div className="row" id="headwrap">
                         <div className="col-md-3 col-sm-6 slogan">
                             <p className="site-title">
-                                <a href="/"><img src="/assets/images/logo/phgmnhd_film.png" alt="" /></a>
+                                <a href="/"><img src="/assets/images/logo_film.jpg" alt="" /></a>
                             </p>
                         </div>
                         <div className="col-md-5 col-sm-6 halim-search-form hidden-xs">
