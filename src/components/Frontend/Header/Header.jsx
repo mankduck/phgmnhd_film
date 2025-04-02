@@ -123,7 +123,7 @@ const Header = () => {
                         <div className="col-md-3 col-sm-6 slogan">
                             <p className="site-title">
                                 <a className="logo" href="/" title="Phim Hay">
-                                    Phim Hay
+                                    <img src="/assets/images/logo/PHGMNHD_FILM.png" alt="" />
                                 </a>
                             </p>
                         </div>
