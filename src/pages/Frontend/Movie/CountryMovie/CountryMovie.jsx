@@ -12,6 +12,7 @@ const CountryMovie = () => {
     const [title, setTitle] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
+    const [movieNew, setMovieNew] = useState([])
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const trang = searchParams.get("trang");
@@ -33,6 +34,8 @@ const CountryMovie = () => {
                 setCountryMovies(movies)
                 setTotalPages(data.data.params.pagination.totalPages)
                 setTitle(data.data.titlePage)
+                const dataNewMovie = await movieAPI.getMovieNewUpdate(1)
+                setMovieNew(dataNewMovie.items)
                 setLoading(false)
                 if (movies.length === 0) {
                     toast.warning("Không có phim nào phù hợp với quốc gia này!");
@@ -76,68 +79,115 @@ const CountryMovie = () => {
 
     return (
         <>
-            <Breadcrumb name={title} />
-
             {loading
                 ? (<Loader />)
                 : (
-                    <div className="movie-list section-padding-lr section-pt-50 section-pb-50 bg-black">
-                        <div className="container-fluid">
-                            <div className="row">
-                                {countryMovies.map((item) => (
-                                    <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12" key={item._id}>
-                                        <div className="movie-wrap text-center mb-30">
-                                            <div className="movie-img">
-                                                <Link to={`/phim/${item.slug}`}>
-                                                    <img src={`https://phimimg.com/${item.poster_url}`} alt="" />
-                                                </Link>
-                                            </div>
-                                            <div className="movie-content">
-                                                <h3 className="title">
-                                                    <Link to={`/phim/${item.slug}`}>{item.name}</Link>
-                                                </h3>
-                                                <h3 className="title">
-                                                    ({item.origin_name})
-                                                </h3>
-                                                <span>Chất lượng : {item.quality}</span>
-                                                <div className="movie-btn">
-                                                    <Link to={`/phim/${item.slug}`} className="btn-style-hm4-2 animated">
-                                                        Xem Ngay
-                                                    </Link>
-                                                </div>
+                    <>
+                        <div className="container">
+                            <div className="row fullwith-slider"></div>
+                        </div>
+                        <div className="container">
+                            <div className="row container" id="wrapper">
+                                <div className="halim-panel-filter">
+                                    <div id="ajax-filter" className="panel-collapse collapse" aria-expanded="true" role="menu">
+                                        <div className="ajax"></div>
+                                    </div>
+                                </div>
+                                <main id="main-contents" className="col-xs-12 col-sm-12 col-md-8">
+                                    <section>
+                                        <div className="section-bar clearfix">
+                                            <h1 className="section-title"><span>{title}</span></h1>
+                                        </div>
+                                        <div className="halim_box">
+                                            {
+                                                countryMovies.map((item, key) => (
+                                                    <article className="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-27021">
+                                                        <div className="halim-item">
+                                                            <Link to={`/phim/${item.slug}`} className="halim-thumb">
+                                                                <figure><img className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
+                                                                <span className="status">{item.year}</span><span className="episode"><i className="fa fa-play" aria-hidden="true"></i>Vietsub</span>
+                                                                <div className="icon_overlay"></div>
+                                                                <div className="halim-post-title-box">
+                                                                    <div className="halim-post-title ">
+                                                                        <p className="entry-title">{item.name}</p>
+                                                                        <p className="original_title">{item.origin_name}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </Link>
+                                                        </div>
+                                                    </article>
+                                                ))
+                                            }
+                                        </div>
+                                        <div className="clearfix"></div>
+                                        <div className="text-center">
+                                            {countryMovies.length > 0 ? (
+                                                <ul className='page-numbers'>
+                                                    {getPagination().map((page, index) => (
+                                                        <li key={index} style={{ margin: '5px' }}>
+                                                            <a
+                                                                href="#"
+                                                                onClick={() => {
+                                                                    typeof page === "number" ? setCurrentPage(page) : null;
+                                                                    handlePaginateClick(page);
+                                                                }}
+                                                                className={page === currentPage ? "active" : ""}
+                                                            >
+                                                                {page}
+                                                            </a>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            ) :
+                                                (
+                                                    <h4 className="text-white pt-100 pb-100 text-center">Không có phim nào</h4>
+                                                )
+                                            }
+                                        </div>
+                                    </section>
+                                </main>
+                                <aside id="sidebar" className="col-xs-12 col-sm-12 col-md-4">
+                                    <div id="halim_tab_popular_videos-widget-7" className="widget halim_tab_popular_videos-widget">
+                                        <div className="section-bar clearfix">
+                                            <div className="section-title">
+                                                <span>Top Views</span>
                                             </div>
                                         </div>
+                                        <section className="tab-content">
+                                            <div role="tabpanel" className="tab-pane active halim-ajax-popular-post">
+                                                <div className="halim-ajax-popular-post-loading hidden"></div>
+                                                <div id="halim-ajax-popular-post" className="popular-post">
+                                                    {movieNew.map((item) => (
+                                                        <div className="item post-37176">
+                                                            <Link to={`/phim/${item.slug}`} className="halim-thumb">
+                                                                <div className="item-link">
+                                                                    <img
+                                                                        src={item.poster_url}
+                                                                        className="lazy post-thumb" alt={item.name}
+                                                                        title={item.name} />
+                                                                </div>
+                                                                <p className="title">{item.name}</p>
+                                                            </Link>
+                                                            <div className="viewsCount" style={{ color: '#9d9d9d' }}>{item.origin_name}</div>
+                                                            <div style={{ float: 'left' }}>
+                                                                <span className="user-rate-image post-large-rate stars-large-vang"
+                                                                    style={{ display: 'block' }}>
+                                                                    <span style={{ width: '0%' }}></span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <div className="clearfix"></div>
                                     </div>
-                                ))}
-
+                                </aside>
                             </div>
-                            {countryMovies.length > 0 ? (
-                                <div className="pagination-style mt-30">
-                                    <ul>
-                                        {getPagination().map((page, index) => (
-                                            <li key={index}>
-                                                <a
-                                                    href="#"
-                                                    onClick={() => {
-                                                        typeof page === "number" ? setCurrentPage(page) : null;
-                                                        handlePaginateClick(page);
-                                                    }}
-                                                    className={page === currentPage ? "active" : ""}
-                                                >
-                                                    {page}
-                                                </a>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ) :
-                                (
-                                    <h4 className="text-white pt-100 pb-100 text-center">Không có phim nào</h4>
-                                )
-                            }
-
                         </div>
-                    </div>)}
+                        <div className="clearfix"></div>
+                    </>
+                )}
         </>
     )
 }

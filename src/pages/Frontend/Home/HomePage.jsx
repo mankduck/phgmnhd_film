@@ -7,7 +7,6 @@ import MovieList from "@components/Frontend/Movie/MovieList"
 const HomePage = () => {
     return (
         <>
-            <SlideHomeTop />
             <MovieList />
         </>
     )

@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from "react"
-import { useParams, useNavigate, useSearchParams } from "react-router-dom"
+import { useParams, useNavigate, useSearchParams, Link } from "react-router-dom"
 import movieAPI from "@api/axiosClient"
 import Hls from "hls.js"
-import apiService from "@api/apiBackend";
-import Slider from "react-slick"
 import { toast } from "react-toastify"
-import Breadcrumb from "@components/Frontend/Breadcrumb/Breadcrumb"
 import Loader from "@components/Frontend/Loader/Loader"
 import FacebookComment from "@components/Frontend/FacebookComment/FacebookComment";
 import FacebookLike from "@components/Frontend/FacebookLike/FacebookLike";
@@ -15,18 +12,16 @@ const MovieDetail = () => {
     const videoRef = useRef(null)
     const [loading, setLoading] = useState(true)
     const [movieInfo, setMovieInfo] = useState(null)
+    const [movieNew, setMovieNew] = useState(null)
     const [movieEpisodes, setMovieEpisodes] = useState([])
     const [selectedEpisode, setSelectedEpisode] = useState(0)
-    const [isPlaying, setIsPlaying] = useState(false)
-    const [watchTime, setWatchTime] = useState(0)
+    const [activeTab, setActiveTab] = useState(0);
     const navigate = useNavigate();
-    let checkToastWarning = true
     const [searchParams] = useSearchParams();
     const tap = searchParams.get("tap");
 
     useEffect(() => {
         if (tap) {
-            console.log(window.location.href);
             setSelectedEpisode(Number(tap) - 1);
         }
     })
@@ -36,8 +31,10 @@ const MovieDetail = () => {
             setLoading(true)
             try {
                 const data = await movieAPI.getMovieDetail(slug)
+                const dataNewMovie = await movieAPI.getMovieNewUpdate(1)
                 setMovieInfo(data.movie)
                 setMovieEpisodes(data.episodes)
+                setMovieNew(dataNewMovie.items)
                 setLoading(false)
             } catch (error) {
                 toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")
@@ -49,46 +46,14 @@ const MovieDetail = () => {
 
 
 
-    const saveWatchedMovie = async (movieInfo, user) => {
-        try {
-            const response = await apiService.post("/movie-user/store", {
-                user_id: user.id,
-                username: user.username,
-                movieSlug: movieInfo.slug,
-                movieName: movieInfo.name,
-                originName: movieInfo.origin_name,
-                image: movieInfo.thumb_url
-            })
-        } catch (error) {
-            toast.error("Không thể lưu vào danh sách đã xem")
-            console.error("ERR :", error)
-        }
-    }
-
-
-
     useEffect(() => {
         if (movieEpisodes.length > 0 && videoRef.current) {
             const video = videoRef.current
-            const videoSrc = movieEpisodes[0].server_data[selectedEpisode].link_m3u8
+            const videoSrc = movieEpisodes[activeTab].server_data[selectedEpisode].link_m3u8
             if (Hls.isSupported()) {
                 const hls = new Hls()
                 hls.loadSource(videoSrc)
                 hls.attachMedia(video)
-                video.onplay = () => {
-                    const token = localStorage.getItem("token")
-                    console.log(checkToastWarning);
-                    if (!token && checkToastWarning) {
-                        toast.warning("Bạn nên đăng nhập để lưu lại thông tin các bộ phim đã xem!")
-                        checkToastWarning = false
-                        return
-
-                    }
-                    setIsPlaying(true)
-                };
-                video.onpause = () => {
-                    setIsPlaying(false)
-                }
                 return () => {
                     hls.destroy()
                 }
@@ -108,40 +73,10 @@ const MovieDetail = () => {
         navigate(`?tap=${episode}`);
     };
 
+    const handleTabChange = (index) => {
+        setActiveTab(index);
+    };
 
-
-    useEffect(() => {
-        if (isPlaying) {
-            const timer = setInterval(() => {
-                setWatchTime((prevTime) => {
-                    if (prevTime + 1 >= 120) {
-                        setIsPlaying(false)
-                        return 120
-                    }
-                    return prevTime + 1
-                })
-            }, 1000)
-            return () => clearInterval(timer)
-        }
-    }, [isPlaying])
-
-
-
-    useEffect(() => {
-        if (watchTime < 120) return
-        // if (watchTime > 610) return
-        const token = localStorage.getItem("token")
-        const user = JSON.parse(localStorage.getItem("user"))
-        if (!token || !user) return
-        const fetchWatchedMovies = async () => {
-            try {
-                saveWatchedMovie(movieInfo, user)
-            } catch (error) {
-                console.error("ERR: :", error)
-            }
-        }
-        fetchWatchedMovies()
-    }, [watchTime, slug])
 
     const enterFullscreen = () => {
         if (videoRef.current) {
@@ -158,61 +93,6 @@ const MovieDetail = () => {
     };
 
 
-    const settings = {
-        dots: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 6,
-        slidesToScroll: 6,
-        autoplay: false,
-        prevArrow: (
-            <button type="button" className="slick-prev">
-                <i className="zmdi zmdi-chevron-left"></i>
-            </button>
-        ),
-        nextArrow: (
-            <button type="button" className="slick-next">
-                <i className="zmdi zmdi-chevron-right"></i>
-            </button>
-        ),
-        responsive: [
-            {
-                breakpoint: 1365,
-                settings: {
-                    slidesToShow: 5,
-                    slidesToScroll: 5,
-                },
-            },
-            {
-                breakpoint: 1199,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 4,
-                },
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                },
-            },
-            {
-                breakpoint: 767,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                },
-            },
-            {
-                breakpoint: 479,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                },
-            },
-        ],
-    }
 
     return (
         <>
@@ -221,141 +101,140 @@ const MovieDetail = () => {
             ) : (
                 movieInfo && (
                     <>
-                        <Breadcrumb name={movieInfo.name + ' ( ' + movieInfo.origin_name + ' )'} />
-                        <div className="movie-details-wrap section-ptb-50 bg-black">
-                            <div className="container">
-                                <div className="movie-details-video-content-wrap">
-                                    <div className="video-wrap">
-                                        <video
-                                            id="movieVideo"
-                                            ref={videoRef}
-                                            controls
-                                            // autoplay
-                                            preload="auto"
-                                            disablepictureinpicture
-                                            controlsList="true"
-                                            loop="loop"
-                                            poster={movieInfo.thumb_url}
-                                            style={{ width: "100%", height: "auto" }}
-                                            onPlay={enterFullscreen}
-                                        ></video>
-                                    </div>
-                                    <div className="movie-details-content">
-                                        <div className="movie-details-info">
-                                            <ul>
-                                                <li>
-                                                    <span>Đạo diễn: </span>
-                                                    {movieInfo.director || "Không rõ"}
-                                                </li>
-                                                <li>
-                                                    <span>Diễn viên chính: </span>
-                                                    {movieInfo.actor && movieInfo.actor.length > 0
-                                                        ? movieInfo.actor.join(", ")
-                                                        : "Không rõ"}
-                                                </li>
-                                                <li>
-                                                    <span>Năm: </span>
-                                                    {movieInfo.year || "Không rõ"}
-                                                </li>
-                                                <li>
-                                                    <span>Tập: </span>
-                                                    {movieEpisodes[0].server_data[selectedEpisode].name + (movieInfo.episode_total > 1 ? ` / ${movieInfo.episode_total} tập` : "") || "Không rõ"}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <p>{movieInfo.content || "Không có mô tả"}</p>
-                                        <div className="like-share-wrap">
-                                            <div className="social-share-wrap">
-                                                <span>Chia sẻ:</span>
-                                                <FacebookLike url={window.location.href} />
-                                                {/* <div className="social-style-1">
-                                                    <a className="facebook" href="#">
-                                                        <i className="zmdi zmdi-facebook"></i>
-                                                    </a>
-                                                    <a className="pinterest" href="#">
-                                                        <i className="zmdi zmdi-github"></i>
-                                                    </a>
-                                                    <a className="linkedin" href="#">
-                                                        <i className="zmdi zmdi-linkedin"></i>
-                                                    </a>
-                                                    <a className="instagram" href="#">
-                                                        <i className="zmdi zmdi-instagram"></i>
-                                                    </a>
-                                                </div> */}
+                        <div className="container">
+                            <div className="row container" id="wrapper">
+                                <div className="halim-panel-filter">
+                                    <div className="panel-heading">
+                                        <div className="row">
+                                            <div className="col-xs-6">
+                                                <div className="yoast_breadcrumb hidden-xs"><span className="breadcrumb_last"
+                                                    aria-current="page">{movieInfo.name}</span></div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="movie-list section-pb-50 bg-black">
-                            <div className="container">
-                                <div className="section-title-4 st-border-bottom">
-                                    <h2>Tập phim</h2>
-                                </div>
-                                <div className="movie-slider-active nav-style-3">
-                                    <Slider {...settings}>
-                                        {
-                                            movieEpisodes[0].server_data.length > 1 ? (
-                                                movieEpisodes[0].server_data.map((episode, index) => (
-                                                    <div key={index} className="movie-wrap px-2 text-center">
-                                                        <div className="movie-img">
-                                                            <a href="#"
-                                                                onClick={() => {
-                                                                    setSelectedEpisode(index);
-                                                                    handleEpisodeClick(index + 1);
-                                                                }}
-                                                            >
-                                                                <img src={movieInfo.poster_url} alt="" />
-                                                            </a>
-                                                        </div>
-                                                        <div className="movie-content">
-                                                            <h3 className="title">
-                                                                <a href="#">{episode.name}</a>
-                                                            </h3>
-                                                            <div className="movie-btn">
-                                                                <a
-                                                                    href="#"
-                                                                    onClick={() => setSelectedEpisode(index)}
-                                                                    className="btn-style-hm4-2 animated"
-                                                                >
-                                                                    Xem Ngay
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))
-                                            ) : ('')
-                                        }
-                                    </Slider>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="movie-list section-pb-50 bg-black">
-                            <div className="container bg-white">
-                                <FacebookComment url={window.location.href} />
-                            </div>
-                        </div>
-                        <div className="movie-details-wrap section-ptb-50 bg-black">
-                            <div className="container">
-                                <div className="section-title-4 st-border-bottom">
-                                    <h2>Trailer</h2>
-                                </div>
-                                <div className="movie-details-video-content-wrap">
-                                    <div className="video-wrap">
-                                        {movieInfo.trailer_url && (
-                                            <iframe
-                                                width="100%"
-                                                height="500"
-                                                src={movieInfo.trailer_url.replace("watch?v=", "embed/")}
-                                                title="YouTube video player"
-                                                allow="accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture"
-                                                allowFullScreen
-                                            ></iframe>
-                                        )}
+                                    <div id="ajax-filter" className="panel-collapse collapse" aria-expanded="true" role="menu">
+                                        <div className="ajax"></div>
                                     </div>
                                 </div>
+                                <main id="main-contents" className="col-xs-12 col-sm-12 col-md-8">
+                                    <section id="content" className="test">
+                                        <div className="clearfix wrap-content">
+                                            <video
+                                                id="movieVideo"
+                                                ref={videoRef}
+                                                controls
+                                                // autoplay
+                                                preload="auto"
+                                                disablepictureinpicture
+                                                controlsList="true"
+                                                loop="loop"
+                                                poster={movieInfo.thumb_url}
+                                                style={{ width: "100%", height: "auto" }}
+                                            // onPlay={enterFullscreen}
+                                            ></video>
+                                        </div >
+
+                                        <div className="clearfix"></div>
+                                        <div className="clearfix"></div>
+                                        <div className="title-block">
+                                            <div className="title-wrapper-xem full">
+                                                <h1 className="entry-title" style={{ fontSize: '17px' }}>{movieEpisodes[0].server_data[selectedEpisode].name}</h1>
+                                            </div>
+                                        </div>
+                                        <div className="clearfix"></div>
+                                        <div className="text-center">
+                                            <div id="halim-ajax-list-server"></div>
+                                        </div>
+                                        <div id="halim-list-server">
+                                            <ul className="nav nav-tabs" role="tablist">
+                                                {
+                                                    movieEpisodes.map((item, key) => (
+                                                        <li role="presentation" className={`server-1 ${key === 0 ? 'active' : ''}`} key={key}
+                                                            onClick={() => handleTabChange(key)}>
+                                                            <a href={`#server-${key}`} aria-controls={`server-${key}`} role="tab" data-toggle="tab">
+                                                                {item.server_name}
+                                                            </a>
+                                                        </li>
+                                                    ))
+                                                }
+
+                                            </ul>
+                                            <div className="tab-content">
+                                                {movieEpisodes.map((item, key) => (
+                                                    <div role="tabpanel" className={`tab-pane ${key === 0 ? 'active' : ''} server-1`} id={`server-${key}`} key={key}>
+                                                        <div className="halim-server">
+                                                            <ul className="halim-list-eps">
+                                                                {item.server_data.length > 1 ? (
+                                                                    item.server_data.map((episode, index) => (
+                                                                        <li className="halim-episode" key={index} onClick={() => {
+                                                                            setSelectedEpisode(index);
+                                                                            handleEpisodeClick(index + 1);
+                                                                        }}>
+                                                                            <span className={`halim-btn halim-btn-2  ${selectedEpisode === index ? 'active' : ''} halim-info-1-1 box-shadow`}
+                                                                                data-post-id="37976" data-server="1" data-episode="1" data-position="first"
+                                                                                data-embed="0"
+                                                                                data-title={`Xem phim ${item.name} - Tập ${index + 1} - ${episode.name}`}
+                                                                                data-h1={`${item.name} - tập ${index + 1}`}>
+                                                                                {episode.name} - {item.server_name}
+                                                                            </span>
+                                                                        </li>
+                                                                    ))
+                                                                ) : (
+                                                                    ''
+                                                                )}
+                                                            </ul>
+                                                            <div className="clearfix"></div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+
+                                            </div>
+                                        </div>
+
+                                        <div className="clearfix"></div>
+                                        <div className="htmlwrap clearfix">
+                                            <div id="lightout"></div>
+                                        </div>
+                                    </section>
+
+                                </main>
+                                <aside id="sidebar" className="col-xs-12 col-sm-12 col-md-4">
+                                    <div id="halim_tab_popular_videos-widget-7" className="widget halim_tab_popular_videos-widget">
+                                        <div className="section-bar clearfix">
+                                            <div className="section-title">
+                                                <span>Top Views</span>
+                                            </div>
+                                        </div>
+                                        <section className="tab-content">
+                                            <div role="tabpanel" className="tab-pane active halim-ajax-popular-post">
+                                                <div className="halim-ajax-popular-post-loading hidden"></div>
+                                                <div id="halim-ajax-popular-post" className="popular-post">
+                                                    {movieNew.map((item) => (
+                                                        <div className="item post-37176">
+                                                            <Link to={`/phim/${item.slug}`} className="halim-thumb">
+                                                                <div className="item-link">
+                                                                    <img
+                                                                        src={item.poster_url}
+                                                                        className="lazy post-thumb" alt={item.name}
+                                                                        title={item.name} />
+                                                                </div>
+                                                                <p className="title">{item.name}</p>
+                                                            </Link>
+                                                            <div className="viewsCount" style={{ color: '#9d9d9d' }}>{item.origin_name}</div>
+                                                            <div style={{ float: 'left' }}>
+                                                                <span className="user-rate-image post-large-rate stars-large-vang"
+                                                                    style={{ display: 'block' }}>
+                                                                    <span style={{ width: '0%' }}></span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <div className="clearfix"></div>
+                                    </div>
+                                </aside>
                             </div>
                         </div>
                     </>
