@@ -6,6 +6,7 @@ import { toast } from "react-toastify"
 import { useAuth } from "@context/AuthContext";
 
 const Header = () => {
+    const { user, logout } = useAuth();
     const location = useLocation();
     const [keyword, setKeyword] = useState("")
     const [category, setCategory] = useState([])
@@ -14,6 +15,14 @@ const Header = () => {
     const [suggestedMovies, setSuggestedMovies] = useState([]);
 
     const [isMenuOpen, setMenuOpen] = useState(false);
+
+    // useEffect(() => {
+    //     const storedUser = localStorage.getItem("user");
+    //     if (storedUser) {
+    //         setUsername(JSON.parse(storedUser).name);
+    //     }
+    // }, []);
+
 
     const handleSearch = (event) => {
         event.preventDefault()
@@ -94,7 +103,16 @@ const Header = () => {
         fetchData();
     }, []);
 
+    const handleClick = (e) => {
+        e.preventDefault();
+        toast.warning("Chức năng đang được phát triển, chờ xíu nhé!")
+    };
 
+    const handleLogout = () => {
+        logout();
+        navigate("/");
+        toast.success("Đăng xuất thành công!")
+    };
 
 
     return (
@@ -130,40 +148,44 @@ const Header = () => {
                                     </form>
                                     {keyword && suggestedMovies.length > 0 && (
                                         <div
-                                        className=""
-                                        style={{ zIndex: 1000, position:'absolute', width:'93%', background: 'rgba(233, 236, 239)'}} // Giới hạn chiều cao, thêm scroll nếu cần
-                                      >
-                                        {suggestedMovies.map((movie) => (
-                                          <Link
-                                            key={movie.slug}
-                                            to={`/phim/${movie.slug}`}
-                                            className="list-group-item list-group-item-action d-flex align-items-center"
-                                            onClick={() => setKeyword("")} // Reset ô tìm kiếm khi chọn phim
-                                            style={{ display: "flex", alignItems: "center", gap: "10px", padding: "8px" }} // Giữ căn chỉnh đẹp
-                                          >
-                                            {/* Ảnh */}
-                                            <img
-                                              src={`https://phimimg.com/${movie.thumb_url}`}
-                                              width="40"
-                                              height="40"
-                                              className="rounded"
-                                              style={{ objectFit: "cover", flexShrink: 0 }} // Đảm bảo ảnh luôn vừa
-                                            />
-                                            
-                                            {/* Tên phim, tránh tràn xuống dòng */}
-                                            <span 
-                                              className="text-truncate"
-                                              style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", flex: 1 }}
-                                            >
-                                              {movie.name}
-                                            </span>
-                                          </Link>
-                                        ))}
-                                      </div>
-                                      
+                                            className=""
+                                            style={{ zIndex: 1000, position: 'absolute', width: '93%', background: 'rgba(233, 236, 239)' }} // Giới hạn chiều cao, thêm scroll nếu cần
+                                        >
+                                            {suggestedMovies.map((movie) => (
+                                                <Link
+                                                    key={movie.slug}
+                                                    to={`/phim/${movie.slug}`}
+                                                    className="list-group-item list-group-item-action d-flex align-items-center"
+                                                    onClick={() => setKeyword("")} // Reset ô tìm kiếm khi chọn phim
+                                                    style={{ display: "flex", alignItems: "center", gap: "10px", padding: "8px" }} // Giữ căn chỉnh đẹp
+                                                >
+                                                    {/* Ảnh */}
+                                                    <img
+                                                        src={`https://phimimg.com/${movie.thumb_url}`}
+                                                        width="40"
+                                                        height="40"
+                                                        className="rounded"
+                                                        style={{ objectFit: "cover", flexShrink: 0 }} // Đảm bảo ảnh luôn vừa
+                                                    />
+
+                                                    {/* Tên phim, tránh tràn xuống dòng */}
+                                                    <span
+                                                        className="text-truncate"
+                                                        style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", flex: 1 }}
+                                                    >
+                                                        {movie.name}
+                                                    </span>
+                                                </Link>
+                                            ))}
+                                        </div>
+
                                     )}
                                 </div>
                             </div>
+                        </div>
+
+                        <div className="col-md-4 hidden-xs">
+                            <div id="get-bookmark" className="box-shadow"><span> Vì quá nghèo nên phải gắn quảng cáo🥲🥲🥲</span></div>
                         </div>
                     </div>
                 </div>
@@ -226,6 +248,29 @@ const Header = () => {
                                 <li className="mega">
                                     <Link to="/hoat-hinh" className="nav-link text-white">Hoạt Hình</Link>
                                 </li>
+                                <li className="mega">
+                                    <Link to="/quay-so-may-man" className="nav-link text-white" onClick={handleClick}>Quay Số May Mắn</Link>
+                                </li>
+                                {/* {user ? (
+                                    <li className="mega dropdown">
+                                        <a
+                                            className="dropdown-toggle" data-toggle="dropdown"
+                                        >
+                                            Chào, {user ? user.name : "Khách"} <span className="caret"></span>
+                                        </a>
+                                        <ul className="dropdown-menu">
+                                            <li>
+                                                <Link to="/phim-da-xem" className="dropdown-item">Phim Đã Xem</Link>
+                                                <Link to="/quan-ly-tai-khoan" className="dropdown-item" >Thông Tin Tài Khoản</Link>
+                                                <Link to="/" className="dropdown-item" onClick={handleLogout}>Đăng Xuất</Link>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                ) : (
+                                    <li className="nav-item">
+                                        <Link to="/dang-nhap" className="nav-link text-white">Đăng Nhập</Link>
+                                    </li>
+                                )} */}
                             </ul>
                         </div>
                     </nav>

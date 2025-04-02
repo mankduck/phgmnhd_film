@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="container footer-columns">
                     <div className="row container">
                         <div className="widget about col-xs-12 col-sm-4 col-md-4">
-                            Liên hệ QC:{" "}
+                            Liên hệ QC:{" Sợ nên không dám để thông tin🥲🥲"}
                         </div>
                     </div>
                 </div>
