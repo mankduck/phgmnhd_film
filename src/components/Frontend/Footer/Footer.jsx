@@ -4,6 +4,7 @@ import './footer.css'
 const Footer = () => {
     return (
         <>
+        
             <footer id="footer" className="clearfix">
                 <div className="container footer-columns">
                     <div className="row container">
