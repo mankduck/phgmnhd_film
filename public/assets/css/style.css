@@ -1519,7 +1519,7 @@ tr.title {
 .grid-item .episode {
     right: 0;
     top: 0;
-    background: #f11b1b;
+    background: #f59823;
     color: #fff;
     padding: 2px 5px;
     z-index: 9
@@ -6536,5 +6536,9 @@ ul.list-info-group {
 
     #footer .footer-logo {
         padding: 15px 0
+    }
+
+    .logo-header-custom{
+        margin: 0 !important;
     }
 }
