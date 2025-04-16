@@ -121,11 +121,8 @@ const Header = () => {
                 <div className="container">
                     <div className="row" id="headwrap">
                         <div className="col-md-3 col-sm-6 slogan">
-                            <p className="text-center logo-header-custom" style={{ height: "55px", margin: "-5px 0 -20px 0" }} >
-
-                                {/* <image href="assets/images/logo2.jpg"/> */}
+                            <p className="site-title">
                                 <a className="logo" href="/" title="Phim Hay">
-                                    <img src="/assets/images/logo3.jpg" alt="" style={{ height: "55px" }} />
                                 </a>
                             </p>
                         </div>
@@ -187,7 +184,7 @@ const Header = () => {
                         </div>
 
                         <div className="col-md-4 hidden-xs">
-                            <div id="get-bookmark" className="box-shadow"><span> Vì quá nghèo nên phải gắn quảng cáo!!!</span></div>
+                            <div id="get-bookmark" className="box-shadow"><span> Vì quá nghèo nên phải gắn quảng cáo🥲🥲🥲</span></div>
                         </div>
                     </div>
                 </div>
