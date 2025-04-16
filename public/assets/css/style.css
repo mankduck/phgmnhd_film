@@ -21,7 +21,7 @@ a {
     color: #87c3f9
 }
 
-.mb10{
+.mb10 {
     margin-bottom: 10px;
 }
 
@@ -112,7 +112,7 @@ img:hover {
     background: url(https://phimhay.co/wp-content/uploads/2019/02/logo-footer.png) no-repeat top left;
     background-size: contain;
     height: 45px;
-    margin-top: -5px;
+    margin-bottom: -5px;
     position: relative
 }
 
@@ -6538,7 +6538,7 @@ ul.list-info-group {
         padding: 15px 0
     }
 
-    .logo-header-custom{
+    #header .site-title {
         margin: 0 !important;
     }
 }
