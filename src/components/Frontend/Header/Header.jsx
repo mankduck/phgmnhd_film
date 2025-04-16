@@ -125,7 +125,7 @@ const Header = () => {
 
                                 {/* <image href="assets/images/logo2.jpg"/> */}
                                 <a className="logo" href="/" title="Phim Hay">
-                                    <img src="assets/images/phimcu.png" alt="" style={{ height: "55px" }} />
+                                    <img src="/phimcu.png" alt="" style={{ height: "55px" }} />
                                 </a>
                             </p>
                         </div>
