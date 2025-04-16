@@ -122,11 +122,12 @@ const Header = () => {
                     <div className="row" id="headwrap">
                         <div className="col-md-3 col-sm-6 slogan">
                             <p className="site-title">
+                                {/* <image href="assets/images/logo2.jpg"/> */}
                                 <a className="logo" href="/" title="Phim Hay">
                                 </a>
                             </p>
                         </div>
-                        <div className="col-md-5 col-sm-6 halim-search-form hidden-xs">
+                        <div className="col-md-5 col-sm-6 halim-search-form">
                             <div className="header-nav">
                                 <div className="col-xs-12">
                                     <form id="search-form-pc" name="halimForm" role="search" onSubmit={handleSearch}>
