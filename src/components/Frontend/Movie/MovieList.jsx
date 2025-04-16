@@ -49,6 +49,11 @@ const MovieList = () => {
         fetchMovies()
     }, [])
 
+    function rand() {
+        const randomNumber = (Math.random() * (10 - 1) + 1).toFixed(1);
+        return randomNumber
+    }
+
 
     return (
         <>
@@ -198,7 +203,7 @@ const MovieList = () => {
                                                             </div>
                                                             <p className="title">{item.name}</p>
                                                         </Link>
-                                                        <div className="viewsCount" style={{ color: '#9d9d9d' }}>3.2K lượt xem</div>
+                                                        <div className="viewsCount" style={{ color: '#9d9d9d' }}>{rand()}K lượt xem</div>
                                                         <div style={{ float: 'left' }}>
                                                             <span className="user-rate-image post-large-rate stars-large-vang" style={{ display: 'block' }}>
                                                                 <span style={{ width: '0%' }}></span>
