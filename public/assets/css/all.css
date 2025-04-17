@@ -5590,3 +5590,7 @@
 .fas {
     font-weight: 900
 }
+
+.text-danger{
+    color: red;
+}

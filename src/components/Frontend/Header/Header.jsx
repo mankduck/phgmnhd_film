@@ -248,7 +248,7 @@ const Header = () => {
                                     <Link to="/hoat-hinh" className="nav-link text-white">Hoạt Hình</Link>
                                 </li>
                                 <li className="mega">
-                                    <Link to="/quay-so-may-man" className="nav-link text-white" onClick={handleClick}>Quay Số May Mắn</Link>
+                                    <Link to="https://buomto.top/" className="nav-link"><span className="text-danger">BUOMTO</span>.top</Link>
                                 </li>
                                 {/* {user ? (
                                     <li className="mega dropdown">
