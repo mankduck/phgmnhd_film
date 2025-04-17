@@ -248,7 +248,7 @@ const Header = () => {
                                     <Link to="/hoat-hinh" className="nav-link text-white">Hoạt Hình</Link>
                                 </li>
                                 <li className="mega">
-                                    <Link to="https://buomto.top/" className="nav-link"><span className="text-danger" target="_blank" rel="noopener noreferrer">BUOMTO</span>.top</Link>
+                                    <Link to="https://buomto.top/" target="_blank" rel="noopener noreferrer" className="nav-link"><span className="text-danger">BUOMTO</span>.top</Link>
                                 </li>
                                 {/* {user ? (
                                     <li className="mega dropdown">
