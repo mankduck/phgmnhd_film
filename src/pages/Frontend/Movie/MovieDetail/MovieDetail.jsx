@@ -4,6 +4,7 @@ import movieAPI from "@api/axiosClient"
 import Hls from "hls.js"
 import { toast } from "react-toastify"
 import Loader from "@components/Frontend/Loader/Loader"
+import NoSleep from 'nosleep.js'
 import FacebookComment from "@components/Frontend/FacebookComment/FacebookComment";
 import FacebookLike from "@components/Frontend/FacebookLike/FacebookLike";
 
@@ -20,6 +21,7 @@ const MovieDetail = () => {
     const [searchParams] = useSearchParams();
     const tap = searchParams.get("tap");
 
+
     useEffect(() => {
         if (tap) {
             setSelectedEpisode(Number(tap) - 1);
@@ -32,6 +34,7 @@ const MovieDetail = () => {
             try {
                 const data = await movieAPI.getMovieDetail(slug)
                 const dataNewMovie = await movieAPI.getMovieNewUpdate(1)
+                console.log(data);
                 setMovieInfo(data.movie)
                 setMovieEpisodes(data.episodes)
                 setMovieNew(dataNewMovie.items)
@@ -47,23 +50,40 @@ const MovieDetail = () => {
 
 
     useEffect(() => {
+        const noSleep = new NoSleep()
         if (movieEpisodes.length > 0 && videoRef.current) {
             const video = videoRef.current
             const videoSrc = movieEpisodes[activeTab].server_data[selectedEpisode].link_m3u8
+
+            const handleFullscreen = () => {
+                toast.success('Vào fullscreen iOS – bật NoSleep');
+                try {
+                    noSleep.enable();
+                } catch (err) {
+                    console.warn('Không bật được NoSleep:', err);
+                }
+            };
+            video.addEventListener("webkitbeginfullscreen", handleFullscreen);
+
             if (Hls.isSupported()) {
+                toast.success('HLSHLSHLSHLS')
                 const hls = new Hls()
                 hls.loadSource(videoSrc)
                 hls.attachMedia(video)
-                return () => {
-                    hls.destroy()
-                }
+
             } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+                toast.success('ádasdsa')
                 video.src = linkMovie
                 video.addEventListener("canplay", function () {
                     video.load()
                     video.play()
+                    noSleep.enable()
                 })
+            } else {
+                toast("IOS ngu vcl")
+                noSleep.enable()
             }
+
         }
     }, [selectedEpisode, movieEpisodes])
 
@@ -125,13 +145,14 @@ const MovieDetail = () => {
                                                 controls
                                                 // autoplay
                                                 preload="auto"
-                                                disablepictureinpicture
+                                                disablePictureInPicture
                                                 controlsList="true"
                                                 loop="loop"
                                                 poster={movieInfo.thumb_url}
                                                 style={{ width: "100%", height: "auto" }}
                                             // onPlay={enterFullscreen}
                                             ></video>
+                                            <iframe width={0} height={0} src="https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250417/PsdyI9az/index.m3u8" frameborder="0"></iframe>
                                         </div >
 
                                         <div className="clearfix"></div>
@@ -210,7 +231,7 @@ const MovieDetail = () => {
                                                 <div className="halim-ajax-popular-post-loading hidden"></div>
                                                 <div id="halim-ajax-popular-post" className="popular-post">
                                                     {movieNew.map((item) => (
-                                                        <div className="item post-37176">
+                                                        <div key={item.id} className="item post-37176">
                                                             <Link to={`/phim/${item.slug}`} className="halim-thumb">
                                                                 <div className="item-link">
                                                                     <img
