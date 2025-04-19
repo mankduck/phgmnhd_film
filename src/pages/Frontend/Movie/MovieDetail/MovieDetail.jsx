@@ -20,7 +20,6 @@ const MovieDetail = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const tap = searchParams.get("tap");
-    const noSleep = new NoSleep()
 
 
     useEffect(() => {
@@ -51,29 +50,27 @@ const MovieDetail = () => {
 
 
     useEffect(() => {
+        const noSleep = new NoSleep()
         if (movieEpisodes.length > 0 && videoRef.current) {
             const video = videoRef.current
             const videoSrc = movieEpisodes[activeTab].server_data[selectedEpisode].link_m3u8
 
+            const handleFullscreen = () => {
+                toast.success('Vào fullscreen iOS – bật NoSleep');
+                try {
+                    noSleep.enable();
+                } catch (err) {
+                    console.warn('Không bật được NoSleep:', err);
+                }
+            };
+            video.addEventListener("webkitbeginfullscreen", handleFullscreen);
 
             if (Hls.isSupported()) {
                 toast.success('HLSHLSHLSHLS')
                 const hls = new Hls()
                 hls.loadSource(videoSrc)
                 hls.attachMedia(video)
-                noSleep.enable()
 
-                video.addEventListener("canplay", function () {
-                    // video.play();
-                    toast.success('canplay')
-                    if (video.webkitEnterFullscreen) {
-                        toast.success('fullscreen')
-                        video.webkitEnterFullscreen();
-                    }
-                });
-                return () => {
-                    hls.destroy()
-                }
             } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
                 toast.success('ádasdsa')
                 video.src = linkMovie
@@ -86,6 +83,7 @@ const MovieDetail = () => {
                 toast("IOS ngu vcl")
                 noSleep.enable()
             }
+
         }
     }, [selectedEpisode, movieEpisodes])
 
