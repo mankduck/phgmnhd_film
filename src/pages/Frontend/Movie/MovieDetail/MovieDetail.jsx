@@ -56,23 +56,23 @@ const MovieDetail = () => {
             const videoSrc = movieEpisodes[activeTab].server_data[selectedEpisode].link_m3u8
 
             const handleFullscreen = () => {
-                toast.success('Vào fullscreen iOS – bật NoSleep');
+                // toast.success('Vào fullscreen iOS – bật NoSleep');
                 try {
                     noSleep.enable();
                 } catch (err) {
-                    console.warn('Không bật được NoSleep:', err);
+                    // console.warn('Không bật được NoSleep:', err);
                 }
             };
             video.addEventListener("webkitbeginfullscreen", handleFullscreen);
 
             if (Hls.isSupported()) {
-                toast.success('HLSHLSHLSHLS')
+                // toast.success('HLSHLSHLSHLS')
                 const hls = new Hls()
                 hls.loadSource(videoSrc)
                 hls.attachMedia(video)
 
             } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-                toast.success('ádasdsa')
+                // toast.success('ádasdsa')
                 video.src = linkMovie
                 video.addEventListener("canplay", function () {
                     video.load()
@@ -80,7 +80,7 @@ const MovieDetail = () => {
                     noSleep.enable()
                 })
             } else {
-                toast("IOS ngu vcl")
+                // toast("IOS ngu vcl")
                 noSleep.enable()
             }
 
