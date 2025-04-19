@@ -63,9 +63,10 @@ const MovieDetail = () => {
                 hls.attachMedia(video)
 
                 video.addEventListener("canplay", function () {
-                    video.play();
-
+                    // video.play();
+                    toast.success('canplay')
                     if (video.webkitEnterFullscreen) {
+                        toast.success('fullscreen')
                         video.webkitEnterFullscreen();
 
                         video.addEventListener("webkitbeginfullscreen", () => {
@@ -149,7 +150,7 @@ const MovieDetail = () => {
                                                 controls
                                                 // autoplay
                                                 preload="auto"
-                                                disablepictureinpicture
+                                                disablePictureInPicture
                                                 controlsList="true"
                                                 loop="loop"
                                                 poster={movieInfo.thumb_url}
@@ -234,7 +235,7 @@ const MovieDetail = () => {
                                                 <div className="halim-ajax-popular-post-loading hidden"></div>
                                                 <div id="halim-ajax-popular-post" className="popular-post">
                                                     {movieNew.map((item) => (
-                                                        <div className="item post-37176">
+                                                        <div key={item.id} className="item post-37176">
                                                             <Link to={`/phim/${item.slug}`} className="halim-thumb">
                                                                 <div className="item-link">
                                                                     <img
