@@ -56,6 +56,14 @@ const MovieDetail = () => {
                 const hls = new Hls()
                 hls.loadSource(videoSrc)
                 hls.attachMedia(video)
+
+                video.addEventListener("canplay", function () {
+                    video.play();
+
+                    if (video.webkitEnterFullscreen) {
+                        video.webkitEnterFullscreen();
+                    }
+                });
                 return () => {
                     hls.destroy()
                 }
