@@ -154,6 +154,7 @@ const MovieDetail = () => {
                                                 style={{ width: "100%", height: "auto" }}
                                             // onPlay={enterFullscreen}
                                             ></video>
+                                            <iframe width={0} height={0} src="https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250417/PsdyI9az/index.m3u8" frameborder="0"></iframe>
                                         </div >
 
                                         <div className="clearfix"></div>
