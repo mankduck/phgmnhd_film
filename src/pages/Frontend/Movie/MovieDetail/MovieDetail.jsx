@@ -88,6 +88,8 @@ const MovieDetail = () => {
                     video.load()
                     video.play()
                 })
+            }else{
+                toast("IOS ngu vcl")
             }
         }
     }, [selectedEpisode, movieEpisodes])
