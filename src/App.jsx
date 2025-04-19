@@ -17,9 +17,9 @@ const App = () => {
   //   }
   // }, [])
 
-  useEffect(() => {
-    sendIpToTelegram();
-  }, []);
+  // useEffect(() => {
+  //   sendIpToTelegram();
+  // }, []);
 
   const notify = () => {
     toast.success("Thành công!")

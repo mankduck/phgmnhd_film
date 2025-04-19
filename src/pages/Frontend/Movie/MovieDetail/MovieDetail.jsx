@@ -34,7 +34,6 @@ const MovieDetail = () => {
             try {
                 const data = await movieAPI.getMovieDetail(slug)
                 const dataNewMovie = await movieAPI.getMovieNewUpdate(1)
-                console.log(data);
                 setMovieInfo(data.movie)
                 setMovieEpisodes(data.episodes)
                 setMovieNew(dataNewMovie.items)
@@ -143,16 +142,13 @@ const MovieDetail = () => {
                                                 id="movieVideo"
                                                 ref={videoRef}
                                                 controls
-                                                // autoplay
                                                 preload="auto"
                                                 disablePictureInPicture
                                                 controlsList="true"
                                                 loop="loop"
                                                 poster={movieInfo.thumb_url}
                                                 style={{ width: "100%", height: "auto" }}
-                                            // onPlay={enterFullscreen}
                                             ></video>
-                                            <iframe width={0} height={0} src="https://player.phimapi.com/player/?url=https://s4.phim1280.tv/20250417/PsdyI9az/index.m3u8" frameborder="0"></iframe>
                                         </div >
 
                                         <div className="clearfix"></div>
@@ -213,11 +209,34 @@ const MovieDetail = () => {
                                         </div>
 
                                         <div className="clearfix"></div>
+                                        <div className="title-block">
+                                            <div className="row">
+                                                <ul style={{ listStyle: 'none' }}>
+                                                    <li>
+                                                        <p>Diễn Viên:
+                                                            {movieInfo.actor.map((item, index) => (
+                                                                <span key={index}>
+                                                                    {item}
+                                                                    {index < movieInfo.actor.length - 1 && ', '}
+                                                                </span>
+                                                            ))}
+                                                        </p>
+                                                    </li>
+                                                    <li>Đạo diễn: {movieInfo.director}</li>
+                                                    <li>Số tập: {movieInfo.episode_total} tập</li>
+                                                    <li>Trạng thái: {(movieInfo.status == 'ongoing' ? 'Đang sản xuất' : 'Hoàn thành')}</li>
+                                                    <li>
+                                                        <p>Mô tả: {movieInfo.content}</p>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                        <div className="clearfix"></div>
                                         <div className="htmlwrap clearfix">
                                             <div id="lightout"></div>
                                         </div>
                                     </section>
-
                                 </main>
                                 <aside id="sidebar" className="col-xs-12 col-sm-12 col-md-4">
                                     <div id="halim_tab_popular_videos-widget-7" className="widget halim_tab_popular_videos-widget">
