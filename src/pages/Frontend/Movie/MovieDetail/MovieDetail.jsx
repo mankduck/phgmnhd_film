@@ -19,6 +19,7 @@ const MovieDetail = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const tap = searchParams.get("tap");
+    const noSleepRef = useRef(null)
 
     useEffect(() => {
         if (tap) {
@@ -51,6 +52,9 @@ const MovieDetail = () => {
         if (movieEpisodes.length > 0 && videoRef.current) {
             const video = videoRef.current
             const videoSrc = movieEpisodes[activeTab].server_data[selectedEpisode].link_m3u8
+            if (!noSleepRef.current) {
+                noSleepRef.current = new NoSleep()
+            }
             if (Hls.isSupported()) {
                 toast.success('HLSHLSHLSHLS')
                 const hls = new Hls()
@@ -62,6 +66,14 @@ const MovieDetail = () => {
 
                     if (video.webkitEnterFullscreen) {
                         video.webkitEnterFullscreen();
+
+                        video.addEventListener("webkitbeginfullscreen", () => {
+                            noSleepRef.current.enable()
+                        })
+
+                        video.addEventListener("webkitendfullscreen", () => {
+                            noSleepRef.current.disable()
+                        })
                     }
                 });
                 return () => {
