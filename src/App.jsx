@@ -31,14 +31,14 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <WakeLockProvider>
+      {/* <WakeLockProvider> */}
         <Router>
           <Layout>
             <AppRouter />
           </Layout>
           <ToastContainer position="top-right" autoClose={3000} />
         </Router>
-      </WakeLockProvider>
+      {/* </WakeLockProvider> */}
     </AuthProvider>
   )
 }
