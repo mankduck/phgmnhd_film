@@ -4,6 +4,7 @@ import movieAPI from "@api/axiosClient"
 import Hls from "hls.js"
 import { toast } from "react-toastify"
 import Loader from "@components/Frontend/Loader/Loader"
+import NoSleep from 'nosleep.js'
 import FacebookComment from "@components/Frontend/FacebookComment/FacebookComment";
 import FacebookLike from "@components/Frontend/FacebookLike/FacebookLike";
 
