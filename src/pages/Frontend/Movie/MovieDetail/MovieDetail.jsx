@@ -32,6 +32,7 @@ const MovieDetail = () => {
             try {
                 const data = await movieAPI.getMovieDetail(slug)
                 const dataNewMovie = await movieAPI.getMovieNewUpdate(1)
+                console.log(data);
                 setMovieInfo(data.movie)
                 setMovieEpisodes(data.episodes)
                 setMovieNew(dataNewMovie.items)
@@ -51,6 +52,7 @@ const MovieDetail = () => {
             const video = videoRef.current
             const videoSrc = movieEpisodes[activeTab].server_data[selectedEpisode].link_m3u8
             if (Hls.isSupported()) {
+                toast.success('HLSHLSHLSHLS')
                 const hls = new Hls()
                 hls.loadSource(videoSrc)
                 hls.attachMedia(video)
@@ -58,6 +60,7 @@ const MovieDetail = () => {
                     hls.destroy()
                 }
             } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+                toast.success('ádasdsa')
                 video.src = linkMovie
                 video.addEventListener("canplay", function () {
                     video.load()
