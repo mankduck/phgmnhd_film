@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { AuthProvider } from "./context/AuthContext"
 import { WakeLockProvider } from "./context/WakeLockContext"; // Import file vừa tạo
+import { SkeletonTheme } from 'react-loading-skeleton'
 
 const App = () => {
   // useEffect(() => {
@@ -31,14 +32,16 @@ const App = () => {
 
   return (
     <AuthProvider>
-      {/* <WakeLockProvider> */}
+      <SkeletonTheme baseColor='#313131' highlightColor='#525252'>
+        {/* <WakeLockProvider> */}
         <Router>
           <Layout>
             <AppRouter />
           </Layout>
           <ToastContainer position="top-right" autoClose={3000} />
         </Router>
-      {/* </WakeLockProvider> */}
+        {/* </WakeLockProvider> */}
+      </SkeletonTheme>
     </AuthProvider>
   )
 }

@@ -4,6 +4,7 @@ import movieAPI from "@api/axiosClient"
 import Loader from "@components/Frontend/Loader/Loader"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
+import SkeletonItemCol3 from "../../../../components/Frontend/SkeletonItem/SkeletonItemCol3"
 
 const SearchMovie = () => {
     const [searchMovies, setSearchMovies] = useState([])
@@ -67,115 +68,114 @@ const SearchMovie = () => {
 
     return (
         <>
-            {loading
-                ? (<Loader />)
-                : (
-                    <>
-                        <div className="container">
-                            <div className="row fullwith-slider"></div>
+
+            <div className="container">
+                <div className="row fullwith-slider"></div>
+            </div>
+            <div className="container">
+                <div className="row container" id="wrapper">
+                    <div className="halim-panel-filter">
+                        <div id="ajax-filter" className="panel-collapse collapse" aria-expanded="true" role="menu">
+                            <div className="ajax"></div>
                         </div>
-                        <div className="container">
-                            <div className="row container" id="wrapper">
-                                <div className="halim-panel-filter">
-                                    <div id="ajax-filter" className="panel-collapse collapse" aria-expanded="true" role="menu">
-                                        <div className="ajax"></div>
-                                    </div>
-                                </div>
-                                <main id="main-contents" className="col-xs-12 col-sm-12 col-md-8">
-                                    <section>
-                                        <div className="section-bar clearfix">
-                                            <h1 className="section-title"><span>{breadcrumb}</span></h1>
-                                        </div>
-                                        <div className="halim_box">
-                                            {
-                                                searchMovies.map((item, key) => (
-                                                    <article className="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-27021">
-                                                        <div className="halim-item">
-                                                            <Link to={`/phim/${item.slug}`} className="halim-thumb">
-                                                                <figure><img className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
-                                                                <span className="status">{item.year}</span><span className="episode"><i className="fa fa-play" aria-hidden="true"></i>Vietsub</span>
-                                                                <div className="icon_overlay"></div>
-                                                                <div className="halim-post-title-box">
-                                                                    <div className="halim-post-title ">
-                                                                        <p className="entry-title">{item.name}</p>
-                                                                        <p className="original_title">{item.origin_name}</p>
-                                                                    </div>
-                                                                </div>
-                                                            </Link>
+                    </div>
+                    <main id="main-contents" className="col-xs-12 col-sm-12 col-md-8">
+                        <section>
+                            <div className="section-bar clearfix">
+                                <h1 className="section-title"><span>{breadcrumb}</span></h1>
+                            </div>
+                            <div className="halim_box">
+                                {loading
+                                    ? Array.from({ length: 12 }).map((_, index) => (
+                                        <SkeletonItemCol3 key={index} />
+                                    )) :
+                                    searchMovies.map((item, key) => (
+                                        <article className="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-27021">
+                                            <div className="halim-item">
+                                                <Link to={`/phim/${item.slug}`} className="halim-thumb">
+                                                    <figure><img className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
+                                                    <span className="status">{item.year}</span><span className="episode"><i className="fa fa-play" aria-hidden="true"></i>Vietsub</span>
+                                                    <div className="icon_overlay"></div>
+                                                    <div className="halim-post-title-box">
+                                                        <div className="halim-post-title ">
+                                                            <p className="entry-title">{item.name}</p>
+                                                            <p className="original_title">{item.origin_name}</p>
                                                         </div>
-                                                    </article>
-                                                ))
-                                            }
-                                        </div>
-                                        <div className="clearfix"></div>
-                                        <div className="text-center">
-                                            {searchMovies.length > 0 ? (
-                                                <ul className='page-numbers'>
-                                                    {getPagination().map((page, index) => (
-                                                        <li key={index} style={{ margin: '5px' }}>
-                                                            <a
-                                                                href="#"
-                                                                onClick={() => {
-                                                                    typeof page === "number" ? setCurrentPage(page) : null;
-                                                                    handlePaginateClick(page);
-                                                                }}
-                                                                className={page === currentPage ? "active" : ""}
-                                                            >
-                                                                {page}
-                                                            </a>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            ) :
-                                                (
-                                                    <h4 className="text-white pt-100 pb-100 text-center">Không có phim nào</h4>
-                                                )
-                                            }
-                                        </div>
-                                    </section>
-                                </main>
-                                <aside id="sidebar" className="col-xs-12 col-sm-12 col-md-4">
-                                    <div id="halim_tab_popular_videos-widget-7" className="widget halim_tab_popular_videos-widget">
-                                        <div className="section-bar clearfix">
-                                            <div className="section-title">
-                                                <span>Top Views</span>
+                                                    </div>
+                                                </Link>
                                             </div>
-                                        </div>
-                                        <section className="tab-content">
-                                            <div role="tabpanel" className="tab-pane active halim-ajax-popular-post">
-                                                <div className="halim-ajax-popular-post-loading hidden"></div>
-                                                <div id="halim-ajax-popular-post" className="popular-post">
-                                                    {movieNew.map((item) => (
-                                                        <div className="item post-37176">
-                                                            <Link to={`/phim/${item.slug}`} className="halim-thumb">
-                                                                <div className="item-link">
-                                                                    <img
-                                                                        src={item.poster_url}
-                                                                        className="lazy post-thumb" alt={item.name}
-                                                                        title={item.name} />
-                                                                </div>
-                                                                <p className="title">{item.name}</p>
-                                                            </Link>
-                                                            <div className="viewsCount" style={{ color: '#9d9d9d' }}>{item.origin_name}</div>
-                                                            <div style={{ float: 'left' }}>
-                                                                <span className="user-rate-image post-large-rate stars-large-vang"
-                                                                    style={{ display: 'block' }}>
-                                                                    <span style={{ width: '0%' }}></span>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    ))}
+                                        </article>
+                                    ))
+                                }
+                            </div>
+                            <div className="clearfix"></div>
+                            <div className="text-center">
+                                {searchMovies.length > 0 ? (
+                                    <ul className='page-numbers'>
+                                        {getPagination().map((page, index) => (
+                                            <li key={index} style={{ margin: '5px' }}>
+                                                <a
+                                                    href="#"
+                                                    onClick={() => {
+                                                        typeof page === "number" ? setCurrentPage(page) : null;
+                                                        handlePaginateClick(page);
+                                                    }}
+                                                    className={page === currentPage ? "active" : ""}
+                                                >
+                                                    {page}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) :
+                                    (
+                                        <h4 className="text-white pt-100 pb-100 text-center">Không có phim nào</h4>
+                                    )
+                                }
+                            </div>
+                        </section>
+                    </main>
+                    <aside id="sidebar" className="col-xs-12 col-sm-12 col-md-4">
+                        <div id="halim_tab_popular_videos-widget-7" className="widget halim_tab_popular_videos-widget">
+                            <div className="section-bar clearfix">
+                                <div className="section-title">
+                                    <span>Top Views</span>
+                                </div>
+                            </div>
+                            <section className="tab-content">
+                                <div role="tabpanel" className="tab-pane active halim-ajax-popular-post">
+                                    <div className="halim-ajax-popular-post-loading hidden"></div>
+                                    <div id="halim-ajax-popular-post" className="popular-post">
+                                        {movieNew.map((item) => (
+                                            <div className="item post-37176">
+                                                <Link to={`/phim/${item.slug}`} className="halim-thumb">
+                                                    <div className="item-link">
+                                                        <img
+                                                            src={item.poster_url}
+                                                            className="lazy post-thumb" alt={item.name}
+                                                            title={item.name} />
+                                                    </div>
+                                                    <p className="title">{item.name}</p>
+                                                </Link>
+                                                <div className="viewsCount" style={{ color: '#9d9d9d' }}>{item.origin_name}</div>
+                                                <div style={{ float: 'left' }}>
+                                                    <span className="user-rate-image post-large-rate stars-large-vang"
+                                                        style={{ display: 'block' }}>
+                                                        <span style={{ width: '0%' }}></span>
+                                                    </span>
                                                 </div>
                                             </div>
-                                        </section>
-                                        <div className="clearfix"></div>
+                                        ))}
                                     </div>
-                                </aside>
-                            </div>
+                                </div>
+                            </section>
+                            <div className="clearfix"></div>
                         </div>
-                        <div className="clearfix"></div>
-                    </>
-                )}
+                    </aside>
+                </div>
+            </div>
+            <div className="clearfix"></div>
+
         </>
     )
 }
