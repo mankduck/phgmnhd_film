@@ -5,8 +5,8 @@ import Hls from "hls.js"
 import { toast } from "react-toastify"
 import Loader from "@components/Frontend/Loader/Loader"
 import NoSleep from 'nosleep.js'
-import FacebookComment from "@components/Frontend/FacebookComment/FacebookComment";
-import FacebookLike from "@components/Frontend/FacebookLike/FacebookLike";
+import FacebookComment from "@components/Frontend/FacebookComment/FacebookComment"
+import FacebookLike from "@components/Frontend/FacebookLike/FacebookLike"
 import Skeleton from "react-loading-skeleton"
 
 const MovieDetail = () => {
@@ -17,17 +17,40 @@ const MovieDetail = () => {
     const [movieNew, setMovieNew] = useState(null)
     const [movieEpisodes, setMovieEpisodes] = useState([])
     const [selectedEpisode, setSelectedEpisode] = useState(0)
-    const [activeTab, setActiveTab] = useState(0);
-    const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
-    const tap = searchParams.get("tap");
+    const [activeTab, setActiveTab] = useState(0)
+    const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+    const tap = searchParams.get("tap")
 
 
     useEffect(() => {
         if (tap) {
-            setSelectedEpisode(Number(tap) - 1);
+            setSelectedEpisode(Number(tap) - 1)
         }
     })
+
+    function getSlug() {
+        const path = window.location.pathname
+        const query = window.location.search
+        const slug = path.split('/phim/')[1] + query
+        return slug
+    }
+
+    function saveProgress(slug, currentTime) {
+        const key = `progress_${slug}`
+        localStorage.setItem(key, JSON.stringify({ currentTime }))
+    }
+
+    function getProgress(slug) {
+        const key = `progress_${slug}`
+        const progress = localStorage.getItem(key)
+        // return
+        if (progress) {
+            // return
+            return JSON.parse(progress).currentTime
+        }
+        return 0
+    }
 
     useEffect(() => {
         const fetchMovie = async () => {
@@ -52,24 +75,43 @@ const MovieDetail = () => {
     useEffect(() => {
         const noSleep = new NoSleep()
         if (movieEpisodes.length > 0 && videoRef.current) {
+            const slug = getSlug()
+            let saveCounter = 0
             const video = videoRef.current
             const videoSrc = movieEpisodes[activeTab].server_data[selectedEpisode].link_m3u8
 
             const handleFullscreen = () => {
-                // toast.success('Vào fullscreen iOS – bật NoSleep');
+                // toast.success('Vào fullscreen iOS – bật NoSleep')
                 try {
-                    noSleep.enable();
+                    noSleep.enable()
                 } catch (err) {
-                    // console.warn('Không bật được NoSleep:', err);
+                    // console.warn('Không bật được NoSleep:', err)
                 }
-            };
-            video.addEventListener("webkitbeginfullscreen", handleFullscreen);
+            }
+
+            const handleTimeUpdate = () => {
+                saveCounter++
+                if (saveCounter >= 30) { // Khoảng 30 lần timeupdate (cỡ 30s) thì mới save
+                    saveProgress(slug, video.currentTime)
+                    saveCounter = 0
+                }
+            }
+            video.addEventListener("webkitbeginfullscreen", handleFullscreen)
+            video.addEventListener('timeupdate', handleTimeUpdate)
+
+            const savedTime = getProgress(slug)
 
             if (Hls.isSupported()) {
                 // toast.success('HLSHLSHLSHLS')
                 const hls = new Hls()
                 hls.loadSource(videoSrc)
                 hls.attachMedia(video)
+
+                if (savedTime > 0) {
+                    video.addEventListener('loadedmetadata', () => {
+                        video.currentTime = savedTime
+                    })
+                }
 
             } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
                 // toast.success('ádasdsa')
@@ -83,34 +125,40 @@ const MovieDetail = () => {
                 // toast("IOS ngu vcl")
                 noSleep.enable()
             }
-
+            return () => {
+                if (video) {
+                    video.removeEventListener('timeupdate', handleTimeUpdate)
+                    saveProgress(slug, video.currentTime)
+                }
+            }
         }
-    }, [selectedEpisode, movieEpisodes])
+
+    }, [selectedEpisode, movieEpisodes, movieInfo])
 
 
 
     const handleEpisodeClick = (episode) => {
-        navigate(`?tap=${episode}`);
-    };
+        navigate(`?tap=${episode}`)
+    }
 
     const handleTabChange = (index) => {
-        setActiveTab(index);
-    };
+        setActiveTab(index)
+    }
 
 
     const enterFullscreen = () => {
         if (videoRef.current) {
             if (videoRef.current.requestFullscreen) {
-                videoRef.current.requestFullscreen();
+                videoRef.current.requestFullscreen()
             } else if (videoRef.current.webkitRequestFullscreen) {
-                videoRef.current.webkitRequestFullscreen();
+                videoRef.current.webkitRequestFullscreen()
             } else if (videoRef.current.mozRequestFullScreen) {
-                videoRef.current.mozRequestFullScreen();
+                videoRef.current.mozRequestFullScreen()
             } else if (videoRef.current.msRequestFullscreen) {
-                videoRef.current.msRequestFullscreen();
+                videoRef.current.msRequestFullscreen()
             }
         }
-    };
+    }
 
 
 
@@ -120,8 +168,8 @@ const MovieDetail = () => {
                 loading ?
                     <div className="container">
                         <div className="row-container">
-                            <div className="halim-panel-filter" style={{marginBottom:"10px"}}>
-                                <Skeleton className="panel-heading"/>
+                            <div className="halim-panel-filter" style={{ marginBottom: "10px" }}>
+                                <Skeleton className="panel-heading" />
                             </div>
                             <div className="row">
 
@@ -202,8 +250,8 @@ const MovieDetail = () => {
                                                                     {item.server_data.length > 1 ? (
                                                                         item.server_data.map((episode, index) => (
                                                                             <li className="halim-episode" key={index} onClick={() => {
-                                                                                setSelectedEpisode(index);
-                                                                                handleEpisodeClick(index + 1);
+                                                                                setSelectedEpisode(index)
+                                                                                handleEpisodeClick(index + 1)
                                                                             }}>
                                                                                 <span className={`halim-btn halim-btn-2  ${selectedEpisode === index ? 'active' : ''} halim-info-1-1 box-shadow`}
                                                                                     data-post-id="37976" data-server="1" data-episode="1" data-position="first"
