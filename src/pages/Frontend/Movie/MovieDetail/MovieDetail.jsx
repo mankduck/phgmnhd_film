@@ -8,6 +8,7 @@ import NoSleep from 'nosleep.js'
 import FacebookComment from "@components/Frontend/FacebookComment/FacebookComment"
 import FacebookLike from "@components/Frontend/FacebookLike/FacebookLike"
 import Skeleton from "react-loading-skeleton"
+import Comment from "@components/Frontend/Comment/Comment"
 
 const MovieDetail = () => {
     const { slug } = useParams()
@@ -114,7 +115,6 @@ const MovieDetail = () => {
                 }
 
             } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-                // toast.success('ádasdsa')
                 video.src = linkMovie
                 video.addEventListener("canplay", function () {
                     video.load()
@@ -299,9 +299,7 @@ const MovieDetail = () => {
                                                 </div>
                                             </div>
                                             <div className="clearfix"></div>
-                                            <div className="htmlwrap clearfix">
-                                                <div id="lightout"></div>
-                                            </div>
+                                            <Comment slug={movieInfo.slug} />
                                         </section>
                                     </main>
                                     <aside id="sidebar" className="col-xs-12 col-sm-12 col-md-4">

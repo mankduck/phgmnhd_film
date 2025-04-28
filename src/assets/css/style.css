@@ -9043,6 +9043,10 @@ only screen and (max-width: 767px) {
   /* Chuyển icon thành trắng */
 }
 
-.mb-10{
+.mb-10 {
   margin-bottom: 10px !important;
+}
+
+.mt-10 {
+  margin-top: 10px !important;
 }
