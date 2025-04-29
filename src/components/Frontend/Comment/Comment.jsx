@@ -38,14 +38,29 @@ const Comment = (slug) => {
             toast.success('Bình luận của bạn đã được gửi thành công!')
             setName('')
             setComment('')
-            getListComment()
+            await getListComment()
             setLoading(false)
         } catch (error) {
             setLoading(false)
-            toast.error('Đã có lỗi xảy ra, mã lỗi: ' + error)
+            toast.error('Không thể thêm bình luận! Vui lòng thử lại sau!')
             console.error('Có lỗi xảy ra:', error)
         }
     }
+
+    function formatDateTime(isoString) {
+        const date = new Date(isoString);
+        const pad = (n) => n.toString().padStart(2, '0');
+
+        const day = pad(date.getDate());
+        const month = pad(date.getMonth() + 1);
+        const year = date.getFullYear();
+
+        const hours = pad(date.getHours());
+        const minutes = pad(date.getMinutes());
+
+        return `${day}-${month}-${year} ${hours}:${minutes}`;
+    }
+
 
     return (
         <>
@@ -69,6 +84,7 @@ const Comment = (slug) => {
                             value={comment}
                             required
                             onChange={(e) => setComment(e.target.value)}
+                            placeholder='Bình luận sẽ cần được admin duyệt, nên vui lòng bình luận một cách văn minh, không spam hay quảng cáo gì nhé!'
                         ></textarea>
                         <button type="submit" className="btn btn-danger">Gửi bình luận</button>
                     </form>
@@ -84,7 +100,7 @@ const Comment = (slug) => {
                         {
                             listComment.map((item, index) => (
                                 <div key={index} className="row box-comment mb10">
-                                    <label htmlFor="">{item.name}</label>
+                                    <label ><span className='name-comment'>{item.name}</span> / {formatDateTime(item.createdAt)}</label>
                                     <p>{item.comment}</p>
                                 </div>
                             ))

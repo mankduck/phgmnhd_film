@@ -64,7 +64,7 @@ const MovieDetail = () => {
                 setMovieNew(dataNewMovie.items)
                 setLoading(false)
             } catch (error) {
-                toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại.")
+                toast.error("Không thể lấy dữ liệu phim! Vui lòng thử lại!")
                 setLoading(false)
             }
         }
@@ -133,7 +133,7 @@ const MovieDetail = () => {
             }
         }
 
-    }, [selectedEpisode, movieEpisodes, movieInfo])
+    }, [selectedEpisode, movieEpisodes, movieInfo, activeTab])
 
 
 
@@ -142,6 +142,7 @@ const MovieDetail = () => {
     }
 
     const handleTabChange = (index) => {
+        toast.success('Đổi server thành công!')
         setActiveTab(index)
     }
 
@@ -277,7 +278,7 @@ const MovieDetail = () => {
                                             <div className="clearfix"></div>
                                             <div className="title-block">
                                                 <div className="row">
-                                                    <ul style={{ listStyle: 'none' }}>
+                                                    <ul className="movie-detail-description">
                                                         <li>
                                                             <p>Diễn Viên:
                                                                 {movieInfo.actor.map((item, index) => (

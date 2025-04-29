@@ -183,7 +183,8 @@ const Header = () => {
                             </div>
                         </div>
                         <div className="col-md-4 hidden-xs">
-                            <div id="get-bookmark" className="box-shadow"><span> Vì quá nghèo nên phải gắn quảng cáo!!!</span></div>
+                            <div id="get-bookmark" className="box-shadow">Liên hệ QC:<a href="https://t.me/PhimCuContactBot" target="_blank" rel="noreferrer">Liên hệ tại đây!</a>
+                            </div>
                         </div>
                     </div>
                 </div>
