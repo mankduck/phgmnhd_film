@@ -1,55 +1,22 @@
-name: Deploy React App to Netlify
-
-on:
-  push:
-    branches:
-      - main  # Chạy khi push code lên nhánh main
-
-jobs:
-  # build:
-  #   runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v2
-        with:
-          publish-dir: './build'
-          production-branch: main
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Auto Deploy từ GitHub Actions"
-          enable-pull-request-comment: false
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
-
-
-# name: Deploy to Netlify
+# name: Deploy React App to Netlify
 
 # on:
 #   push:
 #     branches:
-#       - main  # Hoặc branch bạn muốn deploy
+#       - main  # Chạy khi push code lên nhánh main
 
 # jobs:
-#   build:
-#     runs-on: ubuntu-latest
+#   # build:
+#   #   runs-on: ubuntu-latest
 
 #     steps:
 #       - name: Checkout code
-#         uses: actions/checkout@v4
+#         uses: actions/checkout@v3
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 18
 
 #       - name: Install dependencies
 #         run: npm install
@@ -60,8 +27,41 @@ jobs:
 #       - name: Deploy to Netlify
 #         uses: nwtgck/actions-netlify@v2
 #         with:
-#           publish-dir: "./build"
-#           production-branch: "main"
+#           publish-dir: './build'
+#           production-branch: main
 #           github-token: ${{ secrets.GITHUB_TOKEN }}
+#           deploy-message: "Auto Deploy từ GitHub Actions"
+#           enable-pull-request-comment: false
 #           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 #           netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+
+
+# # name: Deploy to Netlify
+
+# # on:
+# #   push:
+# #     branches:
+# #       - main  # Hoặc branch bạn muốn deploy
+
+# # jobs:
+# #   build:
+# #     runs-on: ubuntu-latest
+
+# #     steps:
+# #       - name: Checkout code
+# #         uses: actions/checkout@v4
+
+# #       - name: Install dependencies
+# #         run: npm install
+
+# #       - name: Build project
+# #         run: npm run build
+
+# #       - name: Deploy to Netlify
+# #         uses: nwtgck/actions-netlify@v2
+# #         with:
+# #           publish-dir: "./build"
+# #           production-branch: "main"
+# #           github-token: ${{ secrets.GITHUB_TOKEN }}
+# #           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+# #           netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}

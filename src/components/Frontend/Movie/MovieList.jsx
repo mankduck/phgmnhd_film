@@ -89,7 +89,7 @@ const MovieList = () => {
                                         <article className="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
                                             <div className="halim-item">
                                                 <Link to={`/phim/${item.slug}`} className="halim-thumb">
-                                                    <figure><img className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
+                                                    <figure><img loading="lazy" className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
                                                     <span className="status">HD</span><span className="episode"><i className="fa fa-play" aria-hidden="true"></i>Vietsub</span>
                                                     <div className="icon_overlay"></div>
                                                     <div className="halim-post-title-box">
@@ -123,7 +123,7 @@ const MovieList = () => {
                                         <article className="col-md-3 col-sm-3 col-xs-6 thumb grid-item">
                                             <div className="halim-item">
                                                 <Link to={`/phim/${item.slug}`} className="halim-thumb">
-                                                    <figure><img className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
+                                                    <figure><img loading="lazy" className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
                                                     <span className="status">HD</span><span className="episode"><i className="fa fa-play" aria-hidden="true"></i>Vietsub</span>
                                                     <div className="icon_overlay"></div>
                                                     <div className="halim-post-title-box">
@@ -154,7 +154,7 @@ const MovieList = () => {
                                         <article className="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
                                             <div className="halim-item">
                                                 <Link to={`/phim/${item.slug}`} className="halim-thumb">
-                                                    <figure><img className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
+                                                    <figure><img loading="lazy" className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
                                                     <span className="status">HD</span><span className="episode"><i className="fa fa-play" aria-hidden="true"></i>Vietsub</span>
                                                     <div className="icon_overlay"></div>
                                                     <div className="halim-post-title-box">
@@ -185,7 +185,7 @@ const MovieList = () => {
                                         <article className="col-md-3 col-sm-3 col-xs-6 thumb grid-item">
                                             <div className="halim-item">
                                                 <Link to={`/phim/${item.slug}`} className="halim-thumb">
-                                                    <figure><img className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
+                                                    <figure><img loading="lazy" className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
                                                     <span className="status">HD</span><span className="episode"><i className="fa fa-play" aria-hidden="true"></i>Vietsub</span>
                                                     <div className="icon_overlay"></div>
                                                     <div className="halim-post-title-box">
@@ -217,7 +217,7 @@ const MovieList = () => {
                                             <div className="item post-37176">
                                                 <Link to={`/phim/${item.slug}`}>
                                                     <div className="item-link">
-                                                        <img src={item.poster_url} className="lazy post-thumb" alt={item.name} title={item.name} />
+                                                        <img loading="lazy" src={item.poster_url} className="lazy post-thumb" alt={item.name} title={item.name} />
                                                         <span className="is_trailer">Trailer</span>
                                                     </div>
                                                     <p className="title">{item.name}</p>
