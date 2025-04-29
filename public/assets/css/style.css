@@ -6549,6 +6549,16 @@ ul.list-info-group {
 }
 
 .box-comment{
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.movie-detail-description{
+    list-style: none;
+    padding: 0 0 0 15px !important;
+}
+
+.name-comment{
+    font-weight: bold;
+    font-size: 15px;
 }
