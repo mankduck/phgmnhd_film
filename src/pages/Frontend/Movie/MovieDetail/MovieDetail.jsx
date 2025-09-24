@@ -5,8 +5,6 @@ import Hls from "hls.js"
 import { toast } from "react-toastify"
 import Loader from "@components/Frontend/Loader/Loader"
 import NoSleep from 'nosleep.js'
-import FacebookComment from "@components/Frontend/FacebookComment/FacebookComment"
-import FacebookLike from "@components/Frontend/FacebookLike/FacebookLike"
 import Skeleton from "react-loading-skeleton"
 import Comment from "@components/Frontend/Comment/Comment"
 
@@ -14,7 +12,7 @@ const MovieDetail = () => {
     const { slug } = useParams()
     const videoRef = useRef(null)
     const [loading, setLoading] = useState(true)
-    const [movieInfo, setMovieInfo] = useState(null)
+    const [movieInfo, setMovieInfo] = useState(null) 
     const [movieNew, setMovieNew] = useState(null)
     const [movieEpisodes, setMovieEpisodes] = useState([])
     const [selectedEpisode, setSelectedEpisode] = useState(0)
@@ -28,12 +26,16 @@ const MovieDetail = () => {
         if (tap) {
             setSelectedEpisode(Number(tap) - 1)
         }
-    })
+    }, [tap])
 
     function getSlug() {
         const path = window.location.pathname
+        console.log(path);
+        
         const query = window.location.search
-        const slug = path.split('/phim/')[1] + query
+        const slug = movieEpisodes[activeTab].server_data[selectedEpisode].link_embed
+        console.log(slug);
+        
         return slug
     }
 
@@ -58,6 +60,8 @@ const MovieDetail = () => {
             setLoading(true)
             try {
                 const data = await movieAPI.getMovieDetail(slug)
+                console.log(data);
+                
                 const dataNewMovie = await movieAPI.getMovieNewUpdate(1)
                 setMovieInfo(data.movie)
                 setMovieEpisodes(data.episodes)
@@ -79,6 +83,8 @@ const MovieDetail = () => {
             const slug = getSlug()
             let saveCounter = 0
             const video = videoRef.current
+            console.log(video.currentTime);
+            
             const videoSrc = movieEpisodes[activeTab].server_data[selectedEpisode].link_m3u8
 
             const handleFullscreen = () => {
@@ -97,8 +103,12 @@ const MovieDetail = () => {
                     saveCounter = 0
                 }
             }
+            console.log(video.currentTime);
+
             video.addEventListener("webkitbeginfullscreen", handleFullscreen)
             video.addEventListener('timeupdate', handleTimeUpdate)
+            console.log(video.currentTime);
+
 
             const savedTime = getProgress(slug)
 
@@ -147,19 +157,19 @@ const MovieDetail = () => {
     }
 
 
-    const enterFullscreen = () => {
-        if (videoRef.current) {
-            if (videoRef.current.requestFullscreen) {
-                videoRef.current.requestFullscreen()
-            } else if (videoRef.current.webkitRequestFullscreen) {
-                videoRef.current.webkitRequestFullscreen()
-            } else if (videoRef.current.mozRequestFullScreen) {
-                videoRef.current.mozRequestFullScreen()
-            } else if (videoRef.current.msRequestFullscreen) {
-                videoRef.current.msRequestFullscreen()
-            }
-        }
-    }
+    // const enterFullscreen = () => {
+    //     if (videoRef.current) {
+    //         if (videoRef.current.requestFullscreen) {
+    //             videoRef.current.requestFullscreen()
+    //         } else if (videoRef.current.webkitRequestFullscreen) {
+    //             videoRef.current.webkitRequestFullscreen()
+    //         } else if (videoRef.current.mozRequestFullScreen) {
+    //             videoRef.current.mozRequestFullScreen()
+    //         } else if (videoRef.current.msRequestFullscreen) {
+    //             videoRef.current.msRequestFullscreen()
+    //         }
+    //     }
+    // }
 
 
 

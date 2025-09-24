@@ -96,7 +96,7 @@ const Comment = (slug) => {
             ) : (
                 <>
                     <div className="clearfix"></div>
-                    <div className="title-block mt10">
+                    {/* <div className="title-block mt10">
                         {
                             listComment.map((item, index) => (
                                 <div key={index} className="row box-comment mb10">
@@ -105,7 +105,7 @@ const Comment = (slug) => {
                                 </div>
                             ))
                         }
-                    </div>
+                    </div> */}
                     <div className="clearfix"></div>
                 </>
             )}
