@@ -22,7 +22,7 @@ const CategoriesMovie = () => {
         if (trang) {
             setCurrentPage(Number(trang));
         }
-    })
+    }, [trang])
 
 
     useEffect(() => {
@@ -54,31 +54,24 @@ const CategoriesMovie = () => {
         navigate(`?trang=${episode}`);
     };
 
+    const getPages = () => {
+        const range = (start, end) => {
+            const length = end - start + 1;
+            return Array.from({ length }, (_, i) => start + i);
+        };
 
-    const getPagination = () => {
-        const pages = []
-        const totalVisiblePages = 3
-
-        if (currentPage > 1) {
-            pages.push(currentPage - 1)
+        if (totalPages <= 7) {
+            return range(1, totalPages);
+        } else {
+            if (currentPage <= 4) {
+                return [1, 2, 3, 4, 5, '...', totalPages];
+            } else if (currentPage >= totalPages - 3) {
+                return [1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+            } else {
+                return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
+            }
         }
-
-        pages.push(currentPage)
-
-        if (currentPage < totalPages) {
-            pages.push(currentPage + 1)
-        }
-
-        if (currentPage > 2) {
-            pages.unshift('...')
-        }
-        if (currentPage < totalPages - 1) {
-            pages.push('...')
-        }
-
-        return [...new Set(pages)]
-    }
-
+    };
 
     return (
         <>
@@ -125,8 +118,15 @@ const CategoriesMovie = () => {
                             <div className="text-center">
                                 {categoriesMovies.length > 0 ? (
                                     <ul className='page-numbers'>
-                                        {getPagination().map((page, index) => (
+                                        {getPages().map((page, index) => (
+                                            page === "..." ? (
                                             <li key={index} style={{ margin: '5px' }}>
+                                                <span>
+                                                    {page}
+                                                </span>
+                                            </li>
+                                            ) : (
+                                                <li key={index} style={{ margin: '5px' }}>
                                                 <a
                                                     href="#"
                                                     onClick={() => {
@@ -138,6 +138,7 @@ const CategoriesMovie = () => {
                                                     {page}
                                                 </a>
                                             </li>
+                                            )
                                         ))}
                                     </ul>
                                 ) :

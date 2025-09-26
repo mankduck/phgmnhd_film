@@ -12,7 +12,7 @@ const Comment = (slug) => {
     const getListComment = async () => {
         try {
             const response = await apiService.get(`/comment/${slug.slug}`)
-            setListComment(response)
+            setListComment(response || [])
         } catch (error) {
             toast.error('Đã có lỗi xảy ra, mã lỗi: ' + error)
             console.error('Có lỗi xảy ra:', error)
@@ -96,7 +96,7 @@ const Comment = (slug) => {
             ) : (
                 <>
                     <div className="clearfix"></div>
-                    {/* <div className="title-block mt10">
+                    <div className="title-block mt10">
                         {
                             listComment.map((item, index) => (
                                 <div key={index} className="row box-comment mb10">
@@ -105,7 +105,7 @@ const Comment = (slug) => {
                                 </div>
                             ))
                         }
-                    </div> */}
+                    </div>
                     <div className="clearfix"></div>
                 </>
             )}

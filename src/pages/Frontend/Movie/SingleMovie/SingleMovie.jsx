@@ -99,32 +99,6 @@ const SingleMovie = () => {
         }
     };
 
-    // const getPagination = () => {
-    //     const pages = [];
-    //     const totalVisiblePages = 3;
-
-    //     if (currentPage > 1) {
-    //         pages.push(currentPage - 1);
-    //     }
-
-    //     pages.push(currentPage);
-
-    //     if (currentPage < totalPages) {
-    //         pages.push(currentPage + 1);
-    //     }
-
-    //     if (currentPage > 2) {
-    //         pages.unshift("...");
-    //     }
-    //     if (currentPage < totalPages - 1) {
-    //         pages.push("...");
-    //     }
-
-    //     console.log(pages);
-        
-
-    //     return [...new Set(pages)];
-    // };
 
     return (
         <>

@@ -86,7 +86,7 @@ const MovieList = () => {
                                         <SkeletonItem key={index} />
                                     )) :
                                     movieSingle.map((item) => (
-                                        <article className="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
+                                        <article key={item.id || item.slug} className="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
                                             <div className="halim-item">
                                                 <Link to={`/phim/${item.slug}`} className="halim-thumb">
                                                     <figure><img loading="lazy" className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
@@ -118,7 +118,7 @@ const MovieList = () => {
                                         <SkeletonItem key={index} />
                                     )) :
                                     movieSeries.map((item) => (
-                                        <article className="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
+                                        <article key={item.id || item.slug} className="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
                                             <div className="halim-item">
                                                 <Link to={`/phim/${item.slug}`} className="halim-thumb">
                                                     <figure><img loading="lazy" className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
@@ -150,7 +150,7 @@ const MovieList = () => {
                                         <SkeletonItem key={index} />
                                     )) :
                                     movieCartoon.map((item) => (
-                                        <article className="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
+                                        <article key={item.id || item.slug} className="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
                                             <div className="halim-item">
                                                 <Link to={`/phim/${item.slug}`} className="halim-thumb">
                                                     <figure><img loading="lazy" className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>
@@ -182,7 +182,7 @@ const MovieList = () => {
                                         <SkeletonItem key={index} />
                                     )) :
                                     movieTVShow.map((item) => (
-                                        <article className="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
+                                        <article key={item.id || item.slug} className="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
                                             <div className="halim-item">
                                                 <Link to={`/phim/${item.slug}`} className="halim-thumb">
                                                     <figure><img loading="lazy" className="lazy img-responsive" src={`https://phimimg.com/${item.poster_url}`} alt={item.name} title={item.name} /></figure>

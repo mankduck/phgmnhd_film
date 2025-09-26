@@ -15,6 +15,14 @@ const SearchMovie = () => {
     const [movieNew, setMovieNew] = useState([])
     const keyword = searchParams.get("keyword") || ""
     const [breadcrumb, setBreadcrumb] = useState("")
+    const trang = searchParams.get("trang");
+
+
+    useEffect(() => {
+        if (trang) {
+            setCurrentPage(Number(trang));
+        }
+    }, [trang])
 
     useEffect(() => {
         const fetchSearchMovie = async () => {
@@ -23,11 +31,11 @@ const SearchMovie = () => {
             setLoading(true)
             try {
                 const data = await movieAPI.getMovieByKeyword(keyword, currentPage)
-                const movies = data.data.items;
+                const movies = data?.data?.items || [];
                 setSearchMovies(movies);
                 setTotalPages(data.data.params.pagination.totalPages)
                 const dataNewMovie = await movieAPI.getMovieNewUpdate(1)
-                setMovieNew(dataNewMovie.items)
+                setMovieNew(dataNewMovie?.items || [])
                 setBreadcrumb(`Kết quả tìm kiếm cho "${keyword}"`)
                 if (movies.length === 0) {
                     toast.warning("Không có phim nào phù hợp với từ khóa bạn tìm!");
@@ -42,29 +50,24 @@ const SearchMovie = () => {
     }, [keyword, currentPage])
 
 
-    const getPagination = () => {
-        const pages = []
-        const totalVisiblePages = 3
+    const getPages = () => {
+        const range = (start, end) => {
+            const length = end - start + 1;
+            return Array.from({ length }, (_, i) => start + i);
+        };
 
-        if (currentPage > 1) {
-            pages.push(currentPage - 1)
+        if (totalPages <= 7) {
+            return range(1, totalPages);
+        } else {
+            if (currentPage <= 4) {
+                return [1, 2, 3, 4, 5, '...', totalPages];
+            } else if (currentPage >= totalPages - 3) {
+                return [1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+            } else {
+                return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
+            }
         }
-
-        pages.push(currentPage)
-
-        if (currentPage < totalPages) {
-            pages.push(currentPage + 1)
-        }
-
-        if (currentPage > 2) {
-            pages.unshift('...')
-        }
-        if (currentPage < totalPages - 1) {
-            pages.push('...')
-        }
-
-        return [...new Set(pages)]
-    }
+    };
 
     return (
         <>
@@ -112,8 +115,15 @@ const SearchMovie = () => {
                             <div className="text-center">
                                 {searchMovies.length > 0 ? (
                                     <ul className='page-numbers'>
-                                        {getPagination().map((page, index) => (
+                                        {getPages().map((page, index) => (
+                                            page === "..." ? (
                                             <li key={index} style={{ margin: '5px' }}>
+                                                <span>
+                                                    {page}
+                                                </span>
+                                            </li>
+                                            ) : (
+                                                <li key={index} style={{ margin: '5px' }}>
                                                 <a
                                                     href="#"
                                                     onClick={() => {
@@ -125,6 +135,7 @@ const SearchMovie = () => {
                                                     {page}
                                                 </a>
                                             </li>
+                                            )
                                         ))}
                                     </ul>
                                 ) :

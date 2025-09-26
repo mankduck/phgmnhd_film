@@ -30,12 +30,8 @@ const MovieDetail = () => {
 
     function getSlug() {
         const path = window.location.pathname
-        console.log(path);
-        
         const query = window.location.search
         const slug = movieEpisodes[activeTab].server_data[selectedEpisode].link_embed
-        console.log(slug);
-        
         return slug
     }
 
@@ -60,8 +56,6 @@ const MovieDetail = () => {
             setLoading(true)
             try {
                 const data = await movieAPI.getMovieDetail(slug)
-                console.log(data);
-                
                 const dataNewMovie = await movieAPI.getMovieNewUpdate(1)
                 setMovieInfo(data.movie)
                 setMovieEpisodes(data.episodes)
@@ -83,8 +77,6 @@ const MovieDetail = () => {
             const slug = getSlug()
             let saveCounter = 0
             const video = videoRef.current
-            console.log(video.currentTime);
-            
             const videoSrc = movieEpisodes[activeTab].server_data[selectedEpisode].link_m3u8
 
             const handleFullscreen = () => {
@@ -103,12 +95,8 @@ const MovieDetail = () => {
                     saveCounter = 0
                 }
             }
-            console.log(video.currentTime);
-
             video.addEventListener("webkitbeginfullscreen", handleFullscreen)
             video.addEventListener('timeupdate', handleTimeUpdate)
-            console.log(video.currentTime);
-
 
             const savedTime = getProgress(slug)
 
