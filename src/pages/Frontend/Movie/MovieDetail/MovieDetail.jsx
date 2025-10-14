@@ -113,7 +113,7 @@ const MovieDetail = () => {
                 }
 
             } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-                video.src = linkMovie
+                video.src = videoSrc
                 video.addEventListener("canplay", function () {
                     video.load()
                     video.play()
